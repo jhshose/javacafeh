@@ -2,6 +2,7 @@ package bbs;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,11 +14,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.beanutils.BeanUtils;
+
+import jdbc.MembersDAO;
+import jdbc.MembersDO;
+
 
 /**
  * Servlet implementation class EmpServlet
  */
-@WebServlet("/bbs/BBSServlet")
+@WebServlet("/boards/BBSServlet")
 public class BBSServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -28,7 +34,8 @@ public class BBSServlet extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				
+		
+		
 		//응답페이지 인코딩
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("utf-8");		
@@ -37,12 +44,26 @@ public class BBSServlet extends HttpServlet {
 		ServletContext application = request.getServletContext();
 		HttpSession session = request.getSession();
 		PrintWriter out = response.getWriter();
-			
+		
 		//인코딩
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("utf-8");		
-		request.setCharacterEncoding("utf-8");
-						
+		request.setCharacterEncoding("utf-8");	
+		
+		BBSDAO bbsDAO = new BBSDAO();
+		BBS bbs = new BBS();
+		
+		//파라미터를 DO에 매핑				
+		try {
+			BeanUtils.copyProperties(bbs, request.getParameterMap());
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		String action = request.getParameter("action");
     	if (action == null) { 
     	//throw new Exception("action null");
@@ -50,15 +71,18 @@ public class BBSServlet extends HttpServlet {
     	
     	} else if(action.equals("list")) {
     		//데이터조회 (DAO)
-    		List<BBS> datas = BBSDAO.selectAll();
+    		
+  
+    		List<BBS> datas = bbsDAO.selectAll();
     		request.setAttribute("datas", datas);
     		//뷰페이지로 포워드
 			request.getRequestDispatcher("list.jsp").forward(request, response);
     	} else if(action.equals("insert")) {
     	 	//등록처리
-    	 	if (BBSDAO.insert(bbs)) {
+    		
+    	 	if (bbsDAO.insert(bbs)) {
     	 	//목록으로 페이지 이동
-    	 	response.sendRedirect("index.jsp?action=list");
+    	 	response.sendRedirect("BBSServlet?action=list");
     	 	} else {
     	 		out.print("<script>");
     	 		out.print("alert(등록 실패);");
@@ -67,19 +91,20 @@ public class BBSServlet extends HttpServlet {
     	 	}
     	} else if(action.equals("edit")) {
     		//수정할 데이터 한건 조회
-    		bbs = BBSDAO.selectOne(bbs.getArticleNumber());
+    
+    		bbs = bbsDAO.selectOne(bbs.getBbsnum());
     		request.setAttribute("bbs", bbs); 
     		//수정폼으로 포워드
     		request.getRequestDispatcher("addrbook_edit_form.jsp").forward(request, response);
     	} else if(action.equals("update")) {
     		//수정 처리
-    		if (BBSDAO.update(bbs.getArticleNumber())) {
+    		if (bbsDAO.update(bbs)) {
     	
     		//목록으로 페이지 이동
-    		response.sendRedirect("addrbook_control.jsp?action=list"); }
+    		response.sendRedirect("BBSServlet?action=list"); }
     	} else if(action.equals("delete")) {
     		//삭제 처리		
-    		if (BBSDAO.delete(bbs.getArticleNumber())) {
+    		if (bbsDAO.delete(bbs.getBbsnum())) {
     	
     		//목록으로 페이지 이동
     		response.sendRedirect("addrbook_control.jsp?action=list"); }

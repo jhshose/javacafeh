@@ -13,7 +13,7 @@ import bbs.BBSDAO;
 public class BBSDAO extends DAO {
 		
 	// 단건조회
-	public BBS selectOne(int i) {
+	public BBS selectOne(String i) {
 		BBS bbs = null;
 		try {
 			// 1.드라이버 로딩 2.DB연결
@@ -53,7 +53,7 @@ public class BBSDAO extends DAO {
 			connect();
 			// 3.SQL 구분 실행
 			stmt = conn.createStatement(); 
-			String sql = " select * from boards order by user_no ";
+			String sql = " select * from boards order by bbsnum ";
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				bbs = new BBS();
@@ -62,7 +62,7 @@ public class BBSDAO extends DAO {
 				bbs.setContents(rs.getString("Contents"));
 				bbs.setRef(rs.getString("Ref"));
 				bbs.setRe_step(rs.getString("Re_step"));
-				bbs.setReg_date(rs.getDate("Reg_Data"));
+				bbs.setReg_date(rs.getDate("Reg_Date"));
 				bbs.setReadcount(rs.getString("ReadCount"));
 				bbs.setPassword_yn(rs.getString("Password_yn"));
 				bbs.setRef_lev(rs.getString("Ref_lev"));
@@ -119,17 +119,21 @@ public class BBSDAO extends DAO {
 	
 	//등록구현
 	public boolean insert(BBS bbs) {
+		
 		try {
 			connect();
 			String sql = "insert into boards (bbsnum, title, contents, ref, readcount, user_no)"
-					+ "    values(?, ?, ?, ?, ?, ?)";
+					+ "    values(BOARDS_SEQ.nextval, ?, ?, ?, ?, ?)";
+			
+			String bbsnum = bbs.getBbsnum();				
+			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, bbs.getBbsnum());
-			pstmt.setString(2, bbs.getTitle());
-			pstmt.setString(3, bbs.getContents());	
-			pstmt.setString(4, bbs.getRef());	
-			pstmt.setString(5, bbs.getReadcount());
-			pstmt.setString(6, bbs.getUser_no());
+			//pstmt.setString(1, bbs.getBbsnum());
+			pstmt.setString(1, bbs.getTitle());
+			pstmt.setString(2, bbs.getContents());	
+			pstmt.setString(3, bbs.getRef());	 
+			pstmt.setString(4, bbs.getReadcount());
+			pstmt.setString(5, bbs.getUser_no());
 			int r = pstmt.executeUpdate();
 			System.out.println(r + "건이 업데이트 완료");
 
@@ -161,7 +165,7 @@ public class BBSDAO extends DAO {
 	}
 
 	// 수정 구현
-	public void update(BBS bbs) {
+	public boolean update(BBS bbs) {
 		try {
 			connect();
 			String sql = "update employees " + "user_no = ?, " + "title = ?" +"contents = ?"+ "where user_no = ? ";
@@ -176,9 +180,11 @@ public class BBSDAO extends DAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		} finally {
 			disconnect();
 		}
+		return true;
 	}
 
 	public static void main(String[] args) {
