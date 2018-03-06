@@ -18,21 +18,21 @@
 
 		<!-- menu page -->
 		<nav>
-			<%
+			<%--
 				MembersDO userno = (MembersDO) session.getAttribute("userno");
 				out.println(userno.getGrade());
-			%>
-			<%
+			--%>
+			<%--
 				if (userno.getGrade() != "R") {
-			%>
+			--%>
 			<%@ include file="../common/menu.jsp"%>
-			<%
+			<%--
 				} else {
-			%>
-			<%@ include file="../common/admenu.jsp"%>
-			<%
+			--%>
+			
+			<%--
 				}
-			%>
+			--%>
 		</nav>
 
 		<!-- article page -->

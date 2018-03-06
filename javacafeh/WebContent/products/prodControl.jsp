@@ -24,7 +24,7 @@
 		pageContext.forward("prodAll.jsp");
 
 	} else if (action.equals("insert")) {
-		if (gdsdao.insertGood(gdsdo)) {
+		if (gdsdao.insert(gdsdo)) {
 			response.sendRedirect("prodControl.jsp?action=list");
 
 		} else {
