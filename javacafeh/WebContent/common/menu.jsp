@@ -13,9 +13,9 @@
 		<li><a href="../members/userSearch.jsp">회원조회</a></li>
 		<li><a href="../members/userAll.jsp">회원전체리스트</a></li>
 		<hr>
-		<li><a href="../products/prodAll.jsp">상품list</a></li>
-		<li><a href="#">상품조회</a></li>
-		<li><a href="../products/prodRegister.jsp">상품입력</a></li>
+		<li><a href="../goods/GoodsServlet?action=selectAll">상품list</a></li>
+		<li><a href="../goods/goods_form.jsp">상품조회</a></li>
+		<li><a href="../products/prodRegister.jsp">상품등록</a></li>
 		<hr>
 		<li><a href="#">게시판</a></li>
 		<hr>

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 
-<head><title>boardInsertForm.jsp</title>
+<head><title>goodsInsertForm.jsp</title>
 <script src="../ckeditor/ckeditor.js"></script>
 <script>
 window.onload = function(){

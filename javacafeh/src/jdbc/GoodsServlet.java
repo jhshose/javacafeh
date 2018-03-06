@@ -2,6 +2,7 @@ package jdbc;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.commons.beanutils.BeanUtils;
 
 /**
  * Servlet implementation class EmpServlet DB에 저장되어있는것 보기
@@ -26,19 +29,29 @@ public class GoodsServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		// 인코딩
-		//response.setContentType("text/html; charset=UTF-8");
-		//response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("utf-8");
 
 		request.setCharacterEncoding("utf-8");
 		GoodsDAO goodsDAO = new GoodsDAO();
+		GoodsDO goodsDO = new GoodsDO();
 		
+		try {
+			BeanUtils.copyProperties(goodsDO, request.getParameterMap());
+		} catch(IllegalAccessException e) {
+			e.printStackTrace();
+		} catch(InvocationTargetException e) {
+			e.printStackTrace();
+		}
 		
 		// action에서 따라서 처리
 		String action = request.getParameter("action");
 		if (action == null) {
 			out.println("action이 null입니다.");
-		} else if (action.equals("selectOne")) {
-
+		} else if (action.equals("selectOne")) { //상세보기 페이지
+			GoodsDO gds = goodsDAO.selectOne(goodsDO.getProd_no());
+			request.setAttribute("goods", gds);
+			request.getRequestDispatcher("../goods/goods_form.jsp").forward(request, response);
 		} else if (action.equals("selectAll")) {
 			System.out.println("================"+goodsDAO.selectAll());
 			request.setAttribute("datas", goodsDAO.selectAll());

@@ -3,46 +3,63 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
-
-<head><title>goodsList.jsp</title></head>
+<head>
+<title>goodsList.jsp</title>
+<link rel="stylesheet" href="../common/members.css" type="text/css"	media="screen" />
+</head>
 
 <body>
-<!--${datas}-->
 
+	<div class="container">
 
-<div style="background-color:lime;">
+		<!-- header page -->
+		<header>
+			<%@ include file="../common/header.jsp"%>
+		</header>
+
+		<!-- menu page -->
+		<nav>
+			<%@ include file="../common/menu.jsp"%>
+		</nav>
+
+		<!-- article page -->
+		<article>
+
+<div style="background-color:lime;" >
 	<table>
-	<tr> 
-		<td>beans</td> 
-		<td>dutch</td> 
-		<td>beverage</td>
-		<td>food</td>
-		<td>cup</td>
-	</tr>
+	
+		<a href>beans</a> &nbsp;
+		<a href>dutch</a> &nbsp;
+		<a href>beverage</a> &nbsp;
+		<a href>food</a> &nbsp;
+		<a href>cup</a> &nbsp;
+	
 	</table>
 </div>	
 
-	<table>
+	
 	<c:forEach items="${datas}" var="goods">
 	
 	
-		<tr> 
-		 	<td>${goods.prod_no} 
-		 		<img src="../images/${goods.prod_image}" width="250" height="250"
-		 		img onclick="javascript:location.href='goods_form.jsp';" style="cursor:pointer">
-		 	</td> 
+		<div onclick="location.href='../goods/GoodsServlet?action=selectOne&prod_no=${goods.prod_no}';" style="cursor:pointer"> 
+		 	<span>${goods.prod_no} 
+		 		<img src="../images/${goods.prod_image}" width="250" height="250">
+		 	</span> 
 		 	
-		 	<td>${goods.prod_name} </td> 
-		 	<td>${goods.prod_content} </td>
-		 	<td>${goods.onhand_qty} </td>
-		 	<td>${goods.prod_price} </td>
-		 	<td>${goods.prod_content} </td>
-    	</tr>
+		 	<span>${goods.prod_name} </span> 
+		 	<span>${goods.prod_content} </span>
+		 	<span>${goods.onhand_qty} </span>
+		 	<span>${goods.prod_price} </span>
+		 	<span>${goods.prod_content} </span>
+    	</div>
 
     </c:forEach>	
-    
-</table>
 
+</article>
+
+		<!-- footer page -->
+		<footer><%@ include file="../common/footer.jsp"%></footer>
+
+	</div>
 
 </body>
-</html>

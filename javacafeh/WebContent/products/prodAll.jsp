@@ -39,15 +39,17 @@
 						<td>상품명</td>
 						<td>상품재고</td>
 						<td>상품판매가</td>
+						<td>상품할인가</td>
 					</tr>
 					<%
 						for (GoodsDO gds : gdsdao.selectAll()) {
 					%>
 					<tr>
-						<td><a href="prodControl.jsp?action=search&prod_no=<%=gds.getProd_no()%>"><%=gds.getProd_no()%></a></td>
+						<td><a href="../goods/GoodsServlet?action=selectOne&prod_no=<%=gds.getProd_no()%>"><%=gds.getProd_no()%></a></td>
 						<td><%=gds.getProd_name()%></td>
 						<td><%=gds.getOnhand_qty()%></td>
 						<td><%=gds.getProd_price()%></td>
+						<td><%=gds.getOff_price()%></td>
 					</tr>
 					<%
 						}
