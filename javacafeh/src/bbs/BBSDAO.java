@@ -7,22 +7,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import common.DBManager;
+import common.DAO;
 import bbs.BBSDAO;
-
-public class BBSDAO {
-	
-	 Connection conn;
-	 Statement stmt;
-	 PreparedStatement pstmt;
-	 ResultSet rs;
+ 
+public class BBSDAO extends DAO {
 		
 	// 단건조회
 	public BBS selectOne(int i) {
 		BBS bbs = null;
 		try {
 			// 1.드라이버 로딩 2.DB연결
-			conn = DBManager.getConnection();
+			connect();
 			// 3.SQL 구분 실행
 			stmt = conn.createStatement();
 			String sql = " select * from boards where user_no = " +i;  
@@ -44,7 +39,7 @@ public class BBSDAO {
 			e.printStackTrace();
 		} finally {
 			// 5 연결해제
-			DBManager.close(conn);
+			disconnect();
 		}
 		return bbs;
 	}
@@ -55,7 +50,7 @@ public class BBSDAO {
 		BBS bbs = null;
 		try {
 			// 1.드라이버 로딩 2.DB연결
-			conn = DBManager.getConnection();
+			connect();
 			// 3.SQL 구분 실행
 			stmt = conn.createStatement(); 
 			String sql = " select * from boards order by user_no ";
@@ -78,7 +73,7 @@ public class BBSDAO {
 			e.printStackTrace();
 		} finally {
 			// 5 연결해제
-			DBManager.close(conn);
+			disconnect();
 		}
 		return list;
 	}
@@ -90,7 +85,7 @@ public class BBSDAO {
 		BBS bbs = null;
 		try {
 			// 1.드라이버 로딩 2.DB연결
-			conn = DBManager.getConnection();
+			connect();
 			// 3.SQL 구분 실행
 			stmt = conn.createStatement();
 			String sql = "select * from (select rownum rn, a.* from ( "
@@ -117,7 +112,7 @@ public class BBSDAO {
 			e.printStackTrace();
 		} finally {
 			// 5 연결해제
-			DBManager.close(conn);
+			disconnect();
 		}
 		return list;
 	}
@@ -125,7 +120,7 @@ public class BBSDAO {
 	//등록구현
 	public boolean insert(BBS bbs) {
 		try {
-			conn = DBManager.getConnection();
+			connect();
 			String sql = "insert into boards (bbsnum, title, contents, ref, readcount, user_no)"
 					+ "    values(?, ?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
@@ -142,7 +137,7 @@ public class BBSDAO {
 			e.printStackTrace();
 			return false;
 		} finally {
-			DBManager.close(conn);
+			disconnect();
 		}
 		return true;
 	}
@@ -151,7 +146,7 @@ public class BBSDAO {
 	public boolean delete(String bbsnum) {
 		// 삭제 구현
 		try {
-			conn = DBManager.getConnection();
+			connect();
 			stmt = conn.createStatement();
 			String sql = "delete from boareds where bbsnum = " +bbsnum;
 			int r = stmt.executeUpdate(sql);
@@ -160,7 +155,7 @@ public class BBSDAO {
 			e.printStackTrace();
 			return false;
 		} finally {
-			DBManager.close(conn);			
+			disconnect();
 		}
 		return true;
 	}
@@ -168,7 +163,7 @@ public class BBSDAO {
 	// 수정 구현
 	public void update(BBS bbs) {
 		try {
-			conn = DBManager.getConnection();
+			connect();
 			String sql = "update employees " + "user_no = ?, " + "title = ?" +"contents = ?"+ "where user_no = ? ";
 
 			pstmt = conn.prepareStatement(sql);
@@ -182,7 +177,7 @@ public class BBSDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBManager.close(conn);
+			disconnect();
 		}
 	}
 
