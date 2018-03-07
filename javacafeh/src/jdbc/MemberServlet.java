@@ -16,7 +16,7 @@ import org.apache.commons.beanutils.BeanUtils;
 /**
  * Servlet implementation class MemberServlet
  */
-@WebServlet("/MemberServlet")
+@WebServlet("/members/MemberServlet")
 public class MemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

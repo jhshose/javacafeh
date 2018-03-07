@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>User Registration Form</title>
+<title>User Find Form</title>
 <link rel="stylesheet" href="../common/members.css" type="text/css"
 	media="screen" />
 </head>
@@ -33,43 +33,37 @@
 				MembersDO a = (MembersDO) request.getAttribute("usrdo");
 				//out.println("Hello  " + a.getUser_no() + "<br>");
 			%>
-			<h1>User Search Form</h1>
+			<h1>User Find Form</h1>
 			<form action="memberControl.jsp" method="post">
-				<input type="hidden" name="action" value="update">
+				<input type="hidden" name="action" value="find">
 				<table border="1" style="with: 50%">
 					<tr>
 						<td>사용자 아이디</td>
-						<td><input type="text" name="user_no"
-							value=<%=a.getUser_no()%> /></td>
-					</tr>
-					<tr>
-						<td>패스워드</td>
-						<td><input type="password" name="password"
-							value=<%=a.getPassword()%> /></td>
+						<td><input type="text" name="user_no" /></td>
 					</tr>
 					<tr>
 						<td>성명</td>
-						<td><input type="text" name="name" value=<%=a.getName()%> /></td>
+						<td><input type="text" name="name" /></td>
 					</tr>
 					<tr>
 						<td>이메일</td>
-						<td><input type="text" name="email"
-							value=<%=a.getEmail()%> /></td>
+						<td><input type="text" name="email" /></td>
 					</tr>
 					<tr>
 						<td>전화번호</td>
-						<td><input type="text" name="phone"
-							value=<%=a.getPhone()%> /></td>
+						<td><input type="text" name="phone" /></td>
 					</tr>
 					<tr>
 						<td>주소</td>
-						<td><input type="text" name="address1"
-							value=<%=a.getAddress1()%> /></td>
+						<td><input type="text" name="address1" /></td>
 					</tr>
 					<tr>
-						<td>생년월일</td>
-						<td><input type="text" name="birth"
-							value=<%=a.getBirth()%> /></td>
+						<td>생년월일시작</td>
+						<td><input type="text" name="birth" /></td>
+					</tr>
+					<tr>
+						<td>생년월일종료</td>
+						<td><input type="text" name="birth" /></td>
 					</tr>
 				</table>
 				<input type="hidden" name="address2">

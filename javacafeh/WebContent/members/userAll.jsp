@@ -27,7 +27,6 @@
 		<nav>
 			<%
 				MembersDO userno = (MembersDO) session.getAttribute("userno");
-				out.println(userno.getGrade());
 			%>
 			<%
 				if (userno.getGrade() != "R") {
