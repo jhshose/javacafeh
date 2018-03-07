@@ -19,24 +19,10 @@
 		<header>
 			<%@ include file="../common/header.jsp"%>
 		</header>
-		<!-- ${userno } -->
+
 		<!-- menu page -->
 		<nav>
-			<%
-				MembersDO userno = (MembersDO) session.getAttribute("userno");
-				//out.println(userno.getGrade());
-			%>
-			<%
-				if (userno.getGrade() != "R") {
-			%>
 			<%@ include file="../common/menu.jsp"%>
-			<%
-				} else {
-			%>
-			<%@ include file="../common/admenu.jsp"%>
-			<%
-				}
-			%>
 		</nav>
 
 		<!-- article page -->
@@ -50,13 +36,11 @@
 				<table border="1" style="with: 50%">
 					<tr>
 						<td>사용자 아이디</td>
-						<td><input type="text" name="user_no"
-							value=<%=a.getUser_no()%> /></td>
+						<td><input type="text" name="user_no" value=<%=a.getUser_no()%> /></td>
 					</tr>
 					<tr>
 						<td>패스워드</td>
-						<td><input type="password" name="password"
-							value=<%=a.getPassword()%> /></td>
+						<td><input type="password" name="password" value=<%=a.getPassword()%> /></td>
 					</tr>
 					<tr>
 						<td>성명</td>

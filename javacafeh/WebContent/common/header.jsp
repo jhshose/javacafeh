@@ -12,8 +12,7 @@
 	<div align="left">
 		<c:if test="${empty sessionScope.userno}">
 			<a href="login.jsp">로그인</a>|
-		
-		<!-- comment for line-->
+			<!-- comment for line-->
 			<a href="userRegister.jsp">회원가입</a>|
 		</c:if>
 		<c:if test="${not empty sessionScope.userno}">
@@ -24,6 +23,6 @@
 		<!-- comment for line-->
 		<a href="home.jsp">홈화면</a>
 	</div>
-
+	${userno }
 </body>
 </html>

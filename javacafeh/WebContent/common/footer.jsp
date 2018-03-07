@@ -4,6 +4,6 @@
 <html>
 <head><title>java footer</title></head>
 <body>
-Copyright &copy; javacafe.com
+Copyright &copy; Javacafe.com
 </body>
 </html>

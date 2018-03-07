@@ -1,52 +1,41 @@
+<%@page import="jdbc.MembersDO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="jdbc.MembersDO"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>JSP Page</title>
+<title>User Registration Form</title>
 <link rel="stylesheet" href="../common/members.css" type="text/css"
 	media="screen" />
 </head>
 
-<%-- <jsp:useBean id="aa" class="jdbc.MembersDO" />
-<jsp:setProperty name="aa" property="*" />
- --%>
+<%-- <jsp:useBean id="data" class="jdbc.MembersDO" />
+<jsp:setProperty name="data" property="*" /> --%>
+
 <body>
+
 	<div class="container">
 
 		<!-- header page -->
 		<header>
 			<%@ include file="../common/header.jsp"%>
 		</header>
-		<!-- ${userno } -->
+
 		<!-- menu page -->
 		<nav>
-			<%
-				MembersDO userno = (MembersDO) session.getAttribute("userno");
-				//out.println(userno.getGrade());
-			%>
-			<%
-				if (userno.getGrade() != "R") {
-			%>
 			<%@ include file="../common/menu.jsp"%>
-			<%
-				} else {
-			%>
-			<%@ include file="../common/admenu.jsp"%>
-			<%
-				}
-			%>
 		</nav>
 
 		<!-- article page -->
 		<article>
-			<h2>
-				<%
-					//String a = session.getAttribute("usrdo").toString();
-					MembersDO a = (MembersDO) request.getAttribute("usrdo");
-					//out.println("Hello  " + a.getUser_no() + "<br>");
-				%>
+			<%
+				//String a = session.getAttribute("usrdo").toString();
+				MembersDO a = (MembersDO) request.getAttribute("usrdo");
+				//out.println("Hello  " + a.getUser_no() + "<br>");
+			%>
+			<h1>User Search Form</h1>
+			<form action="memberControl.jsp" method="post">
+				<input type="hidden" name="action" value="update">
 				<table border="1" style="with: 50%">
 					<tr>
 						<td>사용자 아이디</td>
@@ -64,11 +53,13 @@
 					</tr>
 					<tr>
 						<td>이메일</td>
-						<td><input type="text" name="email" value=<%=a.getEmail()%> /></td>
+						<td><input type="text" name="email"
+							value=<%=a.getEmail()%> /></td>
 					</tr>
 					<tr>
 						<td>전화번호</td>
-						<td><input type="text" name="phone" value=<%=a.getPhone()%> /></td>
+						<td><input type="text" name="phone"
+							value=<%=a.getPhone()%> /></td>
 					</tr>
 					<tr>
 						<td>주소</td>
@@ -77,14 +68,19 @@
 					</tr>
 					<tr>
 						<td>생년월일</td>
-						<td><input type="text" name="birth" value=<%=a.getBirth()%> /></td>
+						<td><input type="text" name="birth"
+							value=<%=a.getBirth()%> /></td>
 					</tr>
 				</table>
-			</h2>
-			<form action="memberControl.jsp" method="post">
-				<input type="hidden" name="action" value="logout">
-				<!--  -->
-				<input type="submit" value="로그아웃">
+				<input type="hidden" name="address2">
+				<!-- comment for line-->
+				<input type="hidden" name="reg_date">
+				<!-- comment for line-->
+				<input type="hidden" name="out_date">
+				<!-- comment for line-->
+				<input type="hidden" name="grade">
+				<!-- comment for line-->
+				<input type="submit" value="Modify">
 			</form>
 		</article>
 
@@ -92,5 +88,6 @@
 		<footer><%@ include file="../common/footer.jsp"%></footer>
 
 	</div>
+
 </body>
 </html>

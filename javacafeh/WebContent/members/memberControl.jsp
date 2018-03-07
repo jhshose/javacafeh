@@ -56,7 +56,6 @@
 			data = usrdao.login(usrdo.getUser_no(), usrdo.getPassword());
 			if (data != null) {
 				//session setting
-				//System.out.print(data.getUser_no());
 				session.setAttribute("userno", data);
 				MembersDO abc = (MembersDO) session.getAttribute("userno");
 				response.sendRedirect("memberControl.jsp?action=home&user_no=" + usrdo.getUser_no());

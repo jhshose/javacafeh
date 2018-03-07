@@ -4,9 +4,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>User Registration Form</title>
+<title>사용자정보</title>
 <link rel="stylesheet" href="../common/members.css" type="text/css"
 	media="screen" />
+<script>
+	function go2() {
+		//document.frm.location.href = "cartForm.jsp";
+		window.location.href = "cartForm.jsp";
+	}
+	function go3() {
+		var modify = document.getElementById("orders");
+		window.location.href = "memberControl.jsp?action=update";
+	}
+</script>
 </head>
 
 <jsp:useBean id="usrdo" class="jdbc.MembersDO" />
@@ -34,7 +44,7 @@
 				//out.println("Hello  " + a.getUser_no() + "<br>");
 			%>
 			<h1>User Search Form</h1>
-			<form action="memberControl.jsp" method="post">
+			<form name="frm" action="memberControl.jsp" method="post">
 				<input type="hidden" name="action" value="update">
 				<table border="1" style="with: 50%">
 					<tr>
@@ -53,13 +63,11 @@
 					</tr>
 					<tr>
 						<td>이메일</td>
-						<td><input type="text" name="email"
-							value=<%=a.getEmail()%> /></td>
+						<td><input type="text" name="email" value=<%=a.getEmail()%> /></td>
 					</tr>
 					<tr>
 						<td>전화번호</td>
-						<td><input type="text" name="phone"
-							value=<%=a.getPhone()%> /></td>
+						<td><input type="text" name="phone" value=<%=a.getPhone()%> /></td>
 					</tr>
 					<tr>
 						<td>주소</td>
@@ -68,19 +76,21 @@
 					</tr>
 					<tr>
 						<td>생년월일</td>
-						<td><input type="text" name="birth"
-							value=<%=a.getBirth()%> /></td>
+						<td><input type="text" name="birth" value=<%=a.getBirth()%> /></td>
 					</tr>
 				</table>
 				<input type="hidden" name="address2">
-				<!-- comment for line-->
+				<!--  -->
 				<input type="hidden" name="reg_date">
-				<!-- comment for line-->
+				<!--  -->
 				<input type="hidden" name="out_date">
-				<!-- comment for line-->
+				<!--  -->
 				<input type="hidden" name="grade">
-				<!-- comment for line-->
+				<!--  -->
 				<input type="submit" value="Modify">
+				<!--  -->
+				<input type="button" value="Cart" id="cart" onclick="go2()">
+				<input type="button" value="Orders" id="orders" onclick="go3()">
 			</form>
 		</article>
 
