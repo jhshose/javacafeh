@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>goodsList.jsp</title>
+<title>goodsList.jsp(상품 목록 화면)</title>
 <link rel="stylesheet" href="../common/members.css" type="text/css"	media="screen" />
 </head>
 
@@ -41,7 +41,7 @@
 	<c:forEach items="${datas}" var="goods">
 	
 	
-		<div onclick="location.href='../goods/GoodsServlet?action=selectOne&prod_no=${goods.prod_no}';" style="cursor:pointer"> 
+		<div onclick="location.href='../goods/GoodsServlet?action=goodsForm&prod_no=${goods.prod_no}';" style="cursor:pointer"> 
 		 	<span>${goods.prod_no} 
 		 		<img src="../images/${goods.prod_image}" width="250" height="250">
 		 	</span> 

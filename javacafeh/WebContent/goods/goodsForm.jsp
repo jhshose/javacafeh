@@ -6,7 +6,12 @@
 <!DOCTYPE html>
 <html>
 
-<head><title>goods_form.jsp(상품 목록)</title></head>
+<head><title>goods_form.jsp(상품 상세화면)</title>
+
+<link rel="stylesheet" href="../common/members.css" type="text/css"
+	media="screen" />
+	
+</head>
 
 <body>
 

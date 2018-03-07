@@ -48,25 +48,41 @@ public class GoodsServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		if (action == null) {
 			out.println("action이 null입니다.");
-		} else if (action.equals("selectOne")) { //상세보기 페이지
+			
+		} else if (action.equals("goodsForm")) { //상세보기 페이지
 			GoodsDO gds = goodsDAO.selectOne(goodsDO.getProd_no());
-			request.setAttribute("goods", gds);
-			request.getRequestDispatcher("../goods/goods_form.jsp").forward(request, response);
-		} else if (action.equals("selectAll")) {
+			request.setAttribute("goods", gds); //액션에서 객체를 request에 담을때. request.setAttribute("객체명",객체);
+			request.getRequestDispatcher("../goods/goodsForm.jsp").forward(request, response);
+			
+		} else if (action.equals("goodsList")) {
 			System.out.println("================"+goodsDAO.selectAll());
-			request.setAttribute("datas", goodsDAO.selectAll());
+			request.setAttribute("datas", goodsDAO.selectAll()); //액션에서 객체를 request에 담을때. request.setAttribute("객체명",객체);
 			request.getRequestDispatcher("goodsList.jsp").forward(request, response);
 
-		} else if (action.equals("insertForm")) {
-
-		} else if (action.equals("insert")) {
-
-		} else if (action.equals("updateForm")) {
-
-		} else if (action.equals("update")) {
-
-		} else if (action.equals("delete")) {
-
+		} else if (action.equals("goodsConfirm")) {//주문확인
+			request.getRequestDispatcher("goodsConfirm.jsp").forward(request, response);
+			
+		} else if (action.equals("goodsOrder")) { //주문확인버튼
+												  //주문확인버튼은 페이지명x
+			
+		} else if (action.equals("cartCheck")) { //장바구니확인
+			request.getRequestDispatcher("cart.jsp").forward(request, response);
+			
+		} else if (action.equals("cartOrder")) { //장바구니담기
+												 //장바구니담기는 페이지명x
+			
+		} else if (action.equals("adminGoodsRegister")) { //상품등록(관리자)
+			
+		} else if (action.equals("adminGoodsCorrectForm")) { //상품수정폼(관리자)
+			GoodsDO gds = goodsDAO.selectOne(goodsDO.getProd_no());
+			request.setAttribute("goods", gds);
+			request.getRequestDispatcher("adminGoodsCorrect.jsp").forward(request, response); //페이지명x
+			
+			
+		} else if (action.equals("adminGoodsCorrect")) { //상품수정(관리자)
+			goodsDAO.update(goodsDO);
+		} else if (action.equals("adminGoodsDelete")) { //상품삭제(관리자)
+														//페이지명x
 		} else {
 			out.println("없는 action 입니다.");
 		}
