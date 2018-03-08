@@ -31,15 +31,22 @@
 		<article>
 <form action="/prodAll.jsp">
 	
-	<table>
-		<tr><td rowspan="7"><img src="../images/${goods.prod_image}" width="300" height="450"></td></tr>
-		<tr><td>${goods.prod_name}</td></tr>
-		<tr><td>${goods.prod_price}</td></tr>
-		<tr><td>${goods.off_price}</td></tr>
-		<tr><td>${goods.onhand_qty}</td></tr>
-		<tr><td><button type="button">장바구니</button></td></tr>
-		<tr><td><button type="button">구매하기</button></td></tr>
+	<table stlye=width:"500px" >
+		<tr><td rowspan="8"><img src="../images/${goods.prod_image}" width="300" height="450"></td></tr>
+		<tr><td>prod_name : ${goods.prod_name}</td></tr>
+		<tr><td>prod_price : ${goods.prod_price}</td></tr>
+		<tr><td>off_price : ${goods.off_price}</td></tr>
+		<tr><td>onhand_qty : ${goods.onhand_qty}</td></tr>
+		<tr><td id="shopProductQuantityDiv" class="row productQuantityDiv designSettingElement text-body ">
+				<span class="text">qty</span>
+				<input type="number" id="productQuantity" class="designSettingElement shape" value="1" min="1" data-initialQuantity="">
+		</tr></td>
+		
+		<tr><td><button type="button">cart</button></td></tr> <!-- 장바구니로 이동 -->
+		<tr><td><button type="button">order</button></td></tr> <!-- 주문페이지로 이동 -->
 	</table>		
+	
+	
 		
 	
 

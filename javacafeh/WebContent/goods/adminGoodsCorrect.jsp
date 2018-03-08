@@ -1,6 +1,8 @@
 <%@page import="jdbc.CategoryDO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +38,6 @@
 </head>
 
 
-
 <body>
 상품수정(관리자)
 	<div class="container">
@@ -54,8 +55,8 @@
 		<!-- article page -->
 		<article>
 			<!--  start page -->
-			<form name="frm1" action="prodControl.jsp" method="post">
-				<input type="hidden" name="action" value="insert">
+			<form name="frm1" action="GoodsServlet" method="post">   	 <!-- 서블릿참조. 서블릿에서,상품수정후 목록으로 이동 -->
+				<input type="hidden" name="action" value="adminGoodsCorrect">
 				<table border="1" width="700" cellpadding="2" cellspacing="1" bgcolor=#777777>
 					<tr>
 						<td height=20 align=center bgcolor=#999999><font color=white><B>상품수정</B></font></td>
@@ -90,10 +91,10 @@
 								</tr>
 								<tr>
 									<td align="center">상품카테고리</td>
-									<td><select name="prod_category" value="${goods.prod_category }">
-										
-											
-											
+									<td><select name="prod_category" >
+										<c:forEach items="${cate}" var="gds">
+											<option value="${gds.category_id}"> ${gds.category_name}</option>
+										</c:forEach>						
 									</select></td>
 								</tr>
 								<tr>

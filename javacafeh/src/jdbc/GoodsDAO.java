@@ -78,7 +78,8 @@ public class GoodsDAO extends DAO {
 	}
 
 	// 수정
-	public void update(GoodsDO prod) {
+	public boolean update(GoodsDO prod) { //void아니고 boolean타입이기때문에 리턴값 넣어줄것
+		//boolean result=false;
 		try {
 			connect();
 			String sql = "update goods set prod_no=?,prod_name=?,prod_content=?,onhand_qty=?,prod_price=?,off_price=?,prod_category=?"
@@ -94,13 +95,24 @@ public class GoodsDAO extends DAO {
 			pstmt.setString(8, prod.getProd_image());
 			
 			int u = pstmt.executeUpdate();
+			if(u>0) { 	//수정에 성공했는지 여부 확인
+				System.out.println("수정 성공");
+			}
+			else {
+				System.out.println("수정 실패");
+				return false;
+				//histoty.go(-1);
+			}
 			System.out.println(u + "건 수정 완료");
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		} finally {
 			disconnect();
 		}
+		
+		return true;
 	}
 
 	// 등록

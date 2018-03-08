@@ -3,6 +3,7 @@ package jdbc;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -72,15 +73,27 @@ public class GoodsServlet extends HttpServlet {
 												 //장바구니담기는 페이지명x
 			
 		} else if (action.equals("adminGoodsRegister")) { //상품등록(관리자)
+			GoodsDO gds = goodsDAO.selectOne(goodsDO.getProd_no());
+			request.setAttribute("goods", gds); //adminGoodsRegister.jsp의 items="goods"(객체명) / gds(객체)
+			response.sendRedirect("GoodsServlet?action=goodsList");
 			
+				
 		} else if (action.equals("adminGoodsCorrectForm")) { //상품수정폼(관리자)
+			//수정할 상품 한 건 조회
 			GoodsDO gds = goodsDAO.selectOne(goodsDO.getProd_no());
 			request.setAttribute("goods", gds);
+			
+			//카테고리 목록 조회
+			CategoryDAO categoryDAO = new CategoryDAO();
+			ArrayList<CategoryDO> cate = categoryDAO.selectAll();
+			request.setAttribute("cate", cate);
 			request.getRequestDispatcher("adminGoodsCorrect.jsp").forward(request, response); //페이지명x
 			
 			
 		} else if (action.equals("adminGoodsCorrect")) { //상품수정(관리자)
-			goodsDAO.update(goodsDO);
+			goodsDAO.update(goodsDO); 
+			response.sendRedirect("GoodsServlet?action=goodsList"); //수정한 다음, 상품목록으로 돌아가기.
+			
 		} else if (action.equals("adminGoodsDelete")) { //상품삭제(관리자)
 														//페이지명x
 		} else {

@@ -1,6 +1,8 @@
 <%@page import="jdbc.CategoryDO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +36,11 @@
 </script>
 
 </head>
-
+<!--  다른 방식으로 받아오는것. 미리 다 넣어놓는것. -->
+<jsp:useBean id="goods" class="jdbc.GoodsDO" />
+<jsp:setProperty name="ctr" property="*" />
+<jsp:useBean id="goodsdao" class="jdbc.GoodsDAO" />
+<jsp:setProperty name="ctrdao" property="*" />
 
 <body>
 상품등록(관리자)
@@ -90,7 +96,9 @@
 								<tr>
 									<td align="center">상품카테고리</td>
 									<td><select name="prod_category" value="${goods.prod_category }">
-											
+										<c:forEach items="${goods}" var="gds">
+											<option value="${gds.prod_category}"> ${gds.prod_category}</option>
+										</c:forEach>
 									</select></td>
 								</tr>
 								<tr>
