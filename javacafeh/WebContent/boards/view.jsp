@@ -38,6 +38,7 @@
     <div>
         <a href="<c:url value='BBSServlet?action=edit&bbsnum=${bbs.bbsnum}'/>">수정</a>
         <a href="<c:url value='BBSServlet?action=delete&bbsnum=${bbs.bbsnum}'/>">삭제</a>
+        <a href="<c:url value='BBSServlet?action=list&bbsnum=${bbs.bbsnum}'/>">목록</a>
     </div>
             
 </article>
