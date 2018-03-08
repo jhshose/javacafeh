@@ -67,7 +67,7 @@ public class BBSServlet extends HttpServlet {
 		String action = request.getParameter("action");
     	if (action == null) { 
     	//throw new Exception("action null");
-    	//print("action이 null입니다.");
+    		out.print("action이 null입니다.");
     	
     	} else if(action.equals("list")) {
     		
@@ -79,7 +79,7 @@ public class BBSServlet extends HttpServlet {
 			request.getRequestDispatcher("list.jsp").forward(request, response);			
 			
     	} else if(action.equals("insert")) {   		    		
-    		
+    		    		
     		//등록처리    		
     	 	if (bbsDAO.insert(bbs)) {
     	 
@@ -91,24 +91,42 @@ public class BBSServlet extends HttpServlet {
     	 		out.print("history.go(-1);");
     	 		out.print("<script>");
     	 	}
+    	
+    	 	
+    	} else if(action.equals("selectOne")) {
+    		bbs = bbsDAO.selectOne(bbs.getBbsnum());
+    		request.setAttribute("bbs", bbs); 	
+    		request.getRequestDispatcher("view.jsp").forward(request, response);
+    		
     	} else if(action.equals("edit")) {
+    		
+    		//다음 페이지
+    		
     		//수정할 데이터 한건 조회    
     		bbs = bbsDAO.selectOne(bbs.getBbsnum());
     		request.setAttribute("bbs", bbs); 
     		//수정폼으로 포워드
     		request.getRequestDispatcher("modify.jsp").forward(request, response);
     	} else if(action.equals("modify")) {
+    		System.out.println("==================up");
     		//수정 처리
     		if (bbsDAO.update(bbs)) {
     	
-    		//목록으로 페이지 이동
-    		response.sendRedirect("BBSServlet?action=list"); }
+    			//목록으로 페이지 이동
+    			response.sendRedirect("BBSServlet?action=list"); 
+    		}
+    		else {
+    	 		out.print("<script>");
+    	 		out.print("alert(수정 실패);");
+    	 		out.print("history.go(-1);");
+    	 		out.print("<script>");    	 	
+    		}
     	} else if(action.equals("delete")) {
     		//삭제 처리		
     		if (bbsDAO.delete(bbs.getBbsnum())) {
     	
     		//목록으로 페이지 이동
-    		response.sendRedirect("BBSServlet.jsp?action=list"); }
+    		response.sendRedirect("BBSServlet?action=list"); }
     	} else {
     		out.print("잘못 된 action 입니다.");
     	}     

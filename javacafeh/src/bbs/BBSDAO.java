@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
+
 import common.DAO;
 import bbs.BBSDAO;
  
@@ -20,7 +22,7 @@ public class BBSDAO extends DAO {
 			connect();
 			// 3.SQL 구분 실행
 			stmt = conn.createStatement();
-			String sql = " select * from boards where bbsnum = " +i;  
+			String sql = " select Title,Contents,user_no, bbsnum, Reg_Date, Ref, Re_step, ReadCount, Password_yn, Ref_lev  from boards where bbsnum = " +i;  
 			ResultSet rs = stmt.executeQuery(sql);
 			if (rs.next()) {
 				bbs = new BBS();
@@ -29,7 +31,7 @@ public class BBSDAO extends DAO {
 				bbs.setContents(rs.getString("Contents"));
 				bbs.setRef(rs.getString("Ref"));
 				bbs.setRe_step(rs.getString("Re_step"));
-				bbs.setReg_date(rs.getDate("Reg_Data"));
+				bbs.setReg_date(rs.getDate("Reg_Date"));
 				bbs.setReadcount(rs.getString("ReadCount"));
 				bbs.setPassword_yn(rs.getString("Password_yn"));
 				bbs.setRef_lev(rs.getString("Ref_lev"));
@@ -78,7 +80,7 @@ public class BBSDAO extends DAO {
 		return list;
 	}
 
-	// 페이징 조회
+	// 한 페이지 데이터 조회 
 
 	public List<BBS> selectPage(int start, int end) {
 		ArrayList<BBS> list = new ArrayList<BBS>();
@@ -88,8 +90,7 @@ public class BBSDAO extends DAO {
 			connect();
 			// 3.SQL 구분 실행
 			stmt = conn.createStatement();
-			String sql = "select * from (select rownum rn, a.* from ( "
-					+ "select *  from boards order by bbsnum" + " ) a ) b  where rn between ? and ? ";
+			String sql = "select Bbsnum, Title, user_no, Reg_Date from boards ORDER BY Reg_Date Desc LIMIT ? , ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
@@ -152,7 +153,7 @@ public class BBSDAO extends DAO {
 		try {
 			connect();
 			stmt = conn.createStatement();
-			String sql = "delete from boareds where bbsnum = ";
+			String sql = "delete from boards where bbsnum = "+ bbsnum;
 			int r = stmt.executeUpdate(sql);
 			System.out.println(r + "건이 삭제 완료");
 		} catch (Exception e) {
@@ -165,17 +166,16 @@ public class BBSDAO extends DAO {
 	}
 
 	// 수정 구현
-	public boolean update(BBS bbs) {
+	public boolean update(BBS bbs) {		
+		
 		try {
 			connect();
-			String sql = "update boards " + "bbsnum = ?, " + "title = ?" +"contents = ?"
-					+ "where bbsnum = ? ";
+			String sql = "update boards set title = ?, contents=? where bbsnum=?";
 
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, bbs.getBbsnum());
-			pstmt.setString(2, bbs.getTitle());
-			pstmt.setString(3, bbs.getContents());			
-			
+			pstmt.setString(1, bbs.getTitle());
+			pstmt.setString(2, bbs.getContents());
+			pstmt.setString(3, bbs.getBbsnum());					
 	
 			int r = pstmt.executeUpdate();
 			System.out.println(r + "건이 업데이트 완료");
@@ -189,13 +189,13 @@ public class BBSDAO extends DAO {
 		return true;
 	}
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		BBSDAO bbsDAO = new BBSDAO();
 		// 페이징 조회 테스트
 		List<BBS> datas = bbsDAO.selectPage(1, 5);
 		for (BBS temp : datas) {
 			System.out.println(temp.getBbsnum() + " " + temp.getTitle() + " " + temp.getContents());
-		}
+		}*/
 
 		/*
 		 * //전체조회 테스트 List<Employees> datas = empDAO.selectAll();
@@ -214,4 +214,3 @@ public class BBSDAO extends DAO {
 		 */
 
 	} // end of main
-} // end of class
