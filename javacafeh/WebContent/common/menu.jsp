@@ -41,7 +41,7 @@
 			<hr>
 		</c:if>
 		<hr>
-		<li><a href="#">게시판</a></li>
+		<li><a href="../boards.list.jsp">게시판</a></li>
 
 
 
