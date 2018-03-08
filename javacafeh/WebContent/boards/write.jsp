@@ -29,7 +29,7 @@
 		<article>
 <form method="post" action="BBSServlet">
 <input type="hidden" name ="action" value="insert">
-<input type="text" name="bbsnum" >
+<input type="hidden" name="bbsnum" >
 <table>
   <tr> 
    <td>
@@ -73,8 +73,7 @@
      <tr align="center">
       <td>&nbsp;</td>
       <td colspan="2"><input type="submit" value="등록">
-       <input type="reset" value="취소">
-       <input type="submit" value="목록">
+       <input type="reset" value="초기화">
       <td>&nbsp;</td>
      </tr>
     </table>

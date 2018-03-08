@@ -31,16 +31,21 @@
 			<table width="100%" cellpadding="0" cellspacing="0" border="0">
 				<tr height="5">
 					<td width="5"></td>
+				</tr>						
+				
+					 <tr>
+					<th width="5"></th>
+					<th width="73">번호</th>				
+					<th width="379">제목</th>
+					<th width="73">작성자</th>
+					<th width="164">작성일</th>
+					<th width="58">조회수</th>
+					<th width="7"></th>
 				</tr>
-				<tr>
-					<td width="5"></td>
-					<td width="73">번호</td>
-					<td width="379">제목</td>
-					<td width="73">작성자</td>
-					<td width="164">작성일</td>
-					<td width="58">조회수</td>
-					<td width="7"></td>
-				</tr>
+				
+				
+						
+							
 				<tr height="25" align="center">
 				</tr>
 				<tr height="1" bgcolor="#D2D2D2">
@@ -49,7 +54,9 @@
 
 				<tr height="1" bgcolor="#82B5DF">
 					<td colspan="6" width="752"></td>
-				</tr>
+				</tr>				
+								
+								
 				<%
 					for (BBS b : datas.selectAll()) {
 				%>
@@ -57,29 +64,27 @@
 					<td width="5"></td>
 					<td width="73"><%=b.getBbsnum()%></td>
 					<td width="379"><%=b.getTitle()%></td>
-					<td width="73">작성자</td>
-					</td>
-
+					<td width="73"><%=b.getUser_no()%></td>
+					<td width="164"><%=b.getReg_date()%></td> 
+					<td width="58"><%=b.getReadcount()%></td>
+					<td width="7"></td>
 				</tr>
 				<%
 					}
-				%>
-			</table>
-
+				%>							
+								
+			 </table>
+			 
 			<table width="100%" cellpadding="0" cellspacing="0" border="0">
 				<tr>
 					<td colspan="4" height="5"></td>
 				</tr>
 				<tr align="center">
 					<td><input type=button value="글쓰기"
-						onclick="window.location='write.jsp'">
-						<input type=button value="답글">
-						<input type=button value="목록"
-						OnClick="window.location='list.jsp'">
-						<input type=button
-						value="수정"> <input type=button value="삭제"></td>
+						onclick="window.location='write.jsp'">			
 				</tr>
-			</table>
+			</table>  
+			
 		</article>
 
 		<!-- footer page -->
