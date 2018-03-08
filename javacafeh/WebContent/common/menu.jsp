@@ -24,14 +24,20 @@
 			<li>회원등급:${sessionScope.userno.grade}</li>
 			<li><a href="../members/memberControl.jsp?action=logout">로그아웃</a></li>
 			<li><a href="../members/cartForm.jsp">장바구니담기</a></li>
-			<li><a href="../members/cartForm.jsp">주문담기담기</a></li>
+			<li><a href="../members/orderForm.jsp">주문담기담기</a></li>
 		</c:if>
 
 		<!-- 관리자메뉴 -->
 		<c:if test="${sessionScope.userno.grade=='R'}">
-			<li><a href="../members/userSearch.jsp">회원조회</a></li>
-			<li><a href="../members/userAll.jsp">회원전체리스트</a></li>
-			<li><a href="../z_products/prodRegister.jsp">상품등록</a></li>
+			<li><a href="../members/memberControl.jsp?action=find">회원조회</a></li>
+			<li><a href="../members/memberControl.jsp?action=select">회원전체리스트</a></li>
+			<hr>
+			<li><a href="../members/memberControl.jsp?action=find">장바구니test</a></li>
+			<li><a href="../members/memberControl.jsp?action=find">주문정호test</a></li>
+			<hr>
+			<li><a href="../goods/GoodsServlet?action=selectAll">상품list</a></li>
+			<li><a href="../goods/goods_form.jsp">상품조회</a></li>
+			<li><a href="../products/prodRegister.jsp">상품등록</a></li>
 			<hr>
 		</c:if>
 		<hr>
