@@ -1,6 +1,7 @@
 <%@page import="bbs.BBS"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+< %>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,10 +9,6 @@
 <link rel="stylesheet" href="../common/members.css" type="text/css"
 	media="screen" />
 </head>
-
-<jsp:useBean id="datas" class="bbs.BBSDAO" />
-<jsp:useBean id="data" class="bbs.BBS" />
-<jsp:setProperty name="data" property="*" />
 
 <body>
 
@@ -34,13 +31,13 @@
 				</tr>						
 				
 					 <tr>
-					<th width="5"></th>
+					
 					<th width="73">번호</th>				
 					<th width="379">제목</th>
 					<th width="73">작성자</th>
 					<th width="164">작성일</th>
 					<th width="58">조회수</th>
-					<th width="7"></th>
+				
 				</tr>
 				
 				
@@ -57,21 +54,18 @@
 				</tr>				
 								
 								
-				<%
-					for (BBS b : datas.selectAll()) {
-				%>
-				<tr>
-					<td width="5"></td>
-					<td width="73"><%=b.getBbsnum()%></td>
-					<td width="379"><%=b.getTitle()%></td>
-					<td width="73"><%=b.getUser_no()%></td>
-					<td width="164"><%=b.getReg_date()%></td> 
-					<td width="58"><%=b.getReadcount()%></td>
-					<td width="7"></td>
+				<c:forEach items="${datas}" var="b">
+				
+				<tr>					
+					
+					<td width="73">${b.bbsnum }</td>
+					<td><a href="BBSServlet?action=selectOne&bbsnum=${b.bbsnum}">${b.title}</a></td>
+					<td width="73">${b.user_no }</td>
+					<td width="164">${b.reg_date}</td> 
+					<td width="58">${b.readcount}</td>
+					
 				</tr>
-				<%
-					}
-				%>							
+				 </c:forEach>					
 								
 			 </table>
 			 

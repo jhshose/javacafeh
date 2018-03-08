@@ -1,3 +1,5 @@
+<%@page import="bbs.BBS"%>
+<%@page import="bbs.BBSDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -7,10 +9,6 @@
 <link rel="stylesheet" href="../common/members.css" type="text/css"
 	media="screen" />
 </head>
-
-<jsp:useBean id="datas" class="bbs.BBSDAO" />
-<jsp:useBean id="data" class="bbs.BBS" />
-<jsp:setProperty name="data" property="*" />
 
 <body>
 
@@ -27,39 +25,21 @@
 		</nav>
 		<!-- article page -->
 <article>
-<h1>게시글 상세보기</h1>
-<table>
-	<tr>
-		<th>작성자</th>
-		<td>${bbs.user_no }</td>
-	</tr>	
-	<tr>
-		<th>작성일</th>
-		<td>
-			<fmt:formatDate value = "${bbs.write }" partten="yyyy-MM-dd H:mm:ss" />
-		</td>
-	</tr>
-	<tr>
-		<th>조회수</th>
-		<td>${bbs.readcount }</td>		
-	</tr>
-	<tr>
-		<th>제목</th>
-		<td colspan="3">${bbs.title }</td>		
-	</tr>
-	<tr>
-		<th>내용</th>
-		<td colspan="3"><pre>${bbs.contents }</td>		
-	</tr>	
-</table>
-
-<form method="post" action="BBSServlet">
-<input type="submit" name ="action" value="삭제">
-<input type="submit" name ="action" value="수정">
-<input type="submit" name ="action" value="목록">
-<input type="submit" name ="action" value="등록">
-
-
+ <div>bbsnum :</div>
+    <div>${bbs.bbsnum}</div>
+    <div>title :</div>
+    <div>${bbs.title}</div>
+    <div>contents :</div>
+    <div>${bbs.contents}</div>
+    <div>user :</div>
+    <div>${bbs.user_no}</div>
+    <div>date :</div>
+    <div>${bbs.reg_date}</div>
+    <div>
+        <a href="<c:url value='BBSServlet?action=edit&bbsnum=${bbs.bbsnum}'/>">수정</a>
+        <a href="<c:url value='BBSServlet?action=delete&bbsnum=${bbs.bbsnum}'/>">삭제</a>
+    </div>
+            
 </article>
 		<!-- footer page -->
 		<footer><%@ include file="../common/footer.jsp"%></footer>
