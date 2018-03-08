@@ -20,7 +20,7 @@ public class BBSDAO extends DAO {
 			connect();
 			// 3.SQL 구분 실행
 			stmt = conn.createStatement();
-			String sql = " select * from boards where user_no = " +i;  
+			String sql = " select * from boards where bbsnum = " +i;  
 			ResultSet rs = stmt.executeQuery(sql);
 			if (rs.next()) {
 				bbs = new BBS();
@@ -89,7 +89,7 @@ public class BBSDAO extends DAO {
 			// 3.SQL 구분 실행
 			stmt = conn.createStatement();
 			String sql = "select * from (select rownum rn, a.* from ( "
-					+ "select *  from boards order by user_no" + " ) a ) b  where rn between ? and ? ";
+					+ "select *  from boards order by bbsnum" + " ) a ) b  where rn between ? and ? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
@@ -122,18 +122,18 @@ public class BBSDAO extends DAO {
 		
 		try {
 			connect();
-			String sql = "insert into boards (bbsnum, title, contents, ref, readcount, user_no)"
-					+ "    values(BOARDS_SEQ.nextval, ?, ?, ?, ?, ?)";
+			String sql = "insert into boards (bbsnum, title, contents, ref, user_no,reg_date,readcount)"				
+					+ " values(BOARDS_SEQ.nextval, ?, ?, ?, ? ,sysdate,0)";
 			
 			String bbsnum = bbs.getBbsnum();				
 			
 			pstmt = conn.prepareStatement(sql);
-			//pstmt.setString(1, bbs.getBbsnum());
+			//pstmt.setString(1, bbs.getBbsnum());				
 			pstmt.setString(1, bbs.getTitle());
 			pstmt.setString(2, bbs.getContents());	
-			pstmt.setString(3, bbs.getRef());	 
-			pstmt.setString(4, bbs.getReadcount());
-			pstmt.setString(5, bbs.getUser_no());
+			pstmt.setString(3, bbs.getRef());	
+			pstmt.setString(4, bbs.getUser_no());		
+			
 			int r = pstmt.executeUpdate();
 			System.out.println(r + "건이 업데이트 완료");
 
@@ -152,7 +152,7 @@ public class BBSDAO extends DAO {
 		try {
 			connect();
 			stmt = conn.createStatement();
-			String sql = "delete from boareds where bbsnum = " +bbsnum;
+			String sql = "delete from boareds where bbsnum = ";
 			int r = stmt.executeUpdate(sql);
 			System.out.println(r + "건이 삭제 완료");
 		} catch (Exception e) {
@@ -168,13 +168,15 @@ public class BBSDAO extends DAO {
 	public boolean update(BBS bbs) {
 		try {
 			connect();
-			String sql = "update employees " + "user_no = ?, " + "title = ?" +"contents = ?"+ "where user_no = ? ";
+			String sql = "update boards " + "bbsnum = ?, " + "title = ?" +"contents = ?"
+					+ "where bbsnum = ? ";
 
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, bbs.getUser_no());
+			pstmt.setString(1, bbs.getBbsnum());
 			pstmt.setString(2, bbs.getTitle());
-			pstmt.setString(3, bbs.getContents());
-
+			pstmt.setString(3, bbs.getContents());			
+			
+	
 			int r = pstmt.executeUpdate();
 			System.out.println(r + "건이 업데이트 완료");
 

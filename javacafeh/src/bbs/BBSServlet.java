@@ -70,17 +70,19 @@ public class BBSServlet extends HttpServlet {
     	//print("action이 null입니다.");
     	
     	} else if(action.equals("list")) {
-    		//데이터조회 (DAO)
     		
+    		//데이터조회 (DAO) 		
   
     		List<BBS> datas = bbsDAO.selectAll();
     		request.setAttribute("datas", datas);
-    		//뷰페이지로 포워드
-			request.getRequestDispatcher("list.jsp").forward(request, response);
-    	} else if(action.equals("insert")) {
-    	 	//등록처리
+    		//
+			request.getRequestDispatcher("list.jsp").forward(request, response);			
+			
+    	} else if(action.equals("insert")) {   		    		
     		
+    		//등록처리    		
     	 	if (bbsDAO.insert(bbs)) {
+    	 
     	 	//목록으로 페이지 이동
     	 	response.sendRedirect("BBSServlet?action=list");
     	 	} else {
@@ -90,13 +92,12 @@ public class BBSServlet extends HttpServlet {
     	 		out.print("<script>");
     	 	}
     	} else if(action.equals("edit")) {
-    		//수정할 데이터 한건 조회
-    
+    		//수정할 데이터 한건 조회    
     		bbs = bbsDAO.selectOne(bbs.getBbsnum());
     		request.setAttribute("bbs", bbs); 
     		//수정폼으로 포워드
-    		request.getRequestDispatcher("addrbook_edit_form.jsp").forward(request, response);
-    	} else if(action.equals("update")) {
+    		request.getRequestDispatcher("modify.jsp").forward(request, response);
+    	} else if(action.equals("modify")) {
     		//수정 처리
     		if (bbsDAO.update(bbs)) {
     	
@@ -107,7 +108,7 @@ public class BBSServlet extends HttpServlet {
     		if (bbsDAO.delete(bbs.getBbsnum())) {
     	
     		//목록으로 페이지 이동
-    		response.sendRedirect("addrbook_control.jsp?action=list"); }
+    		response.sendRedirect("BBSServlet.jsp?action=list"); }
     	} else {
     		out.print("잘못 된 action 입니다.");
     	}     
