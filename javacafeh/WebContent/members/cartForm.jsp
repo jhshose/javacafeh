@@ -1,6 +1,6 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="zjdbc.GoodsDO"%>
-<%@page import="zjdbc.GoodsDAO"%>
+<%@page import="jdbc.GoodsDO"%>
+<%@page import="jdbc.GoodsDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -36,6 +36,7 @@
 			<h3>상품담기</h3>
 			<form action="memberControl.jsp" method="post">
 				<input type="hidden" name="action" value="cart">
+				<input type="hidden" name="user_no" value="${userno.user_no}">
 				<table border="1">
 					<tr>
 						<td colspan="2" align="center">상품담기</td>

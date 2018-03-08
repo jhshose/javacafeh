@@ -1,3 +1,4 @@
+<%@page import="jdbc.CartsDO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="jdbc.MembersDO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -6,6 +7,9 @@
 <%
 	request.setCharacterEncoding("utf-8");
 %>
+<jsp:useBean id="crtdo" class="jdbc.CartsDO" />
+<jsp:useBean id="crtdao" class="jdbc.CartDAO" />
+<jsp:setProperty name="crtdo" property="*" />
 <jsp:useBean id="usrdo" class="jdbc.MembersDO" />
 <jsp:useBean id="usrdao" class="jdbc.MembersDAO" />
 <jsp:setProperty name="usrdo" property="*" />
@@ -32,6 +36,22 @@
 
 		} else if (action.equals("cart")) {
 			System.out.println("action===" + action);
+			if (crtdao.insertProc(crtdo)) {
+				ArrayList<CartsDO> clist = crtdao.selectAll(crtdo.getUser_no());
+				request.setAttribute("clist", clist);
+				pageContext.forward("cartList.jsp");
+			} else {
+				out.println("cart error action.");
+			}
+
+		} else if (action.equals("cartlist")) {
+			ArrayList<CartsDO> clist = crtdao.selectAll(userno.getUser_no());
+			request.setAttribute("clist", clist);
+			pageContext.forward("cartList.jsp");
+
+		} else if (action.equals("cart2order")) {
+			//장바구니에 있는 리스트를 주문의 헤더정보와 라인정보로 넘겨준다.
+			//사용자번호로 관련 주문헤더 정보를 만들고 장바구니번호로 상품과 수량, 금액을 조회해서 주문상세정보 생성.
 			
 
 		} else if (action.equals("search")) {

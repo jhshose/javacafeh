@@ -15,11 +15,11 @@
 	media="screen" />
 </head>
 <%
-	MembersDO abc = (MembersDO) session.getAttribute("userno");
+	//MembersDO abc = (MembersDO) session.getAttribute("userno");
 
-	CartDAO cdao = new CartDAO();
-	ArrayList<CartsDO> clist = cdao.selectAll(abc.getUser_no());
-	request.setAttribute("list", clist);
+	//CartDAO cdao = new CartDAO();
+	//ArrayList<CartsDO> clist = cdao.selectAll(abc.getUser_no());
+	//request.setAttribute("clist", clist);
 %>
 <body>
 
@@ -39,30 +39,29 @@
 		<article>
 			<h3>장바구니</h3>
 			<form action="memberControl.jsp" method="post">
-				<input type="hidden" name="action" value="cart">
+			<input type="hidden" name="action" value="cart2order">
 				<table border="1">
 					<tr>
-						<td colspan="3" align="center">상품정보</td>
+						<td colspan="6" align="center">상품정보</td>
 					</tr>
 					<tr>
+						<td align="center">선택</td>
 						<td align="center">상품번호</td>
 						<td align="center">상품이름</td>
-						<td align="center">합계금액</td>
+						<td align="center">판매금액(원)</td>
+						<td align="center">수량(개)</td>
+						<td align="center">합계금액(원)</td>
 					</tr>
-					<c:forEach items="${list}" var="i" varStatus="st">
-						<option value="${i.prod_no}">${i.prod_name}</option>
+					<c:forEach items="${clist}" var="i" varStatus="st">
 						<tr>
-							<td>상품번호1</td>
-							<td>상품이름 <br> 상품수량:10개 | 상품금액
-							</td>
-							<td>합계금액</td>
+							<td><input type="checkbox" name="detail_no" /></td>
+							<td>${i.prod_no}</td>
+							<td>${i.prod_name}</td>
+							<td align="right">${i.sales_price}</td>
+							<td align="right">${i.order_qty}</td>
+							<td align="right">${i.order_qty * i.sales_price}</td>
 						</tr>
 					</c:forEach>
-					<tr>
-						<td>상품번호2</td>
-						<td>상품이름 <br> 상품수량:10개 | 상품금액
-						</td>
-						<td>합계금액</td>
 					</tr>
 				</table>
 				<input type="submit" value="주문하기">
