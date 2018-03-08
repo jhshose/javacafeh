@@ -90,17 +90,16 @@ public class BBSServlet extends HttpServlet {
     	 		out.print("alert(등록 실패);");
     	 		out.print("history.go(-1);");
     	 		out.print("<script>");
-    	 	}
-    	
+    	 	}    	 	
     	 	
     	} else if(action.equals("selectOne")) {
-    		bbs = bbsDAO.selectOne(bbs.getBbsnum());
+    		bbs = bbsDAO.selectOne(bbs.getBbsnum());        	
+    		//조회수 업데이트
+    		bbsDAO.ReadcountUpdate(bbs.getBbsnum());    		
     		request.setAttribute("bbs", bbs); 	
     		request.getRequestDispatcher("view.jsp").forward(request, response);
     		
-    	} else if(action.equals("edit")) {
-    		
-    		//다음 페이지
+    	} else if(action.equals("edit")) {	
     		
     		//수정할 데이터 한건 조회    
     		bbs = bbsDAO.selectOne(bbs.getBbsnum());
@@ -108,7 +107,6 @@ public class BBSServlet extends HttpServlet {
     		//수정폼으로 포워드
     		request.getRequestDispatcher("modify.jsp").forward(request, response);
     	} else if(action.equals("modify")) {
-    		System.out.println("==================up");
     		//수정 처리
     		if (bbsDAO.update(bbs)) {
     	
@@ -122,6 +120,7 @@ public class BBSServlet extends HttpServlet {
     	 		out.print("<script>");    	 	
     		}
     	} else if(action.equals("delete")) {
+    		   		   		
     		//삭제 처리		
     		if (bbsDAO.delete(bbs.getBbsnum())) {
     	
@@ -129,11 +128,12 @@ public class BBSServlet extends HttpServlet {
     		response.sendRedirect("BBSServlet?action=list"); }
     	} else {
     		out.print("잘못 된 action 입니다.");
-    	}     
-
-		
+    	}    		
+	
+	
 	}
-
+	
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

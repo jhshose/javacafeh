@@ -22,7 +22,7 @@ public class BBSDAO extends DAO {
 			connect();
 			// 3.SQL 구분 실행
 			stmt = conn.createStatement();
-			String sql = " select Title,Contents,user_no, bbsnum, Reg_Date, Ref, Re_step, ReadCount, Password_yn, Ref_lev  from boards where bbsnum = " +i;  
+			String sql = " select Title,Contents,user_no, bbsnum, Reg_Date, Ref, Re_step, ReadCount, Password_yn, Ref_lev from boards where bbsnum = " +i;  
 			ResultSet rs = stmt.executeQuery(sql);
 			if (rs.next()) {
 				bbs = new BBS();
@@ -107,6 +107,7 @@ public class BBSDAO extends DAO {
 				bbs.setPassword_yn(rs.getString("Password_yn"));
 				bbs.setRef_lev(rs.getString("Ref_lev"));
 				bbs.setUser_no(rs.getString("user_no"));
+				bbs.setRegip(rs.getString("Regip"));
 				list.add(bbs);
 			}
 		} catch (Exception e) {
@@ -133,7 +134,8 @@ public class BBSDAO extends DAO {
 			pstmt.setString(1, bbs.getTitle());
 			pstmt.setString(2, bbs.getContents());	
 			pstmt.setString(3, bbs.getRef());	
-			pstmt.setString(4, bbs.getUser_no());		
+			pstmt.setString(4, bbs.getUser_no());
+			
 			
 			int r = pstmt.executeUpdate();
 			System.out.println(r + "건이 업데이트 완료");
@@ -146,7 +148,37 @@ public class BBSDAO extends DAO {
 		}
 		return true;
 	}
+			
+	//답글 등록
+
+	public boolean insertReply(BBS bbs) {
 		
+		try {
+			connect();
+			String sql = "insert into boards (bbsnum, title, contents, ref, user_no,reg_date,readcount)"				
+					+ " values(BOARDS_SEQ.nextval, ?, ?, ?, ? ,sysdate,0)";
+			
+			String bbsnum = bbs.getBbsnum();				
+			
+			pstmt = conn.prepareStatement(sql);
+			//pstmt.setString(1, bbs.getBbsnum());				
+			pstmt.setString(1, bbs.getTitle());
+			pstmt.setString(2, bbs.getContents());	
+			pstmt.setString(3, bbs.getRef());	
+			pstmt.setString(4, bbs.getUser_no());
+			
+			
+			int r = pstmt.executeUpdate();
+			System.out.println(r + "건이 업데이트 완료");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			disconnect();
+		}
+		return true;
+	}	
 	
 	public boolean delete(String bbsnum) {
 		// 삭제 구현
@@ -189,6 +221,26 @@ public class BBSDAO extends DAO {
 		return true;
 	}
 
+	//조회수	
+	public boolean ReadcountUpdate(String num) {
+		try {
+			connect();
+			String sql = "update boards set readcount = readcount+1 where bbsnum = ?";
+
+			pstmt = conn.prepareStatement(sql);			
+			pstmt.setString(1, num);
+			pstmt.executeUpdate();			
+
+		} catch (Exception e) {
+			e.printStackTrace();		
+			return false;
+		} finally {
+			disconnect(); 
+		}	
+			return true;
+	}
+	
+	
 	/*public static void main(String[] args) {
 		BBSDAO bbsDAO = new BBSDAO();
 		// 페이징 조회 테스트

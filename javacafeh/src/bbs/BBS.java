@@ -14,10 +14,12 @@ public class BBS {
 	private String password_yn; // 비밀글 승인여부
 	private String ref_lev; // 부모게시글에 대한 댓글 그룹번호
 	private String user_no; // 회원정보
+	private String regip; //ip중복방지	
+	
 
 	// 생성자 (필수입력 )
 	public BBS(String bbsnum, String title, String contents, String ref, String re_step, Date reg_date,
-			String readcount, String password_yn, String ref_lev, String user_no) {
+			String readcount, String password_yn, String ref_lev, String user_no, String regip) {
 		super();
 		this.bbsnum = bbsnum;
 		this.title = title;
@@ -29,6 +31,7 @@ public class BBS {
 		this.password_yn = password_yn;
 		this.ref_lev = ref_lev;
 		this.user_no = user_no;
+		this.regip = regip;
 	}
 
 	public BBS() {
@@ -115,6 +118,14 @@ public class BBS {
 		this.user_no = user_no;
 	}
 
+	public String getRegip() {
+		return regip;
+	}
+
+	public void setRegip(String regip) {
+		this.regip = regip;
+	}
+	
 	@Override
 	public String toString() {
 		return "BBS [bbsnum=" + bbsnum + ", title=" + title + ", contents=" + contents + ", ref=" + ref + ", re_step="
