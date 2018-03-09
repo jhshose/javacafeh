@@ -72,9 +72,15 @@ public class GoodsServlet extends HttpServlet {
 		} else if (action.equals("cartOrder")) { //장바구니담기
 												 //장바구니담기는 페이지명x
 			
-		} else if (action.equals("adminGoodsRegister")) { //상품등록(관리자)
-			GoodsDO gds = goodsDAO.selectOne(goodsDO.getProd_no());
-			request.setAttribute("goods", gds); //adminGoodsRegister.jsp의 items="goods"(객체명) / gds(객체)
+		}  else if (action.equals("adminGoodsRegisterForm")) { //상품등록폼(관리자)
+			//카테고리 목록 조회
+			CategoryDAO categoryDAO = new CategoryDAO();
+			ArrayList<CategoryDO> cate = categoryDAO.selectAll();
+			request.setAttribute("cate", cate);
+			request.getRequestDispatcher("adminGoodsRegister.jsp").forward(request, response); //페이지명x
+				
+		}else if (action.equals("adminGoodsRegister")) { //상품등록(관리자)
+			goodsDAO.insert(goodsDO);
 			response.sendRedirect("GoodsServlet?action=goodsList");
 			
 				
@@ -83,10 +89,7 @@ public class GoodsServlet extends HttpServlet {
 			GoodsDO gds = goodsDAO.selectOne(goodsDO.getProd_no());
 			request.setAttribute("goods", gds);
 			
-			//카테고리 목록 조회
-			CategoryDAO categoryDAO = new CategoryDAO();
-			ArrayList<CategoryDO> cate = categoryDAO.selectAll();
-			request.setAttribute("cate", cate);
+			
 			request.getRequestDispatcher("adminGoodsCorrect.jsp").forward(request, response); //페이지명x
 			
 			

@@ -90,13 +90,18 @@
 									<td><input type="text" name="off_price" value="${goods.off_price }" /></td>
 								</tr>
 								<tr>
+									<td align="center">상품이미지</td>
+									<td><input type="text" name="prod_image" value="${goods.prod_image }" /></td>
+								</tr>
+								
+								<%-- <tr>
 									<td align="center">상품카테고리</td>
 									<td><select name="prod_category" >
 										<c:forEach items="${cate}" var="gds">
 											<option value="${gds.category_id}"> ${gds.category_name}</option>
 										</c:forEach>						
 									</select></td>
-								</tr>
+								</tr> --%>
 								<tr>
 									<td align="center">상품사용여부</td>
 									<td><input type="text" name="useyn" value="Y" /></td>

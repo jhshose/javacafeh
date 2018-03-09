@@ -1,4 +1,4 @@
-package board;
+package jdbc;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,14 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 /**
- * Servlet implementation class BoardFileUpload
+ * Servlet implementation class BoardFileUpload 상품 이미지 서블릿
  */
 @WebServlet("/board/BoardFileUpload")
-@MultipartConfig(location = "c:/Temp", maxFileSize = 1024000L, maxRequestSize = -1, fileSizeThreshold = 1024)
-
+@MultipartConfig(location = "c:/tmp", 
+				 maxFileSize = 1024000L, 
+				 maxRequestSize = -1, 
+				 fileSizeThreshold = 1024)
 public class BoardFileUpload extends HttpServlet {
-	
-	
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -43,27 +43,22 @@ public class BoardFileUpload extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//doGet(request, response);
-		response.setContentType("text/html; charset=UTF-8");
-		response.setCharacterEncoding("utf-8");
-		request.setCharacterEncoding("utf-8");		
-
-		Collection<Part> parts = request.getParts();
-		String filename=  "";
-		for (Part part : parts) {
-			filename=part.getSubmittedFileName();
-			System.out.println("filename:" + part.getSubmittedFileName());
-			System.out.println("filesize:" + part.getSize());
-			System.out.println("prameter name: "+part.getName());
-			part.write("d:/upload/"+part.getSubmittedFileName());
+		Collection<Part> parts=request.getParts();
+		String filename = "";
+		String filepath = request.getServletContext().getRealPath("/upload"); //경로
+		System.out.println(filepath);
+		for(Part part : parts) {
+			filename = part.getSubmittedFileName();
+			System.out.println("filename: " + part.getSubmittedFileName());
+			System.out.println("filesize: " + part.getSize());
+			System.out.println("parameter name: " + part.getName());
+			part.write(filepath+ "/" + part.getSubmittedFileName()); //경로/파일명
 		}
 		PrintWriter out = response.getWriter();
 		out.println("<script>");
-		out.println("opener.frm.attach1.value='"+filename+"';");
+		out.println("opener.frm1.prod_image.value= '" + filename + "';");
 		out.println("window.close();");
 		out.println("</script>");
-		
 	}
 
 }
