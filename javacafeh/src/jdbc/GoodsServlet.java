@@ -32,73 +32,72 @@ public class GoodsServlet extends HttpServlet {
 		// 인코딩
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("utf-8");
-
 		request.setCharacterEncoding("utf-8");
+
 		GoodsDAO goodsDAO = new GoodsDAO();
 		GoodsDO goodsDO = new GoodsDO();
-		
+
 		try {
 			BeanUtils.copyProperties(goodsDO, request.getParameterMap());
-		} catch(IllegalAccessException e) {
+		} catch (IllegalAccessException e) {
 			e.printStackTrace();
-		} catch(InvocationTargetException e) {
+		} catch (InvocationTargetException e) {
 			e.printStackTrace();
 		}
-		
+
 		// action에서 따라서 처리
 		String action = request.getParameter("action");
 		if (action == null) {
 			out.println("action이 null입니다.");
-			
-		} else if (action.equals("goodsForm")) { //상세보기 페이지
+
+		} else if (action.equals("goodsForm")) { // 상세보기 페이지
 			GoodsDO gds = goodsDAO.selectOne(goodsDO.getProd_no());
-			request.setAttribute("goods", gds); //액션에서 객체를 request에 담을때. request.setAttribute("객체명",객체);
+			request.setAttribute("goods", gds); // 액션에서 객체를 request에 담을때. request.setAttribute("객체명",객체);
 			request.getRequestDispatcher("../goods/goodsForm.jsp").forward(request, response);
-			
+
 		} else if (action.equals("goodsList")) {
-			System.out.println("================"+goodsDAO.selectAll());
-			request.setAttribute("datas", goodsDAO.selectAll()); //액션에서 객체를 request에 담을때. request.setAttribute("객체명",객체);
+			System.out.println("================" + goodsDAO.selectAll());
+			request.setAttribute("datas", goodsDAO.selectAll()); // 액션에서 객체를 request에 담을때.
+																	// request.setAttribute("객체명",객체);
 			request.getRequestDispatcher("goodsList.jsp").forward(request, response);
 
-		} else if (action.equals("goodsConfirm")) {//주문확인
+		} else if (action.equals("goodsConfirm")) {// 주문확인
 			request.getRequestDispatcher("goodsConfirm.jsp").forward(request, response);
-			
-		} else if (action.equals("goodsOrder")) { //주문확인버튼
-												  //주문확인버튼은 페이지명x
-			
-		} else if (action.equals("cartCheck")) { //장바구니확인
+
+		} else if (action.equals("goodsOrder")) { // 주문확인버튼
+													// 주문확인버튼은 페이지명x
+
+		} else if (action.equals("cartCheck")) { // 장바구니확인
 			request.getRequestDispatcher("cart.jsp").forward(request, response);
-			
-		} else if (action.equals("cartOrder")) { //장바구니담기
-												 //장바구니담기는 페이지명x
-			
-		}  else if (action.equals("adminGoodsRegisterForm")) { //상품등록폼(관리자)
-			//카테고리 목록 조회
+
+		} else if (action.equals("cartOrder")) { // 장바구니담기
+													// 장바구니담기는 페이지명x
+
+		} else if (action.equals("adminGoodsRegisterForm")) { // 상품등록폼(관리자)
+			// 카테고리 목록 조회
 			CategoryDAO categoryDAO = new CategoryDAO();
 			ArrayList<CategoryDO> cate = categoryDAO.selectAll();
 			request.setAttribute("cate", cate);
-			request.getRequestDispatcher("adminGoodsRegister.jsp").forward(request, response); //페이지명x
-				
-		}else if (action.equals("adminGoodsRegister")) { //상품등록(관리자)
+			request.getRequestDispatcher("adminGoodsRegister.jsp").forward(request, response); // 페이지명x
+
+		} else if (action.equals("adminGoodsRegister")) { // 상품등록(관리자)
+			System.out.println("hhhh" + goodsDO.getProd_name());
 			goodsDAO.insert(goodsDO);
 			response.sendRedirect("GoodsServlet?action=goodsList");
-			
-				
-		} else if (action.equals("adminGoodsCorrectForm")) { //상품수정폼(관리자)
-			//수정할 상품 한 건 조회
+
+		} else if (action.equals("adminGoodsCorrectForm")) { // 상품수정폼(관리자)
+			// 수정할 상품 한 건 조회
 			GoodsDO gds = goodsDAO.selectOne(goodsDO.getProd_no());
 			request.setAttribute("goods", gds);
-			
-			
-			request.getRequestDispatcher("adminGoodsCorrect.jsp").forward(request, response); //페이지명x
-			
-			
-		} else if (action.equals("adminGoodsCorrect")) { //상품수정(관리자)
-			goodsDAO.update(goodsDO); 
-			response.sendRedirect("GoodsServlet?action=goodsList"); //수정한 다음, 상품목록으로 돌아가기.
-			
-		} else if (action.equals("adminGoodsDelete")) { //상품삭제(관리자)
-														//페이지명x
+
+			request.getRequestDispatcher("adminGoodsCorrect.jsp").forward(request, response); // 페이지명x
+
+		} else if (action.equals("adminGoodsCorrect")) { // 상품수정(관리자)
+			goodsDAO.update(goodsDO);
+			response.sendRedirect("GoodsServlet?action=goodsList"); // 수정한 다음, 상품목록으로 돌아가기.
+
+		} else if (action.equals("adminGoodsDelete")) { // 상품삭제(관리자)
+														// 페이지명x
 		} else {
 			out.println("없는 action 입니다.");
 		}

@@ -1,7 +1,7 @@
 <%@page import="jdbc.CategoryDO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -29,18 +29,17 @@
 		}
 		return true;
 	}
-	
-	function file_open(){
+
+	function file_open() {
 		window.open("upload.jsp", "upload", "width=300 height=200 left=300 top=30");
 	}
-	
 </script>
 
 </head>
 
 
 <body>
-상품등록(관리자)
+	상품등록(관리자)
 	<div class="container">
 
 		<!-- header page -->
@@ -58,7 +57,8 @@
 			<!--  start page -->
 			<form name="frm1" action="GoodsServlet" method="post">
 				<input type="hidden" name="action" value="adminGoodsRegister">
-				<table border="1" width="700" cellpadding="2" cellspacing="1" bgcolor=#777777>
+				<table border="1" width="700" cellpadding="2" cellspacing="1"
+					bgcolor=#777777>
 					<tr>
 						<td height=20 align=center bgcolor=#999999><font color=white><B>상품등록</B></font></td>
 					</tr>
@@ -66,14 +66,15 @@
 					<tr>
 						<td bgcolor=white>&nbsp;
 							<table border="1">
-								
+
 								<tr>
 									<td align="center">상품명</td>
-									<td ><input type="text" name="prod_name" /></td>
+									<td><input type="text" name="prod_name" /></td>
 								</tr>
 								<tr>
 									<td align="center">상품이미지</td>
-									<td ><input type="text" name="prod_image" />	<input type="button" value="파일첨부" onclick="file_open()"><br></td>
+									<td><input type="text" name="prod_image" /> <input
+										type="button" value="파일첨부" onclick="file_open()"><br></td>
 								</tr>
 								<tr>
 									<td align="center">상품설명</td>
@@ -91,13 +92,14 @@
 									<td align="center">상품할인가</td>
 									<td><input type="text" name="off_price" /></td>
 								</tr>
-								
+
 								<tr>
 									<td align="center">상품카테고리</td>
-									<td><select name="prod_category" >
-										<c:forEach items="${cate}" var="gds">
-											<option value="${gds.category_id}"> ${gds.category_name}</option>
-										</c:forEach>						
+									<td><select name="prod_category">
+											<c:forEach items="${cate}" var="gds">
+												<option value="${gds.category_id}">
+													${gds.category_name}</option>
+											</c:forEach>
 									</select></td>
 								</tr>
 								<tr>

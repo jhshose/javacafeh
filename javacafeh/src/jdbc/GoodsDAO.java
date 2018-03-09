@@ -8,8 +8,8 @@ import common.DAO;
 
 public class GoodsDAO extends DAO {
 
-	//getInstance
-	
+	// getInstance
+
 	// 단건 조회
 	public GoodsDO selectOne(String prod_no) {
 		GoodsDO prod = null;
@@ -22,7 +22,7 @@ public class GoodsDAO extends DAO {
 			ResultSet rs = stmt.executeQuery(sql);
 			if (rs.next()) {
 				prod = new GoodsDO();
-				prod.setProd_no(rs.getString("prod_no"));				
+				prod.setProd_no(rs.getString("prod_no"));
 				prod.setProd_name(rs.getString("prod_name"));
 				prod.setProd_content(rs.getString("prod_content"));
 				prod.setOnhand_qty(rs.getInt("onhand_qty"));
@@ -41,34 +41,33 @@ public class GoodsDAO extends DAO {
 		return prod;
 	}
 
-	
 	// 전체 조회
 	public ArrayList<GoodsDO> selectAll() {
 
 		GoodsDO prod = new GoodsDO();
 		ArrayList<GoodsDO> list = new ArrayList<GoodsDO>();
-		
+
 		try {
-			connect();		
-			
-			stmt = conn.createStatement(); //createStatement는 DB로 SQL문을 보내기 위한 개체
+			connect();
+
+			stmt = conn.createStatement(); // createStatement는 DB로 SQL문을 보내기 위한 개체
 			String sql = "select * from goods order by prod_no";
-			ResultSet rs= stmt.executeQuery(sql); // sql 쿼리 실행
-			while(rs.next()) {
+			ResultSet rs = stmt.executeQuery(sql); // sql 쿼리 실행
+			while (rs.next()) {
 				prod = new GoodsDO();
-				prod.setProd_no(rs.getString("prod_no"));				
+				prod.setProd_no(rs.getString("prod_no"));
 				prod.setProd_name(rs.getString("prod_name"));
 				prod.setProd_content(rs.getString("prod_content"));
 				prod.setOnhand_qty(rs.getInt("onhand_qty"));
 				prod.setProd_price(rs.getInt("prod_price"));
-				prod.setOff_price(rs.getInt("off_price"));	
+				prod.setOff_price(rs.getInt("off_price"));
 				prod.setProd_category(rs.getString("prod_category"));
 				prod.setProd_image(rs.getString("prod_image"));
-				
+
 				list.add(prod);
 			}
 			rs.close();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -78,30 +77,29 @@ public class GoodsDAO extends DAO {
 	}
 
 	// 수정
-	public boolean update(GoodsDO prod) { //void아니고 boolean타입이기때문에 리턴값 넣어줄것
-		//boolean result=false;
+	public boolean update(GoodsDO prod) { // void아니고 boolean타입이기때문에 리턴값 넣어줄것
+		// boolean result=false;
 		try {
 			connect();
 			String sql = "update goods set prod_name=?,prod_content=?,onhand_qty=?,prod_price=?,off_price=?"
 					+ "  where prod_no=?";
 			pstmt = conn.prepareStatement(sql);
-				
+
 			pstmt.setString(1, prod.getProd_name());
-			pstmt.setString(2, prod.getProd_content()); //이미지파일포함
+			pstmt.setString(2, prod.getProd_content()); // 이미지파일포함
 			pstmt.setInt(3, prod.getOnhand_qty());
 			pstmt.setInt(4, prod.getProd_price());
 			pstmt.setInt(5, prod.getOff_price());
-			//pstmt.setString(6, prod.getProd_image());
+			// pstmt.setString(6, prod.getProd_image());
 			pstmt.setString(6, prod.getProd_no());
-			
+
 			int u = pstmt.executeUpdate();
-			if(u>0) { 	//수정에 성공했는지 여부 확인
+			if (u > 0) { // 수정에 성공했는지 여부 확인
 				System.out.println("수정 성공");
-			}
-			else {
+			} else {
 				System.out.println("수정 실패");
 				return false;
-				//histoty.go(-1);
+				// histoty.go(-1);
 			}
 			System.out.println(u + "건 수정 완료");
 
@@ -111,7 +109,7 @@ public class GoodsDAO extends DAO {
 		} finally {
 			disconnect();
 		}
-		
+
 		return true;
 	}
 
@@ -119,22 +117,21 @@ public class GoodsDAO extends DAO {
 	public boolean insert(GoodsDO prod) {
 		try {
 			connect();
-			String sql = "insert into goods (prod_no,prod_name,prod_content,onhand_qty,prod_price,off_price,prod_category,prod_image)"
-					+ "          values ( ?,?,?,?,?,?,?)";
-			pstmt.setString(1, prod.getProd_no());			
-			pstmt.setString(2, prod.getProd_name());
-			pstmt.setString(3, prod.getProd_content());
-			pstmt.setInt(4, prod.getOnhand_qty());
-			pstmt.setInt(5, prod.getProd_price());
-			pstmt.setInt(6, prod.getOff_price());
-			pstmt.setString(7, prod.getProd_category());
-			pstmt.setString(8, prod.getProd_image());
-			
+			String sql = "insert into goods(prod_name,prod_content,onhand_qty,prod_price,"
+					+ "off_price,prod_category,prod_image,prod_no)" + " values (?,?,?,?,?,?,?,'123456789')";
+			pstmt = conn.prepareStatement(sql);
+			// pstmt.setString(1, prod.getProd_no());
+			pstmt.setString(1, prod.getProd_name());
+			pstmt.setString(2, prod.getProd_content());
+			pstmt.setInt(3, prod.getOnhand_qty());
+			pstmt.setInt(4, prod.getProd_price());
+			pstmt.setInt(5, prod.getOff_price());
+			pstmt.setString(6, prod.getProd_category());
+			pstmt.setString(7, prod.getProd_image());
+
 			int r = pstmt.executeUpdate();
 			System.out.println(r + "건 등록완료");
 
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
@@ -157,83 +154,47 @@ public class GoodsDAO extends DAO {
 		}
 	}
 
-	
+	/*
+	 * // 페이징 조회
+	 * 
+	 * public List<goodsDAO> selectPage(EmployeeSearch empSearch) {
+	 * ArrayList<goodsDAO> list = new ArrayList<goodsDAO>(); goodsDAO emp = null;
+	 * try { // 1. 드라이버 로딩 2.DB연결 connect(); String where = "where 1 = 1 "; // 3.
+	 * SQL 구문 실행
+	 * 
+	 * if (empSearch.getDepartment_id() != null && empSearch.getDepartment_id() !=
+	 * "") { where += " and department_id = ? "; } if (empSearch.getJob_id() != null
+	 * && empSearch.getJob_id() != "") { where += " and job_id = ? "; } String sql =
+	 * "select b.* from( select rownum rn, a.* from( " + " select * from employees "
+	 * + where + " order by employee_id " + ") a  ) b  where rn between ? and ?";
+	 * pstmt = conn.prepareStatement(sql); int pos = 0; if
+	 * (empSearch.getDepartment_id() != null && empSearch.getDepartment_id() != "")
+	 * { pstmt.setString(++pos, empSearch.getDepartment_id()); } if
+	 * (empSearch.getJob_id() != null && empSearch.getJob_id() != "") {
+	 * pstmt.setString(++pos, empSearch.getJob_id()); } pstmt.setInt(++pos,
+	 * empSearch.getStart()); pstmt.setInt(++pos, empSearch.getEnd()); ResultSet rs
+	 * = pstmt.executeQuery(); while (rs.next()) { emp = new goodsDAO();
+	 * emp.setFirst_name(rs.getString("first_name"));
+	 * emp.setLast_name(rs.getString("last_name"));
+	 * emp.setCommission_pct(rs.getString("commission_pct"));
+	 * emp.setDepartment_id(rs.getString("department_id"));
+	 * emp.setEmail(rs.getString("Email")); emp.setSalary(rs.getString("salary"));
+	 * emp.setEmployee_id(rs.getString("employee_id"));
+	 * emp.setJob_id(rs.getString("job_id")); list.add(emp); } } catch (Exception e)
+	 * { e.printStackTrace();
+	 * 
+	 * } finally { // 5. 연결 해제 disconnect(); } return list; }
+	 */
 
-/*	// 페이징 조회
-
-	public List<goodsDAO> selectPage(EmployeeSearch empSearch) {
-		ArrayList<goodsDAO> list = new ArrayList<goodsDAO>();
-		goodsDAO emp = null;
-		try {
-			// 1. 드라이버 로딩 2.DB연결
-			connect();
-			String where = "where 1 = 1 ";
-			// 3. SQL 구문 실행
-
-			if (empSearch.getDepartment_id() != null && empSearch.getDepartment_id() != "") {
-				where += " and department_id = ? ";
-			}
-			if (empSearch.getJob_id() != null && empSearch.getJob_id() != "") {
-				where += " and job_id = ? ";
-			}
-			String sql = "select b.* from( select rownum rn, a.* from( " + " select * from employees " + where
-					+ " order by employee_id " + ") a  ) b  where rn between ? and ?";
-			pstmt = conn.prepareStatement(sql);
-			int pos = 0;
-			if (empSearch.getDepartment_id() != null && empSearch.getDepartment_id() != "") {
-				pstmt.setString(++pos, empSearch.getDepartment_id());
-			}
-			if (empSearch.getJob_id() != null && empSearch.getJob_id() != "") {
-				pstmt.setString(++pos, empSearch.getJob_id());
-			}
-			pstmt.setInt(++pos, empSearch.getStart());
-			pstmt.setInt(++pos, empSearch.getEnd());
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				emp = new goodsDAO();
-				emp.setFirst_name(rs.getString("first_name"));
-				emp.setLast_name(rs.getString("last_name"));
-				emp.setCommission_pct(rs.getString("commission_pct"));
-				emp.setDepartment_id(rs.getString("department_id"));
-				emp.setEmail(rs.getString("Email"));
-				emp.setSalary(rs.getString("salary"));
-				emp.setEmployee_id(rs.getString("employee_id"));
-				emp.setJob_id(rs.getString("job_id"));
-				list.add(emp);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-
-		} finally {
-			// 5. 연결 해제
-			disconnect();
-		}
-		return list;
-	}*/
-
-	
-
-	/*// 전체 레코드 건수
-	public int count(EmployeeSearch empSearch) {
-		int result = 0;
-		try {
-			connect();
-			stmt = conn.createStatement();
-			String sql = "select count(*) from employees where 1 = 1 ";
-			if (empSearch.getDepartment_id() != null && empSearch.getDepartment_id() != "") {
-				sql += " and department_id = " + empSearch.getDepartment_id();
-			}
-			if (empSearch.getJob_id() != null && empSearch.getJob_id() != "") {
-				sql += " and job_id = '" + empSearch.getJob_id() + "'";
-			}
-			ResultSet rs = stmt.executeQuery(sql);
-			rs.next();
-			result = rs.getInt(1);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			disconnect();
-		}
-		return result;
-	}*/
+	/*
+	 * // 전체 레코드 건수 public int count(EmployeeSearch empSearch) { int result = 0; try
+	 * { connect(); stmt = conn.createStatement(); String sql =
+	 * "select count(*) from employees where 1 = 1 "; if
+	 * (empSearch.getDepartment_id() != null && empSearch.getDepartment_id() != "")
+	 * { sql += " and department_id = " + empSearch.getDepartment_id(); } if
+	 * (empSearch.getJob_id() != null && empSearch.getJob_id() != "") { sql +=
+	 * " and job_id = '" + empSearch.getJob_id() + "'"; } ResultSet rs =
+	 * stmt.executeQuery(sql); rs.next(); result = rs.getInt(1); } catch (Exception
+	 * e) { e.printStackTrace(); } finally { disconnect(); } return result; }
+	 */
 }
