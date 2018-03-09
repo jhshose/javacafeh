@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+
 import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
 import common.DAO;
@@ -90,24 +92,26 @@ public class BBSDAO extends DAO {
 			connect();
 			// 3.SQL 구분 실행
 			stmt = conn.createStatement();
-			String sql = "select Bbsnum, Title, user_no, Reg_Date from boards ORDER BY Reg_Date Desc LIMIT ? , ?";
+			String sql = "select b.*  from ( select rownum rn, a.* from ( "+
+			"select * from boards ORDER BY Reg_Date Desc"
+			 + ") a  ) b  where  rn between ? and ? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				bbs.setBbsnum(rs.getString("BbsNum"));
+				bbs = new BBS();
+				bbs.setBbsnum(rs.getString("BBSNUM"));
 				bbs.setTitle(rs.getString("Title"));
 				bbs.setContents(rs.getString("Contents"));
 				bbs.setRef(rs.getString("Ref"));
-				bbs.setRe_step(rs.getString("Re_Step"));
+				bbs.setRe_step(rs.getString("Re_step"));
 				bbs.setReg_date(rs.getDate("Reg_Date"));
 				bbs.setReadcount(rs.getString("ReadCount"));
 				bbs.setPassword_yn(rs.getString("Password_yn"));
 				bbs.setRef_lev(rs.getString("Ref_lev"));
 				bbs.setUser_no(rs.getString("user_no"));
-				bbs.setRegip(rs.getString("Regip"));
 				list.add(bbs);
 			}
 		} catch (Exception e) {
@@ -240,16 +244,57 @@ public class BBSDAO extends DAO {
 			return true;
 	}
 	
-	
-	/*public static void main(String[] args) {
-		BBSDAO bbsDAO = new BBSDAO();
-		// 페이징 조회 테스트
-		List<BBS> datas = bbsDAO.selectPage(1, 5);
-		for (BBS temp : datas) {
-			System.out.println(temp.getBbsnum() + " " + temp.getTitle() + " " + temp.getContents());
-		}*/
+	//전체레코드 건수 조회
+	public int count() {
+		int result = 0;
+		try {
+			connect();
+			stmt = conn.createStatement();
+			String sql = "select count(*) from boards";		
+			ResultSet rs = stmt.executeQuery(sql);
+			rs.next();
+			result = rs.getInt(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}		
+		return result ;
+	}
 
-		/*
+	//답글 업데이트
+	public boolean updateRef(BBS bbs)
+    {        
+        String ref = bbs.getRef();     // 원본글 번호(그룹번호)
+        String re_step = bbs.getRe_step();     // 답변글의 순서
+        
+        try {               
+            connect();
+            //conn.setAutoCommit(false); // 자동 커밋을 false로 한다.
+            
+            // ref(그룹번호)와 seq(답글순서)을 확인하여 원본 글에 다른 답변 글이 있으면, 
+            // 답변 글 중 답변 글보다 상위에 있는 글의 seq보다 높은 글의 seq값을 1씩 증가시킨다.            
+            
+            connect();
+			String sql = "update boards set re_step = re_step+1 where ref = ? and re_step > ?";
+
+			pstmt = conn.prepareStatement(sql);		
+            pstmt.setString(1, ref);
+            pstmt.setString(2, re_step);
+            
+            pstmt.executeUpdate();	  
+          
+    } catch (Exception e) {
+		e.printStackTrace();		
+		return false;
+	} finally {
+		disconnect(); 
+	}	
+		return true;
+}
+		
+	
+/*
 		 * //전체조회 테스트 List<Employees> datas = empDAO.selectAll();
 		 * System.out.println(datas); //이름만 모두 출력; for(Employees temp : datas) {
 		 * System.out.println(temp.getFirst_name() + " " + temp.getLast_name()); }

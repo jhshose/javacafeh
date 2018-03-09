@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.beanutils.BeanUtils;
 
+import common.Paging;
 import jdbc.MembersDAO;
 import jdbc.MembersDO;
 
@@ -71,10 +72,41 @@ public class BBSServlet extends HttpServlet {
     	
     	} else if(action.equals("list")) {
     		
-    		//데이터조회 (DAO) 		
-  
-    		List<BBS> datas = bbsDAO.selectAll();
+    		//페이징처리
+			Paging paging = new Paging();
+			paging.setPageUnit(10);
+			//현재 페이지번호
+			String page = request.getParameter("page");
+			int p = 1;
+			if (page != null)
+				p = Integer.parseInt(page);
+			paging.setPage(p);
+			
+			//파라미터 값 가져오기
+			
+			String id = request.getParameter("user_no");
+	        String subject = request.getParameter("title");
+	        String content = request.getParameter("contents");
+	        String ref = request.getParameter("ref"); 
+	        String ref_lev = request.getParameter("ref_lev");
+	        String re_step = request.getParameter("re_step");
+			
+	       // 답글중 가장 최근 답글이 위로 올라가게 처리한다. 
+	        // 그러기 위해 답글의 순서인 seq를 1증가시킨다.
+	        bbs.setRef(ref);
+	        bbs.setRe_step(re_step);
+	        bbsDAO.updateRef(bbs);        
+    
+	        
+			// 전체 건수
+			int total = bbsDAO.count();//
+			
+			paging.setTotalRecord(total);
+			
+    		//데이터조회 (DAO)   
+    		List<BBS> datas = bbsDAO.selectPage(paging.getFirst(), paging.getLast());
     		request.setAttribute("datas", datas);
+    		request.setAttribute("paging", paging);
     		//
 			request.getRequestDispatcher("list.jsp").forward(request, response);			
 			
@@ -92,7 +124,8 @@ public class BBSServlet extends HttpServlet {
     	 		out.print("<script>");
     	 	}    	 	
     	 	
-    	} else if(action.equals("selectOne")) {
+    	} else if(action.equals("selectOne")) {    		
+    		
     		bbs = bbsDAO.selectOne(bbs.getBbsnum());        	
     		//조회수 업데이트
     		bbsDAO.ReadcountUpdate(bbs.getBbsnum());    		
@@ -119,8 +152,7 @@ public class BBSServlet extends HttpServlet {
     	 		out.print("history.go(-1);");
     	 		out.print("<script>");    	 	
     		}
-    	} else if(action.equals("delete")) {
-    		   		   		
+    	} else if(action.equals("delete")) {    		   		   		
     		//삭제 처리		
     		if (bbsDAO.delete(bbs.getBbsnum())) {
     	
@@ -128,11 +160,9 @@ public class BBSServlet extends HttpServlet {
     		response.sendRedirect("BBSServlet?action=list"); }
     	} else {
     		out.print("잘못 된 action 입니다.");
-    	}    		
-	
-	
+    	}    		   	
+    
 	}
-	
 	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
