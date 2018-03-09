@@ -53,7 +53,7 @@
 		<li><a href="../goods/GoodsServlet?action=goodsList">상품list</a></li>
 		<li><a href="../goods/GoodsServlet?action=goodsConfirm">주문확인</a></li>
 		<li><a href="../goods/GoodsServlet?action=cartCheck">장바구니</a></li>
-		<li><a href="../goods/adminGoodsRegister.jsp">상품등록</a></li>
+		<li><a href="../goods/GoodsServlet?action=adminGoodsRegister">상품등록</a></li>
 		<hr>
 		<li><a href="../goods/prodAll.jsp">관리자상품리스트</a></li>
 	</ul>
