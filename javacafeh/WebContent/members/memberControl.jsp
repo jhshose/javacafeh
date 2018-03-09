@@ -1,3 +1,5 @@
+<%@page import="members.OrdersDAO"%>
+<%@page import="members.OrdersDO"%>
 <%@page import="jdbc.CartsDO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="jdbc.MembersDO"%>
@@ -52,7 +54,13 @@
 		} else if (action.equals("cart2order")) {
 			//장바구니에 있는 리스트를 주문의 헤더정보와 라인정보로 넘겨준다.
 			//사용자번호로 관련 주문헤더 정보를 만들고 장바구니번호로 상품과 수량, 금액을 조회해서 주문상세정보 생성.
-			
+			OrdersDO od = new OrdersDO();
+			OrdersDAO oda = new OrdersDAO();
+			od.setUser_no(userno.getUser_no());
+			od.setCart_no(request.getParameterValues("detail_no"));
+			oda.createOrderHeader(od.getUser_no(), od.getCart_no());
+			//request.setAttribute("c2list", oda.selectAll("//1"));
+			pageContext.forward("orderList.jsp");
 
 		} else if (action.equals("search")) {
 			System.out.println("action===" + action);
