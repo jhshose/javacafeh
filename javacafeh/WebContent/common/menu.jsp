@@ -25,7 +25,7 @@
 			<li><a href="../members/memberControl.jsp?action=logout">로그아웃</a></li>
 			<li><a href="../members/cartForm.jsp">장바구니담기</a></li>
 			<li><a href="../members/memberControl.jsp?action=cartlist">장바구니보기</a></li>
-			<li><a href="../members/orderForm.jsp">주문담기담기</a></li>
+			<li><a href="../members/orderList.jsp">주문보기</a></li>
 		</c:if>
 
 		<!-- 관리자메뉴 -->
@@ -53,8 +53,9 @@
 		<li><a href="../goods/GoodsServlet?action=goodsList">상품list</a></li>
 		<li><a href="../goods/GoodsServlet?action=goodsConfirm">주문확인</a></li>
 		<li><a href="../goods/GoodsServlet?action=cartCheck">장바구니</a></li>
+		<li><a href="../goods/adminGoodsRegister.jsp">상품등록</a></li>
 		<hr>
-		<li><a href="../products/prodAll.jsp">관리자상품리스트</a></li>
+		<li><a href="../goods/prodAll.jsp">관리자상품리스트</a></li>
 	</ul>
 </body>
 </html>
