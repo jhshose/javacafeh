@@ -1,29 +1,12 @@
 package jdbc;
 
-public class CartsDO {
+public class CartsDO extends GoodsDO {
 
-	String user_no;
-	String cart_no;
 	String detail_no;
+	String user_no;
 	String prod_no;
 	Integer sales_price;
 	Integer order_qty;
-
-	public String getUser_no() {
-		return user_no;
-	}
-
-	public void setUser_no(String user_no) {
-		this.user_no = user_no;
-	}
-
-	public String getCart_no() {
-		return cart_no;
-	}
-
-	public void setCart_no(String cart_no) {
-		this.cart_no = cart_no;
-	}
 
 	public String getDetail_no() {
 		return detail_no;
@@ -31,6 +14,14 @@ public class CartsDO {
 
 	public void setDetail_no(String detail_no) {
 		this.detail_no = detail_no;
+	}
+
+	public String getUser_no() {
+		return user_no;
+	}
+
+	public void setUser_no(String user_no) {
+		this.user_no = user_no;
 	}
 
 	public String getProd_no() {
