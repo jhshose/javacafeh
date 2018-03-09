@@ -23,6 +23,6 @@
 		<!-- comment for line-->
 		<a href="home.jsp">홈화면</a>
 	</div>
-	${userno }
+	${userno}
 </body>
 </html>
