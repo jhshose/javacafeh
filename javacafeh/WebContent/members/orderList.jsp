@@ -40,7 +40,7 @@
 			<table border="1">
 				<tr>
 					<td colspan="4" align="center">
-						<h2>주문정보</h2> <br>주문번호:ID3-2018-0001
+						<h3>주문정보</h3> <br>주문번호:ID3-2018-0001
 					</td>
 				</tr>
 				<tr>
@@ -67,6 +67,9 @@
 					<td align="right">1000</td>
 					<td align="right">15</td>
 					<td align="right">15000</td>
+				</tr>
+				<tr>
+					<td align="center" colspan="4"><input type="submit" value="결재하기" /></td>
 				</tr>
 			</table>
 		</article>
