@@ -15,11 +15,7 @@
 	media="screen" />
 </head>
 <%
-	//MembersDO abc = (MembersDO) session.getAttribute("userno");
-
-	//CartDAO cdao = new CartDAO();
-	//ArrayList<CartsDO> clist = cdao.selectAll(abc.getUser_no());
-	//request.setAttribute("clist", clist);
+	
 %>
 <body>
 
@@ -39,7 +35,7 @@
 		<article>
 			<h3>장바구니</h3>
 			<form action="memberControl.jsp" method="post">
-			<input type="hidden" name="action" value="cart2order">
+				<input type="hidden" name="action" value="cart2order">
 				<table border="1">
 					<tr>
 						<td colspan="6" align="center">상품정보</td>
@@ -54,12 +50,12 @@
 					</tr>
 					<c:forEach items="${clist}" var="i" varStatus="st">
 						<tr>
-							<td><input type="checkbox" name="detail_no" /></td>
-							<td>${i.prod_no}</td>
-							<td>${i.prod_name}</td>
-							<td align="right">${i.sales_price}</td>
-							<td align="right">${i.order_qty}</td>
-							<td align="right">${i.order_qty * i.sales_price}</td>
+							<td align="center"><input type="checkbox" name="detail_no" value="${i.detail_no}" checked /></td>
+							<td><input type="text" name="prod_no" value="${i.prod_no}" /></td>
+							<td><input type="text" name="prod_name" value="${i.prod_name }"/></td>
+							<td><input type="text" name="sales_price" value="${i.sales_price}"/></td>
+							<td><input type="text" name="order_qty" value="${i.order_qty}"/></td>
+							<td><input type="text" name="total_amt" value="${i.order_qty * i.sales_price}" /></td>
 						</tr>
 					</c:forEach>
 					</tr>
