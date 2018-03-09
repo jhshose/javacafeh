@@ -113,14 +113,39 @@ public class GoodsDAO extends DAO {
 		return true;
 	}
 
+	public String createProdNo(String category) {
+		connect();
+		String newpo = null;
+
+		try {
+
+			String sql = "select create_prod_no(?) as pno from dual";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, category);
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			newpo = rs.getString("pno");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			disconnect();
+		}
+		return newpo;
+
+	}// end of createProdNo
+	
 	// 등록
 	public boolean insert(GoodsDO prod) {
 		try {
+			GoodsDAO newg = new GoodsDAO();
+			String newpno = newg.createProdNo(prod.getProd_category());
+
 			connect();
 			String sql = "insert into goods(prod_name,prod_content,onhand_qty,prod_price,"
-					+ "off_price,prod_category,prod_image,prod_no)" + " values (?,?,?,?,?,?,?,'123456789')";
+					+ "off_price,prod_category,prod_image,prod_no) values (?,?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
-			// pstmt.setString(1, prod.getProd_no());
 			pstmt.setString(1, prod.getProd_name());
 			pstmt.setString(2, prod.getProd_content());
 			pstmt.setInt(3, prod.getOnhand_qty());
@@ -128,6 +153,7 @@ public class GoodsDAO extends DAO {
 			pstmt.setInt(5, prod.getOff_price());
 			pstmt.setString(6, prod.getProd_category());
 			pstmt.setString(7, prod.getProd_image());
+			 pstmt.setString(8, newpno);
 
 			int r = pstmt.executeUpdate();
 			System.out.println(r + "건 등록완료");
