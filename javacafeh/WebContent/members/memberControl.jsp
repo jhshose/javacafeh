@@ -7,7 +7,6 @@
 <%@page import="members.MembersDO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%
 	request.setCharacterEncoding("utf-8");
 %>
@@ -17,15 +16,14 @@
 <jsp:useBean id="usrdo" class="members.MembersDO" />
 <jsp:useBean id="usrdao" class="members.MembersDAO" />
 <jsp:setProperty name="usrdo" property="*" />
-
 <%
 	String action = request.getParameter("action");
-
 	MembersDO userno = (MembersDO) session.getAttribute("userno");
 
 	if (userno == null && action != null && !action.equals("login") && !action.equals("insert")) {
 		//로그인을 안한 경우, action값이 없는 경우(?), 
 		response.sendRedirect("login.jsp");
+
 	} else {
 		if (action == null) {
 			//action 이 없는 경우
@@ -83,7 +81,6 @@
 			request.setAttribute("c1list", c1list);
 			pageContext.forward("orderList.jsp");
 
-
 		} else if (action.equals("search")) {
 			//관리자가 회원정보 확인 및 등급변경을 한다.
 			System.out.println("action===" + action);
@@ -125,14 +122,12 @@
 				response.sendRedirect("memberControl.jsp?action=home&user_no=" + usrdo.getUser_no());
 			} else {
 				out.println("login.jsp");
-
 			}
 
 		} else if (action.equals("select")) {
 			System.out.println("action===" + action);
 			ArrayList<MembersDO> usrlist = usrdao.selectAll();
 			request.setAttribute("usrdo", usrlist);
-
 			pageContext.forward("userAll.jsp");
 
 		} else if (action.equals("logout")) {
@@ -144,6 +139,7 @@
 		} else {
 			System.out.println("action=== else");
 			out.println("error action.");
+
 		}
 	}
 %>

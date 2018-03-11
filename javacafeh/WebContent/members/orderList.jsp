@@ -1,3 +1,4 @@
+<%@page import="members.OrdersDO"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.List"%>
 <%@page import="members.MembersDO"%>
@@ -20,27 +21,23 @@
 	media="screen" />
 </head>
 
-
 <jsp:useBean id="oda" class="members.OrdersDAO" />
 <jsp:setProperty property="*" name="oda" />
+<jsp:useBean id="od" class="members.OrdersDO" />
+
 <sql:query var="rs" dataSource="jdbc/oracle_jsp">
 select category_id, category_name, category_desc from category
 </sql:query>
-
 <body>
-
 	<div class="container">
-
 		<!-- header page -->
 		<header>
 			<%@ include file="../common/header.jsp"%>
 		</header>
-
 		<!-- menu page -->
 		<nav>
 			<%@ include file="../common/menu.jsp"%>
 		</nav>
-
 		<!-- article page -->
 		<article>
 			<table border="1">
@@ -58,8 +55,8 @@ select category_id, category_name, category_desc from category
 						<td colspan="3"><textarea cols="100" rows="10">${l.delever_reg}</textarea></td>
 					</tr>
 					<%
-						List<HashMap<String, Object>> c2list = oda.selectAll("ORDER-201803-000121");
-						request.setAttribute("c2list", c2list);
+						List<HashMap<String, Object>> c2list = oda.selectAll("");
+							request.setAttribute("c2list", c2list);
 					%>
 					<tr>
 						<td colspan="4" align="center">
@@ -87,11 +84,8 @@ select category_id, category_name, category_desc from category
 				</tr>
 			</table>
 		</article>
-
 		<!-- footer page -->
 		<footer><%@ include file="../common/footer.jsp"%></footer>
-
 	</div>
-
 </body>
 </html>

@@ -11,23 +11,16 @@
 <link rel="stylesheet" href="../common/members.css" type="text/css"
 	media="screen" />
 </head>
-
-
-
 <body>
-
 	<div class="container">
-
 		<!-- header page -->
 		<header>
 			<%@ include file="../common/header.jsp"%>
 		</header>
-		<!-- ${userno } -->
 		<!-- menu page -->
 		<nav>
 			<%
 				MembersDO userno = (MembersDO) session.getAttribute("userno");
-				//out.println(userno.getGrade());
 			%>
 			<%
 				if (userno.getGrade() != "R") {
@@ -41,14 +34,11 @@
 				}
 			%>
 		</nav>
-
 		<!-- article page -->
 		<article>
-
 			<%
 				MembersDO a = (MembersDO) request.getAttribute("usrdo");
 			%>
-
 			<div align="center">
 				<form action="memberControl.jsp" method="post">
 					<input type="hidden" name="action" value="logout">
@@ -89,30 +79,28 @@
 					<input type="submit" value="로그아웃">
 				</form>
 			</div>
-
-			<div>
-				<table>
-					<tr>
-						<th>카테고리</th>
-						<th>카테고리설명</th>
-					</tr>
-					<sql:query var="rs" dataSource="jdbc/oracle_jsp">
-					select category_id, category_name, category_desc from category
-					</sql:query>
-					<c:forEach var="row" items="${rs.rows}">
+			<c:if test="${userno.getGrade() =='R'}">
+				<div align="center">
+					<table>
 						<tr>
-							<td>${row.category_name}</td>
-							<td>${row.category_desc}</td>
+							<th>카테고리</th>
+							<th>카테고리설명</th>
 						</tr>
-					</c:forEach>
-
-				</table>
-			</div>
+						<sql:query var="rs" dataSource="jdbc/oracle_jsp">
+						select category_id, category_name, category_desc from category
+						</sql:query>
+						<c:forEach var="row" items="${rs.rows}">
+							<tr>
+								<td>${row.category_name}</td>
+								<td>${row.category_desc}</td>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
+			</c:if>
 		</article>
-
 		<!-- footer page -->
 		<footer><%@ include file="../common/footer.jsp"%></footer>
-
 	</div>
 </body>
 </html>
