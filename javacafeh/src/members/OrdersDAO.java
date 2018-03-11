@@ -2,26 +2,108 @@ package members;
 
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 import common.DAO;
 
 public class OrdersDAO extends DAO {
 
-	public void selectAll(String p_order_no) {
+	// 해당 유저의 주문정보를 가지고 와서 주문상세내역을 하단에 보여준다.
+	public List<HashMap<String, Object>> selectOrderDetails(String p_user_no) {
 		connect();
+		List<HashMap<String, Object>> olist = new ArrayList<HashMap<String, Object>>();
 		try {
-			String sql = "select * from oe_details where order_no = ? order by detail_no ";
+			String sql = "SELECT od.order_no, od.user_no, ot.detail_no, ot.prod_no, ot.sale_price, ot.order_qty"
+					+ " FROM orders od JOIN   oe_details ot ON (od.order_no = ot.order_no)"
+					+ " WHERE od.deliver_flag IS NOT NULL AND od.user_no = ? ORDER BY od.order_no,ot.detail_no";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, p_user_no);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				HashMap<String, Object> omap = new HashMap<String, Object>();
+				omap.put(("order_no"), rs.getString("order_no"));
+				omap.put("user_no", rs.getString("user_no"));
+				omap.put("detail_no", rs.getString("detail_no"));
+				omap.put("prod_no", rs.getString("prod_no"));
+				omap.put("sale_price", rs.getInt("sale_price"));
+				omap.put("order_qty", rs.getInt("order_qty"));
+				// System.out.println(rs.getString("order_no"));
+				olist.add(omap);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return olist;
+	}
+
+	// 사용자의 주문헤더정보
+	public List<HashMap<String, Object>> selectOrder(String p_user_no) {
+		connect();
+		List<HashMap<String, Object>> olist = new ArrayList<HashMap<String, Object>>();
+		HashMap<String, Object> omap = null;
+		try {
+			String sql = "select * from orders where user_no = ? order by order_no";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, p_user_no);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				omap = new HashMap<String, Object>();
+				omap.put("user_no", rs.getString("user_no"));
+				omap.put("order_no", rs.getString("order_no"));
+				omap.put("deliver_addr", rs.getString("deliver_addr"));
+				omap.put("order_date", rs.getDate("order_date"));
+				omap.put("delever_reg", rs.getString("delever_reg"));
+				System.out.println(rs.getString("order_no"));
+				olist.add(omap);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return olist;
+	}
+
+	// 주문별 상세내역을 보여준다.
+	public List<HashMap<String, Object>> selectAll(String p_order_no) {
+		connect();
+		List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		try {
+			String sql = "select detail_no, order_no, prod_no, sale_price, order_qty, cart_detailno, flag, get_prod_name(prod_no) as prod_name "
+					+ "from oe_details where order_no = ? order by detail_no ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, p_order_no);
-			
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				// detail_no order_no prod_no sale_price order_qty cart_detailno flag
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("detail_no", rs.getString("detail_no"));
+				map.put("order_no", rs.getString("order_no"));
+				map.put("prod_no", rs.getString("prod_no"));
+				map.put("sale_price", rs.getString("sale_price"));
+				map.put("order_qty", rs.getString("order_qty"));
+				map.put("cart_detailno", rs.getString("cart_detailno"));
+				map.put("flag", rs.getString("flag"));
+				map.put("prod_name", rs.getString("prod_name"));
+				list.add(map);
+
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		} finally {
 			disconnect();
 		}
+		return list;
 	}
 
+	// 장바구니에 담겨 있는 내역을 주문하기버튼을 눌렀을 때 실행하는 내용.
+	// 해당 유저의 신규주문을 생성하고 장바구니에 있는 것을 주문에 담는다.
 	public String createOrderHeader(String p_user_no, String[] p_cart_no) {
 		connect();
 		String orderHeaderNo = null;
