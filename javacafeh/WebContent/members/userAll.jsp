@@ -1,5 +1,5 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="jdbc.MembersDO"%>
+<%@page import="members.MembersDO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,9 +10,9 @@
 	media="screen" />
 </head>
 
-<jsp:useBean id="usrdo" class="jdbc.MembersDO" />
+<jsp:useBean id="usrdo" class="members.MembersDO" />
 <jsp:setProperty name="usrdo" property="*" />
-<jsp:useBean id="usrdao" class="jdbc.MembersDAO" />
+<jsp:useBean id="usrdao" class="members.MembersDAO" />
 
 <body>
 
@@ -44,30 +44,34 @@
 		<!-- article page -->
 		<article>
 			<!--  start page -->
-			<form>
-				<table border="1">
-					<tr>
-						<td>회원아이디</td>
-						<td>성명</td>
-						<td>이메일</td>
-						<td>전화번호</td>
-						<td>주소</td>
-					</tr>
-					<%
-						for (MembersDO mdo : usrdao.selectAll()) {
-					%>
-					<tr>
-						<td><a href="memberControl.jsp?action=search&user_no=<%=mdo.getUser_no()%>"><%=mdo.getUser_no()%></a></td>
-						<td><%=mdo.getName()%></td>
-						<td><%=mdo.getEmail()%></td>
-						<td><%=mdo.getPhone()%></td>
-						<td><%=mdo.getAddress1()%></td>
-					</tr>
-					<%
-						}
-					%>
-				</table>
-			</form>
+			<div align="center">
+				<form>
+					<h3>회원리스트</h3>
+					<table border="1">
+						<tr>
+							<th>회원아이디</th>
+							<th>성명</th>
+							<th>이메일</th>
+							<th>전화번호</th>
+							<th>주소</th>
+						</tr>
+						<%
+							for (MembersDO mdo : usrdao.selectAll()) {
+						%>
+						<tr>
+							<td><a
+								href="memberControl.jsp?action=search&user_no=<%=mdo.getUser_no()%>"><%=mdo.getUser_no()%></a></td>
+							<td><%=mdo.getName()%></td>
+							<td><%=mdo.getEmail()%></td>
+							<td><%=mdo.getPhone()%></td>
+							<td><%=mdo.getAddress1()%></td>
+						</tr>
+						<%
+							}
+						%>
+					</table>
+				</form>
+			</div>
 			<!--  end   page -->
 		</article>
 

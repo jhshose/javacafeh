@@ -33,33 +33,35 @@
 
 		<!-- article page -->
 		<article>
-			<h3>상품담기</h3>
-			<form action="memberControl.jsp" method="post">
-				<input type="hidden" name="action" value="cart">
-				<input type="hidden" name="user_no" value="${userno.user_no}">
-				<table border="1">
-					<tr>
-						<td colspan="2" align="center">상품담기</td>
-					</tr>
-					<tr>
-						<td>상품</td>
-						<td><select type="text" name="prod_no">
-								<c:forEach items="${list}" var="i" varStatus="st">
-									<option value="${i.prod_no}">${i.prod_name}</option>
-								</c:forEach>
-						</select></td>
-					</tr>
-					<tr>
-						<td>수량</td>
-						<td><input type="text" name="sales_price"></td>
-					</tr>
-					<tr>
-						<td>금액</td>
-						<td><input type="text" name="order_qty"></td>
-					</tr>
-				</table>
-				<input type="submit" value="Submit">
-			</form>
+			<div align="center">
+				<h3>상품담기</h3>
+				<form action="memberControl.jsp" method="post">
+					<input type="hidden" name="action" value="cart"> <input
+						type="hidden" name="user_no" value="${userno.user_no}">
+					<table border="1">
+						<tr>
+							<td colspan="2" align="center">상품담기</td>
+						</tr>
+						<tr>
+							<td>상품</td>
+							<td><select type="text" name="prod_no">
+									<c:forEach items="${list}" var="i" varStatus="st">
+										<option value="${i.prod_no}">${i.prod_name}</option>
+									</c:forEach>
+							</select></td>
+						</tr>
+						<tr>
+							<td>수량</td>
+							<td><input type="text" name="sales_price"></td>
+						</tr>
+						<tr>
+							<td>금액</td>
+							<td><input type="text" name="order_qty"></td>
+						</tr>
+					</table>
+					<input type="submit" value="Submit">
+				</form>
+			</div>
 		</article>
 
 		<!-- footer page -->

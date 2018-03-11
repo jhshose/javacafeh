@@ -1,4 +1,4 @@
-<%@page import="jdbc.MembersDO"%>
+<%@page import="members.MembersDO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -19,7 +19,7 @@
 </script>
 </head>
 
-<jsp:useBean id="usrdo" class="jdbc.MembersDO" />
+<jsp:useBean id="usrdo" class="members.MembersDO" />
 <jsp:setProperty name="usrdo" property="*" />
 
 <body>
@@ -43,55 +43,57 @@
 				MembersDO a = (MembersDO) request.getAttribute("usrdo");
 				//out.println("Hello  " + a.getUser_no() + "<br>");
 			%>
-			<h1>User Search Form</h1>
-			<form name="frm" action="memberControl.jsp" method="post">
-				<input type="hidden" name="action" value="update">
-				<table border="1" style="with: 50%">
-					<tr>
-						<td>사용자 아이디</td>
-						<td><input type="text" name="user_no"
-							value=<%=a.getUser_no()%> /></td>
-					</tr>
-					<tr>
-						<td>패스워드</td>
-						<td><input type="password" name="password"
-							value=<%=a.getPassword()%> /></td>
-					</tr>
-					<tr>
-						<td>성명</td>
-						<td><input type="text" name="name" value=<%=a.getName()%> /></td>
-					</tr>
-					<tr>
-						<td>이메일</td>
-						<td><input type="text" name="email" value=<%=a.getEmail()%> /></td>
-					</tr>
-					<tr>
-						<td>전화번호</td>
-						<td><input type="text" name="phone" value=<%=a.getPhone()%> /></td>
-					</tr>
-					<tr>
-						<td>주소</td>
-						<td><input type="text" name="address1"
-							value=<%=a.getAddress1()%> /></td>
-					</tr>
-					<tr>
-						<td>생년월일</td>
-						<td><input type="text" name="birth" value=<%=a.getBirth()%> /></td>
-					</tr>
-				</table>
-				<input type="hidden" name="address2">
-				<!--  -->
-				<input type="hidden" name="reg_date">
-				<!--  -->
-				<input type="hidden" name="out_date">
-				<!--  -->
-				<input type="hidden" name="grade">
-				<!--  -->
-				<input type="submit" value="Modify">
-				<!--  -->
-				<input type="button" value="Cart" id="cart" onclick="go2()">
-				<input type="button" value="Orders" id="orders" onclick="go3()">
-			</form>
+			<div align="center">
+				<h1>회원정보 변경</h1>
+				<form name="frm" action="memberControl.jsp" method="post">
+					<input type="hidden" name="action" value="update">
+					<table border="1" style="with: 50%">
+						<tr>
+							<td>사용자 아이디</td>
+							<td><input type="text" name="user_no"
+								value=<%=a.getUser_no()%> /></td>
+						</tr>
+						<tr>
+							<td>패스워드</td>
+							<td><input type="password" name="password"
+								value=<%=a.getPassword()%> /></td>
+						</tr>
+						<tr>
+							<td>성명</td>
+							<td><input type="text" name="name" value=<%=a.getName()%> /></td>
+						</tr>
+						<tr>
+							<td>이메일</td>
+							<td><input type="text" name="email" value=<%=a.getEmail()%> /></td>
+						</tr>
+						<tr>
+							<td>전화번호</td>
+							<td><input type="text" name="phone" value=<%=a.getPhone()%> /></td>
+						</tr>
+						<tr>
+							<td>주소</td>
+							<td><input type="text" name="address1"
+								value=<%=a.getAddress1()%> /></td>
+						</tr>
+						<tr>
+							<td>생년월일</td>
+							<td><input type="date" name="birth" value=<%=a.getBirth()%> /></td>
+						</tr>
+					</table>
+					<input type="hidden" name="address2">
+					<!--  -->
+					<input type="hidden" name="reg_date">
+					<!--  -->
+					<input type="hidden" name="out_date">
+					<!--  -->
+					<input type="hidden" name="grade">
+					<!--  -->
+					<input type="submit" value="정보변경">
+					<!--  -->
+					<input type="button" value="장바구니보기" id="cart" onclick="go2()">
+					<input type="button" value="주문정보보기" id="orders" onclick="go3()">
+				</form>
+			</div>
 		</article>
 
 		<!-- footer page -->
