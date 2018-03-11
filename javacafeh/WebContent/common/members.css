@@ -1,5 +1,12 @@
+div {
+	border-radius: 5px;
+	background-color: #f2f2f2;
+	padding: 20px;
+	color: blue;
+}
+
 div.container {
-	width: 100%;
+	width: 97%;
 	border: 1px solid gray;
 }
 
@@ -34,6 +41,55 @@ article {
 	overflow: hidden;
 }
 
-td {
+table {
+	width: auto;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+th, td {
+	font-size: 10pt;
+	border: 1px solid #98bf21;
+	height: 30px;
+	padding: 5px;
 	align-content: center;
+}
+
+th {
+	background-color: #A7C942;
+	color: #ffffff;
+	font-family: Georgia;
+}
+
+tr td {
+	color: #000000;
+	background-color: #EAF2D#;
+}
+
+input {
+	height: 25px;
+	width: 80px;
+}
+
+input[type="submit"], [type="reset"], [type="button"] {
+	height: 30px;
+	width: 150px;
+}
+
+input[type="submit"]:hover {
+	background-color: #45a049;
+}
+
+input[type=text], select {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+
+input[type=text]:focus {
+	background-color: lightblue;
 }

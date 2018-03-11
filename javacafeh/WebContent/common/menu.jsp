@@ -25,7 +25,7 @@
 			<li><a href="../members/memberControl.jsp?action=logout">로그아웃</a></li>
 			<li><a href="../members/cartForm.jsp">장바구니담기</a></li>
 			<li><a href="../members/memberControl.jsp?action=cartlist">장바구니보기</a></li>
-			<li><a href="../members/orderList.jsp">주문보기</a></li>
+			<li><a href="../members/memberControl.jsp?action=orderlist">주문내역보기</a></li>
 		</c:if>
 
 		<!-- 관리자메뉴 -->

@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>자바카페</h1>
-	<div align="right">자바의 향기를 느끼다.</div>
+	<div align="right" color="blue">자바의 향기를 느끼다.</div>
 	<div align="left">
 		<c:if test="${empty sessionScope.userno}">
 			<a href="login.jsp">로그인</a>|
