@@ -42,7 +42,7 @@
 				<input type="number" id="productQuantity" class="designSettingElement shape" value="1" min="1" data-initialQuantity="">
 		</tr></td>
 		
-		<tr><td><button type="button">cart</button></td></tr> <!-- 장바구니로 이동 -->
+		<tr><td><a href="cartForm.jsp"><button type="button">cart</button></a></td></tr> <!-- 장바구니로 이동 -->
 		<tr><td><button type="button">order</button></td></tr> <!-- 주문페이지로 이동 -->
 	</table>		
 	

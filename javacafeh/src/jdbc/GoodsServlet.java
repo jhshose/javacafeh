@@ -38,7 +38,7 @@ public class GoodsServlet extends HttpServlet {
 		GoodsDO goodsDO = new GoodsDO();
 
 		try {
-			BeanUtils.copyProperties(goodsDO, request.getParameterMap());
+			BeanUtils.copyProperties(goodsDO, request.getParameterMap()); //앞단 화면의 뷰에서 여기에 담는다
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
@@ -56,8 +56,7 @@ public class GoodsServlet extends HttpServlet {
 			request.getRequestDispatcher("../goods/goodsForm.jsp").forward(request, response);
 
 		} else if (action.equals("goodsList")) {
-			System.out.println("================" + goodsDAO.selectAll());
-			request.setAttribute("datas", goodsDAO.selectAll()); // 액션에서 객체를 request에 담을때.
+			request.setAttribute("datas", goodsDAO.selectAll(goodsDO.getProd_category())); // 액션에서 객체를 request에 담을때.
 																	// request.setAttribute("객체명",객체);
 			request.getRequestDispatcher("goodsList.jsp").forward(request, response);
 

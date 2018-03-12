@@ -27,13 +27,14 @@
 
 <div style="background-color:lime;" >
 	<table>
-	
-		<a href>beans</a> &nbsp;
-		<a href>dutch</a> &nbsp;
-		<a href>beverage</a> &nbsp;
-		<a href>food</a> &nbsp;
-		<a href>cup</a> &nbsp;
-	
+		<tr><td>
+		<a href="../goods/GoodsServlet?action=goodsList">all</a> &nbsp;
+		<a href="../goods/GoodsServlet?action=goodsList&prod_category=BEANS">beans</a> &nbsp;
+		<a href="../goods/GoodsServlet?action=goodsList&prod_category=DUTCH">dutch</a> &nbsp;
+		<a href="../goods/GoodsServlet?action=goodsList&prod_category=BEVERAGE">beverage</a> &nbsp;
+		<a href="../goods/GoodsServlet?action=goodsList&prod_category=FOOD">food</a> &nbsp;
+		<a href="../goods/GoodsServlet?action=goodsList&prod_category=CUP">cup</a> &nbsp;
+		</td></tr>
 	</table>
 </div>	
 

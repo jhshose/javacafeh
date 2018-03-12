@@ -55,7 +55,7 @@
 		<!-- article page -->
 		<article>
 			<!--  start page -->
-			<form name="frm1" action="GoodsServlet" method="post">
+			<form name="frm1" action="GoodsServlet" method="get">
 				<input type="hidden" name="action" value="adminGoodsRegister">
 				<table border="1" width="700" cellpadding="2" cellspacing="1"
 					bgcolor=#777777>
