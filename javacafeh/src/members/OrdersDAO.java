@@ -20,7 +20,7 @@ public class OrdersDAO extends DAO {
 		OrderSets oss = null;
 
 		try {
-			String sql1 = "select * from orders where user_no = ? and order by order_no ";
+			String sql1 = "select * from orders where user_no = ? and NVL(deliver_flag, 'N') = 'Y' order by order_no ";
 			pstmt = conn.prepareStatement(sql1);
 			pstmt.setString(1, p_user_no);
 			ResultSet rs = pstmt.executeQuery();
