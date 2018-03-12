@@ -5,7 +5,7 @@
 <html>
 <head>
 <title>index page</title>
-<link rel="stylesheet" href="../common/members.css" type="text/css"
+<link rel="stylesheet" href="../css/common.css" type="text/css"
 	media="screen" />
 </head>
 
@@ -73,7 +73,7 @@
      <tr height="1" bgcolor="#82B5DF"><td colspan="4"></td></tr>
      <tr align="center">
       <td>&nbsp;</td>
-      <td colspan="2"><input type="submit" value="등록">
+      <td colspan="2"><input type="submit" value="등록" >
        <input type="reset" value="초기화">
       <td>&nbsp;</td>
      </tr>
