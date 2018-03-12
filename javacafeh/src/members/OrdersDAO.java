@@ -10,6 +10,64 @@ import common.DAO;
 
 public class OrdersDAO extends DAO {
 
+	// 해당 유저의 전체 주문과 주문의 세부정보를 가지고 온다.
+	public ArrayList<OrderSets> selectOrdersDetails(String p_user_no) {
+		connect();
+		ArrayList<OrderSets> oslist = null;
+		ArrayList<OrderDetailDO> oddlist = null;
+		OrdersDO od = null;
+		OrderDetailDO odd = null;
+		OrderSets oss = null;
+
+		try {
+			String sql1 = "select * from orders where user_no = ? and order by order_no ";
+			pstmt = conn.prepareStatement(sql1);
+			pstmt.setString(1, p_user_no);
+			ResultSet rs = pstmt.executeQuery();
+			oslist = new ArrayList<OrderSets>();
+
+			while (rs.next()) {
+				oss = new OrderSets();
+				od = new OrdersDO();
+				od.setOrder_no(rs.getString("order_no"));
+				od.setUser_no(rs.getString("user_no"));
+				od.setOrder_date(rs.getString("order_date"));
+				od.setDelever_price(rs.getString("delever_price"));
+				od.setDeliver_addr(rs.getString("deliver_addr"));
+				od.setDelever_reg(rs.getString("delever_reg"));
+
+				String sql2 = "select * from oe_details where order_no = ? order by detail_no";
+				pstmt = conn.prepareStatement(sql2);
+				pstmt.setString(1, rs.getString("order_no"));
+				ResultSet rss = pstmt.executeQuery();
+				oddlist = new ArrayList<OrderDetailDO>();
+				while (rss.next()) {
+
+					odd = new OrderDetailDO();
+					odd.setDetail_no(rss.getString("detail_no"));
+					odd.setOrder_no(rss.getString("order_no"));
+					odd.setProd_no(rss.getString("prod_no"));
+					odd.setSale_price(rss.getInt("sale_price"));
+					odd.setOrder_qty(rss.getInt("order_qty"));
+					odd.setCart_detailno(rss.getString("cart_detailno"));
+					odd.setFlag(rss.getString("flag"));
+					oddlist.add(odd);
+
+				}
+				oss.setOrd(od);
+				oss.setOdlist(oddlist);
+
+				oslist.add(oss);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return oslist;
+	}// end of selectOrdersDetails
+
 	// 해당 유저의 주문정보를 가지고 와서 주문상세내역을 하단에 보여준다.
 	public List<HashMap<String, Object>> selectOrderDetails(String p_user_no) {
 		connect();
@@ -38,7 +96,7 @@ public class OrdersDAO extends DAO {
 			disconnect();
 		}
 		return olist;
-	}
+	}// end of selectOrderDetails
 
 	// 사용자의 주문헤더정보
 	public List<HashMap<String, Object>> selectOrder(String p_user_no) {
