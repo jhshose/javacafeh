@@ -1,3 +1,4 @@
+<%@page import="members.OrderSets"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.List"%>
 <%@page import="members.OrdersDAO"%>
@@ -77,8 +78,9 @@
 		} else if (action.equals("orderlist")) {
 			System.out.println("action===" + action);
 			OrdersDAO oda = new OrdersDAO();
-			List<HashMap<String, Object>> c1list = oda.selectOrder(userno.getUser_no());
-			request.setAttribute("c1list", c1list);
+			//List<HashMap<String, Object>> c1list = oda.selectOrder(userno.getUser_no());
+			ArrayList<OrderSets> oslist = oda.selectOrdersDetails(userno.getUser_no());
+			request.setAttribute("oslist", oslist);
 			pageContext.forward("orderList.jsp");
 
 		} else if (action.equals("search")) {

@@ -21,6 +21,13 @@
 	media="screen" />
 </head>
 
+<jsp:useBean id="oda" class="members.OrdersDAO" />
+<jsp:setProperty property="*" name="oda" />
+<jsp:useBean id="od" class="members.OrdersDO" />
+
+<sql:query var="rs" dataSource="jdbc/oracle_jsp">
+select category_id, category_name, category_desc from category
+</sql:query>
 <body>
 	<div class="container">
 		<!-- header page -->
@@ -34,20 +41,23 @@
 		<!-- article page -->
 		<article>
 			<table border="1">
-				<c:forEach items="${oslist}" var="l" varStatus="st">
+				<c:forEach items="${c1list}" var="l" varStatus="st">
 					<tr>
-						<th colspan="4" align="center">주문정보 <br>주문번호:${l.ord.order_no}
+						<th colspan="4" align="center">주문정보 <br>주문번호:${l.order_no}
 						</th>
 					</tr>
 					<tr>
 						<td>배송주소</td>
-						<td colspan="3"><input type="text" name="deliver_addr" />${l.ord.deliver_addr}</td>
+						<td colspan="3"><input type="text" name="deliver_addr" />${l.deliver_addr}</td>
 					</tr>
 					<tr>
 						<td>배송요청정보</td>
-						<td colspan="3"><textarea cols="100" rows="10">${l.ord.delever_reg}</textarea></td>
+						<td colspan="3"><textarea cols="100" rows="10">${l.delever_reg}</textarea></td>
 					</tr>
-
+					<%
+						List<HashMap<String, Object>> c2list = oda.selectAll("");
+						request.setAttribute("c2list", c2list);
+					%>
 					<tr>
 						<td colspan="4" align="center">
 							<h3>주문상세</h3>
@@ -59,9 +69,9 @@
 						<td>상품수량</td>
 						<td>합계금액</td>
 					</tr>
-					<c:forEach items="${l.odlist}" var="i" varStatus="st">
+					<c:forEach items="${c2list}" var="i" varStatus="st">
 						<tr>
-							<td>${i.prod_no}</td>
+							<td>${i.prod_name}</td>
 							<td align="right">${i.sale_price}</td>
 							<td align="right">${i.order_qty}</td>
 							<td align="right">${i.sale_price*i.order_qty}</td>
