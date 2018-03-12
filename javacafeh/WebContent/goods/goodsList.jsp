@@ -6,6 +6,15 @@
 <head>
 <title>goodsList.jsp(상품 목록 화면)</title>
 <link rel="stylesheet" href="../common/members.css" type="text/css"	media="screen" />
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+  $( function() {
+    $( "#accordion" ).accordion();
+  } );
+  </script>
+  
 </head>
 
 <body>
@@ -25,17 +34,17 @@
 		<!-- article page -->
 		<article>
 
-<div style="background-color:lime;" >
-	<table>
+<div style="background-color:lime;" height:"25">
+	
 		<tr><td>
-		<a href="../goods/GoodsServlet?action=goodsList">all</a> &nbsp;
-		<a href="../goods/GoodsServlet?action=goodsList&prod_category=BEANS">beans</a> &nbsp;
-		<a href="../goods/GoodsServlet?action=goodsList&prod_category=DUTCH">dutch</a> &nbsp;
-		<a href="../goods/GoodsServlet?action=goodsList&prod_category=BEVERAGE">beverage</a> &nbsp;
-		<a href="../goods/GoodsServlet?action=goodsList&prod_category=FOOD">food</a> &nbsp;
-		<a href="../goods/GoodsServlet?action=goodsList&prod_category=CUP">cup</a> &nbsp;
+		<h3 a href="../goods/GoodsServlet?action=goodsList">all</a> &nbsp;&nbsp;&nbsp;
+		<a href="../goods/GoodsServlet?action=goodsList&prod_category=BEANS">beans</a> &nbsp;&nbsp;&nbsp;
+		<a href="../goods/GoodsServlet?action=goodsList&prod_category=DUTCH">dutch</a> &nbsp;&nbsp;&nbsp;
+		<a href="../goods/GoodsServlet?action=goodsList&prod_category=BEVERAGE">beverage</a> &nbsp;&nbsp;&nbsp;
+		<a href="../goods/GoodsServlet?action=goodsList&prod_category=FOOD">food</a> &nbsp;&nbsp;&nbsp;
+		<a href="../goods/GoodsServlet?action=goodsList&prod_category=CUP">cup</a> &nbsp;&nbsp;&nbsp;
 		</td></tr>
-	</table>
+	
 </div>	
 
 	
