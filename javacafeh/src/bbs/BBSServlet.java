@@ -89,13 +89,8 @@ public class BBSServlet extends HttpServlet {
 	        String content = request.getParameter("contents");
 	        String ref = request.getParameter("ref"); 
 	        String ref_lev = request.getParameter("ref_lev");
-	        String re_step = request.getParameter("re_step");
-			
-	       // 답글중 가장 최근 답글이 위로 올라가게 처리한다. 
-	        // 그러기 위해 답글의 순서인 seq를 1증가시킨다.
-	        bbs.setRef(ref);
-	        bbs.setRe_step(re_step);
-	        bbsDAO.updateRef(bbs);        
+	        String re_step = request.getParameter("re_step");			
+	          
     
 	        
 			// 전체 건수
@@ -158,7 +153,16 @@ public class BBSServlet extends HttpServlet {
     	
     		//목록으로 페이지 이동
     		response.sendRedirect("BBSServlet?action=list"); }
-    	} else {
+    	} else if(action.equals("insertReply")) {
+    		  // 답글중 가장 최근 답글이 위로 올라가게 처리한다. 
+	        // 그러기 위해 답글의 순서인 seq를 1증가시킨다.
+	        bbs.setRef(bbs.getRef());
+	        bbs.setRe_step(bbs.getRe_step());
+	        bbsDAO.insertReply(bbs);  
+	        response.sendRedirect("BBSServlet?action=list");
+    	}
+    	
+    	else  {
     		out.print("잘못 된 action 입니다.");
     	}    		   	
     
