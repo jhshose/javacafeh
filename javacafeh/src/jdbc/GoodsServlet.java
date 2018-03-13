@@ -24,15 +24,17 @@ public class GoodsServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// 내장 객체
-		ServletContext application = request.getServletContext();
-		HttpSession session = request.getSession();
-		PrintWriter out = response.getWriter();
 
 		// 인코딩
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("utf-8");
 		request.setCharacterEncoding("utf-8");
+
+		
+		// 내장 객체
+		ServletContext application = request.getServletContext();
+		HttpSession session = request.getSession();
+		PrintWriter out = response.getWriter();
 
 		GoodsDAO goodsDAO = new GoodsDAO();
 		GoodsDO goodsDO = new GoodsDO();
