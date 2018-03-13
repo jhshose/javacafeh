@@ -20,7 +20,7 @@ public class OrdersDAO extends DAO {
 		OrderSets oss = null;
 
 		try {
-			String sql1 = "select * from orders where user_no = ? and NVL(deliver_flag, 'N') = 'Y' order by order_no ";
+			String sql1 = "select * from orders where user_no = ? and NVL(deliver_flag, 'N') = 'Y' order by order_no desc";
 			pstmt = conn.prepareStatement(sql1);
 			pstmt.setString(1, p_user_no);
 			ResultSet rs = pstmt.executeQuery();
@@ -159,6 +159,32 @@ public class OrdersDAO extends DAO {
 		}
 		return list;
 	}
+
+	public String orderComplete(OrdersDO p_orders) {
+		connect();
+		CallableStatement cstmt = null;
+		String p_ret = null;
+		try {
+			conn.setAutoCommit(false);
+			cstmt = conn.prepareCall("{call orderproc(?,?,?,?,?)}");
+			cstmt.setString(1, p_orders.getOrder_no());
+			cstmt.setString(2, p_orders.getDelever_price());
+			cstmt.setString(3, p_orders.getDeliver_addr());
+			cstmt.setString(4, p_orders.getDelever_reg());
+			cstmt.registerOutParameter(5, java.sql.Types.VARCHAR);
+			cstmt.executeUpdate();
+			conn.commit(); // 커밋
+			p_ret = cstmt.getString(5);
+			System.out.println("orderComplete " + p_ret);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			disconnect();
+		}
+		return p_ret;
+	}// end of orderComplete
 
 	// 장바구니에 담겨 있는 내역을 주문하기버튼을 눌렀을 때 실행하는 내용.
 	// 해당 유저의 신규주문을 생성하고 장바구니에 있는 것을 주문에 담는다.
