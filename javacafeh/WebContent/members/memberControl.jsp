@@ -101,6 +101,16 @@
 				response.sendRedirect("home.jsp");
 			}
 
+		} else if (action.equals("mypage")) {
+			System.out.println("action===" + action);
+			MembersDO newusr = usrdao.selectOne(userno.getUser_no());
+			if (newusr.getUser_no() != null) {
+				request.setAttribute("usrdo", newusr);
+				pageContext.forward("home.jsp");
+			} else {
+				response.sendRedirect("home.jsp");
+			}
+
 		} else if (action.equals("login")) {
 			//회원이 로그인 할 경우에 등급정보를 가지고 와서 세션에 담아둔다.
 			//로그인 실패일 경우 메세지를 보여주고 로그인화면을 다시 열어준다.
@@ -110,8 +120,9 @@
 			if (data != null) {
 				//session setting
 				session.setAttribute("userno", data);
-				MembersDO abc = (MembersDO) session.getAttribute("userno");
-				response.sendRedirect("memberControl.jsp?action=home&user_no=" + usrdo.getUser_no());
+				//MembersDO abc = (MembersDO) session.getAttribute("userno");
+				//response.sendRedirect("memberControl.jsp?action=home&user_no=" + usrdo.getUser_no());
+				response.sendRedirect("../goods/GoodsServlet?action=goodsList");
 			} else {
 				out.print("<script>alert('사용자ID와 비밀번호를 확인하세요.')</script>");
 				response.sendRedirect("main.jsp");
