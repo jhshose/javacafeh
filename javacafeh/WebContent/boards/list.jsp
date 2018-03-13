@@ -9,6 +9,34 @@
 <link rel="stylesheet" href="../css/common.css" type="text/css"
 	media="screen" />
 	
+	<style>
+.bbs-table {
+    width: 100%;
+    margin: 0.7em 0 0 0;
+}
+.bbs-table th {
+    color: #92B91C;
+    border-top: 1px solid #92B91C;
+    border-bottom: 1px solid #92B91C;
+}
+
+.bbs-table td {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid silver;
+    line-height: 1.45;
+}
+.bbs-table td a {
+    color: #555;
+    text-decoration: none;
+}
+.bbs-table td a:hover {
+    color:#555;
+    text-decoration: underline;
+}
+
+</style>
+    
 <script>
 	function dolist(page){
 		location.href="BBSServlet?action=list&page="+page;
@@ -33,30 +61,26 @@
 		<!-- article page -->
 		<article>
 			
-			<table width="100%" cellpadding="0" cellspacing="0" border="0">
-				<tr height="5">
-					<td width="5"></td>
-				</tr>						
-				
-					 <tr>
+			<br>
+    <b><font size="6" color="gray">문의게시판</font></b>
+    <br>
+			
+			
+			<table width="100%" cellpadding="0" cellspacing="0" border="0" class ="bbs-table" >
+			
+					<tr>					
+					<th style="width: 60px;">번호</th>				
+					<th>제목</th>
+					<th>작성자</th>
+					<th style="width: 84px;">작성일</th>
+					<th style="width: 60px;">조회수</th>	
 					
-					<th width="73">번호</th>				
-					<th width="379">제목</th>
-					<th width="73">작성자</th>
-					<th width="164">작성일</th>
-					<th width="58">조회수</th>				
-				</tr>			
-							
-				<tr height="25" align="left">
-				</tr>
-				<tr height="1" bgcolor="#D2D2D2">
-					<td colspan="6"></td> 
-				</tr>
+					<!-- <th style="width: 60px;">NO</th>
+    				<th>TITLE</th>
+    				<th style="width: 84px;">DATE</th>
+    				<th style="width: 60px;">HIT</th>	 -->		
+				    </tr>				
 
-				<tr height="1" bgcolor="#82B5DF">
-					<td colspan="6" width="752"></td>
-				</tr>				
-								
 								
 				<c:forEach items="${datas}" var="b">
 				
@@ -72,24 +96,19 @@
 					<td width="164">${b.reg_date}</td> 
 					<td width="58">${b.readcount}</td>
 					
-				</tr>						
-						
-								
+				</tr>									
 						
 				
 				 </c:forEach>					
 								
 			 </table>
-			 
-			<table width="100%" cellpadding="0" cellspacing="0" border="0">
+			
+			<table align="center">
 				<tr>
-					<td colspan="4" height="5"></td>
-				</tr>
-				<tr align="center">
 					<td><input type=button value="글쓰기"
 						onclick="window.location='write.jsp'">
-									
-				</tr>
+					</td>															
+				</tr>			
 			</table>  
 			<myTag:paging paging="${paging}" jsfunc="dolist"/>
 		</article>

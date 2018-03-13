@@ -52,12 +52,12 @@
             </td>        
         </tr>
               <tr>
-            <td id="title">
+            <!-- <td id="title">
                 작성자
             </td>
             <td>
                 <input name="user_no" type="text" size="70" maxlength="100" value=""/>
-            </td>        
+            </td>         -->
         </tr>
         <tr>
             <td id="title">
