@@ -22,9 +22,11 @@
 			<!--  start page -->
 			<div align="center">
 				<h3>주문하기(cartOrders)</h3>
-				<form>
+				<form action="memberControl.jsp" method="post">
+					<input type="hidden" name="action" value="orderproc">
 					<table border="1">
 						<c:forEach items="${c1list}" var="c" varStatus="st">
+							<input type="hidden" name="order_no" value="${c.order_no}" />
 							<tr>
 								<th colspan="4" align="center">주문정보 <br>주문번호:${c.order_no}
 								</th>

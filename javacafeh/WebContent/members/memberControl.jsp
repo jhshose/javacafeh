@@ -17,6 +17,9 @@
 <jsp:useBean id="usrdo" class="members.MembersDO" />
 <jsp:useBean id="usrdao" class="members.MembersDAO" />
 <jsp:setProperty name="usrdo" property="*" />
+<jsp:useBean id="orsdo" class="members.OrdersDO" />
+<jsp:setProperty name="orsdo" property="*" />
+<jsp:useBean id="orsdao" class="members.OrdersDAO" />
 <%
 	String action = request.getParameter("action");
 	MembersDO userno = (MembersDO) session.getAttribute("userno");
@@ -74,6 +77,17 @@
 			List<HashMap<String, Object>> c2list = oda.selectAll(oeh);
 			request.setAttribute("c2list", c2list);
 			pageContext.forward("cartOrders.jsp");
+
+		} else if (action.equals("orderproc")) {
+			System.out.println("action===" + action);
+			String ret = orsdao.orderComplete(orsdo);
+			out.print("orderProc" + ret);
+			if (ret.equals("success")) {
+				out.println("<script>alert(정상적으로 처리되었습니다)</script>");
+				response.sendRedirect("../goods/GoodsServlet?action=goodsList");
+			} else {
+				out.println("<script>alert(no정상적으로 처리되었습니다)</script>");
+			}
 
 		} else if (action.equals("orderlist")) {
 			System.out.println("action===" + action);
