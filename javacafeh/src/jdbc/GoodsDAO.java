@@ -87,6 +87,7 @@ public class GoodsDAO extends DAO {
 
 			stmt = conn.createStatement(); // createStatement는 DB로 SQL문을 보내기 위한 개체
 			String sql = "select * from goods where prod_category = nvl('" + category + "', prod_category) order by prod_no";
+			System.out.println(sql);
 			ResultSet rs = stmt.executeQuery(sql); // sql 쿼리 실행
 			while (rs.next()) {
 				prod = new GoodsDO();
@@ -206,7 +207,7 @@ public class GoodsDAO extends DAO {
 
 	}// end of createProdNo
 	
-	// 등록
+	// 상품 등록
 	public boolean insert(GoodsDO prod) {
 		try {
 			GoodsDAO newg = new GoodsDAO();
@@ -237,7 +238,7 @@ public class GoodsDAO extends DAO {
 		return true;
 	}
 	
-	// 장바구니로 이동
+	/*// 장바구니로 이동
 		public boolean insert(CartsDO cart) {
 			try {
 				GoodsDAO newg = new GoodsDAO();
@@ -263,7 +264,7 @@ public class GoodsDAO extends DAO {
 				disconnect();
 			}
 			return true;
-		}
+		}*/
 
 
 	// 삭제

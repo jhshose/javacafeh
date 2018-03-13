@@ -11,19 +11,31 @@
 <script src="//code.jquery.com/jquery.min.js"></script>
 
 <style>
-li a, .dropbtn {
+ul.menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+}
+
+ul.menu li {
+    float: left;
+}
+
+ul.menu li a, .dropbtn {
     display: inline-block;
-    color: white;
+    color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
 
-li a:hover, .dropdown:hover .dropbtn {
-    background-color: red;
+ul.menu li a:hover, .dropdown:hover .dropbtn {
+    background-color: green;
 }
 
-li {
+ul.menu li {
     float: left;
 }
 
@@ -46,26 +58,24 @@ li {
 		</nav>
 
 		<!-- article page -->
-		<article>
+<article>
 
 <div style="background-color:lime;">
-<div class='zeta-menu-bar'>
 	
 	<ul class="menu">
-		<li h3 a href="../goods/GoodsServlet?action=goodsList">전체</a> &nbsp;&nbsp;&nbsp;
+		<li> <a href="../goods/GoodsServlet?action=goodsList">전체</a> &nbsp;&nbsp;&nbsp; </li>
 		
-		<li a href="../goods/GoodsServlet?action=goodsList&prod_category=BEANS">원두</a> &nbsp;&nbsp;&nbsp;
+		<li> <a href="../goods/GoodsServlet?action=goodsList&prod_category=BEANS">원두</a> &nbsp;&nbsp;&nbsp;</li>
 	
-		<li a href="../goods/GoodsServlet?action=goodsList&prod_category=DUTCH">더치원액</a> &nbsp;&nbsp;&nbsp;
+		<li> <a href="../goods/GoodsServlet?action=goodsList&prod_category=DUTCH">더치원액</a> &nbsp;&nbsp;&nbsp;</li>
 		
-		<li a href="../goods/GoodsServlet?action=goodsList&prod_category=BEVERAGE">음료류</a> &nbsp;&nbsp;&nbsp;
+		<li> <a href="../goods/GoodsServlet?action=goodsList&prod_category=BEVERAGE">음료류</a> &nbsp;&nbsp;&nbsp;</li>
 		
-		<li a href="../goods/GoodsServlet?action=goodsList&prod_category=FOOD">푸드</a> &nbsp;&nbsp;&nbsp;
-		<li a href="../goods/GoodsServlet?action=goodsList&prod_category=CUP">찻잔</a> &nbsp;&nbsp;&nbsp;
+		<li> <a href="../goods/GoodsServlet?action=goodsList&prod_category=FOOD">푸드</a> &nbsp;&nbsp;&nbsp;</li>
 		
+		<li> <a href="../goods/GoodsServlet?action=goodsList&prod_category=CUP">찻잔</a> &nbsp;&nbsp;&nbsp;</li>
+	</ul>	
 </div>	
-</div>	
-
 	
 	<c:forEach items="${datas}" var="goods">
 	
