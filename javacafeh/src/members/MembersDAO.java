@@ -58,7 +58,7 @@ public class MembersDAO extends DAO {
 		MembersDO usr = null;
 
 		try {
-			String sql = "select user_no, password, grade from members where user_no=? and password=?";
+			String sql = "select user_no, password, name, grade from members where user_no=? and password=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, usrno);
 			pstmt.setString(2, usrpw);
@@ -70,6 +70,7 @@ public class MembersDAO extends DAO {
 				usr.setUser_no(rs.getString("user_no"));
 				usr.setPassword(rs.getString("password"));
 				usr.setGrade(rs.getString("grade"));
+				usr.setName(rs.getString("name"));
 
 			} else {
 				System.out.println("login false");

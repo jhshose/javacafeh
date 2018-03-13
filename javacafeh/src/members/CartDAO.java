@@ -47,8 +47,8 @@ public class CartDAO extends DAO {
 			cstmt = conn.prepareCall("{call create_carts(?,?,?,?,?,?)}");
 			cstmt.setString(1, bean.getUser_no());
 			cstmt.setString(2, bean.getProd_no());
-			cstmt.setInt(3, bean.getSales_price());
-			cstmt.setInt(4, bean.getOrder_qty());
+			cstmt.setInt(3, bean.getOrder_qty());
+			cstmt.setInt(4, bean.getSales_price());
 			cstmt.registerOutParameter(5, java.sql.Types.NUMERIC);
 			cstmt.registerOutParameter(6, java.sql.Types.VARCHAR);
 

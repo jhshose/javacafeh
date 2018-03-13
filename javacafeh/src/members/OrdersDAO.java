@@ -104,7 +104,7 @@ public class OrdersDAO extends DAO {
 		List<HashMap<String, Object>> olist = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> omap = null;
 		try {
-			String sql = "select * from orders where user_no = ? order by order_no";
+			String sql = "select * from orders where user_no = ? and NVL(deliver_flag ,'N') = 'N' order by order_no";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, p_user_no);
 			ResultSet rs = pstmt.executeQuery();
