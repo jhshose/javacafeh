@@ -42,7 +42,7 @@
 			<hr>
 		</c:if>
 		<hr>
-		<li><a href="../boards/list.jsp">게시판</a></li>
+		<li><a href="../boards/BBSServlet?action=list">게시판</a></li>
 
 
 
