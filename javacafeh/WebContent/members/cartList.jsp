@@ -15,26 +15,21 @@
 	media="screen" />
 </head>
 <%
-	
 %>
 <body>
-
 	<div class="container">
-
 		<!-- header page -->
 		<header>
 			<%@ include file="../common/header.jsp"%>
 		</header>
-
 		<!-- menu page -->
 		<nav>
 			<%@ include file="../common/menu.jsp"%>
 		</nav>
-
 		<!-- article page -->
 		<article>
 			<div align="center">
-				<h3>장바구니</h3>
+				<h3>장바구니(cartList)</h3>
 				<form action="memberControl.jsp" method="post">
 					<input type="hidden" name="action" value="cart2order">
 					<table border="1">

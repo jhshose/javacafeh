@@ -26,7 +26,7 @@
 		<!-- article page -->
 		<article>
 			<div align="center">
-				<h1>Login Page</h1>
+				<h1>Login Page(login)</h1>
 				<form action="memberControl.jsp" method="post">
 					<input type="hidden" name="action" value="login">
 					<table border="1">

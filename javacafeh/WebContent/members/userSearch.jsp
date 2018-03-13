@@ -44,7 +44,7 @@
 				//out.println("Hello  " + a.getUser_no() + "<br>");
 			%>
 			<div align="center">
-				<h1>회원정보 변경</h1>
+				<h1>회원정보 변경(userSearch)</h1>
 				<form name="frm" action="memberControl.jsp" method="post">
 					<input type="hidden" name="action" value="update">
 					<table border="1" style="with: 50%">

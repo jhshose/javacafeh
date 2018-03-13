@@ -15,14 +15,11 @@
 <jsp:useBean id="usrdao" class="members.MembersDAO" />
 
 <body>
-
 	<div class="container">
-
 		<!-- header page -->
 		<header>
 			<%@ include file="../common/header.jsp"%>
 		</header>
-
 		<!-- menu page -->
 		<nav>
 			<%
@@ -40,13 +37,12 @@
 				}
 			%>
 		</nav>
-
 		<!-- article page -->
 		<article>
 			<!--  start page -->
 			<div align="center">
 				<form>
-					<h3>회원리스트</h3>
+					<h3>회원리스트(userAll)</h3>
 					<table border="1">
 						<tr>
 							<th>회원아이디</th>
@@ -74,11 +70,8 @@
 			</div>
 			<!--  end   page -->
 		</article>
-
 		<!-- footer page -->
 		<footer><%@ include file="../common/footer.jsp"%></footer>
-
 	</div>
-
 </body>
 </html>

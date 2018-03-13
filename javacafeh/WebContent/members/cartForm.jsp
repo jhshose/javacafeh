@@ -18,23 +18,19 @@
 	request.setAttribute("list", glist);
 %>
 <body>
-
 	<div class="container">
-
 		<!-- header page -->
 		<header>
 			<%@ include file="../common/header.jsp"%>
 		</header>
-
 		<!-- menu page -->
 		<nav>
 			<%@ include file="../common/menu.jsp"%>
 		</nav>
-
 		<!-- article page -->
 		<article>
 			<div align="center">
-				<h3>상품담기</h3>
+				<h3>상품담기(cartForm)</h3>
 				<form action="memberControl.jsp" method="post">
 					<input type="hidden" name="action" value="cart"> <input
 						type="hidden" name="user_no" value="${userno.user_no}">
@@ -63,11 +59,8 @@
 				</form>
 			</div>
 		</article>
-
 		<!-- footer page -->
 		<footer><%@ include file="../common/footer.jsp"%></footer>
-
 	</div>
-
 </body>
 </html>

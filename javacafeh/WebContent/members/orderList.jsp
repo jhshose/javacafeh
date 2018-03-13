@@ -33,46 +33,50 @@
 		</nav>
 		<!-- article page -->
 		<article>
-			<table border="1">
-				<c:forEach items="${oslist}" var="l" varStatus="st">
-					<tr>
-						<th colspan="4" align="center">주문정보 <br>주문번호:${l.ord.order_no}
-						</th>
-					</tr>
-					<tr>
-						<td>배송주소</td>
-						<td colspan="3"><input type="text" name="deliver_addr" value="${l.ord.deliver_addr}"/></td>
-					</tr>
-					<tr>
-						<td>배송요청정보</td>
-						<td colspan="3"><textarea cols="100" rows="10">${l.ord.delever_reg}</textarea></td>
-					</tr>
-
-					<tr>
-						<td colspan="4" align="center">
-							<h3>주문상세</h3>
-						</td>
-					</tr>
-					<tr>
-						<td>상품이름</td>
-						<td>상품단가</td>
-						<td>상품수량</td>
-						<td>합계금액</td>
-					</tr>
-					<c:forEach items="${l.odlist}" var="i" varStatus="st">
+			<div align="center">
+				<h3>주문리스트(orderList)</h3>
+				<table border="1">
+					<c:forEach items="${oslist}" var="l" varStatus="st">
 						<tr>
-							<td>${i.prod_no}</td>
-							<td align="right">${i.sale_price}</td>
-							<td align="right">${i.order_qty}</td>
-							<td align="right">${i.sale_price*i.order_qty}</td>
+							<th colspan="4" align="center">주문정보 <br>주문번호:${l.ord.order_no}
+							</th>
 						</tr>
+						<tr>
+							<td>배송주소</td>
+							<td colspan="3"><input type="text" name="deliver_addr"
+								value="${l.ord.deliver_addr}" /></td>
+						</tr>
+						<tr>
+							<td>배송요청정보</td>
+							<td colspan="3"><textarea cols="100" rows="10">${l.ord.delever_reg}</textarea></td>
+						</tr>
+
+						<tr>
+							<td colspan="4" align="center">
+								<h3>주문상세</h3>
+							</td>
+						</tr>
+						<tr>
+							<td>상품이름</td>
+							<td>상품단가</td>
+							<td>상품수량</td>
+							<td>합계금액</td>
+						</tr>
+						<c:forEach items="${l.odlist}" var="i" varStatus="st">
+							<tr>
+								<td>${i.prod_no}</td>
+								<td align="right">${i.sale_price}</td>
+								<td align="right">${i.order_qty}</td>
+								<td align="right">${i.sale_price*i.order_qty}</td>
+							</tr>
+						</c:forEach>
 					</c:forEach>
-				</c:forEach>
-				<tr>
-					<td align="center" colspan="4"><input type="hidden"
-						value="결재하기" /></td>
-				</tr>
-			</table>
+					<tr>
+						<td align="center" colspan="4"><input type="hidden"
+							value="결재하기" /></td>
+					</tr>
+				</table>
+			</div>
 		</article>
 		<!-- footer page -->
 		<footer><%@ include file="../common/footer.jsp"%></footer>

@@ -39,7 +39,7 @@
 			<%
 				MembersDO a = (MembersDO) request.getAttribute("usrdo");
 			%>
-			<div align="center">
+			<div align="center"><h3>홈화면(home)</h3>
 				<form action="memberControl.jsp" method="post">
 					<input type="hidden" name="action" value="logout">
 					<table border="1">

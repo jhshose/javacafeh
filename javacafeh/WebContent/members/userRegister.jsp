@@ -8,14 +8,11 @@
 <link rel="stylesheet" href="../common/members.css" type="text/css" media="screen" />
 </head>
 <body>
-
 	<div class="container">
-
 		<!-- header page -->
 		<header>
 			<%@ include file="../common/header.jsp"%>
 		</header>
-
 		<!-- menu page -->
 		<nav>
 			<%--
@@ -34,10 +31,9 @@
 				}
 			--%>
 		</nav>
-
 		<!-- article page -->
 		<article>
-			<h1>User Register Form</h1>
+			<h1>User Register Form(userRegister)</h1>
 			<form action="memberControl.jsp" method="post">
 				<input type="hidden" name="action" value="insert">
 				<table border="1" style="with: 50%">
@@ -81,11 +77,8 @@
 				<input type="submit" value="Submit">
 			</form>
 		</article>
-
 		<!-- footer page -->
 		<footer><%@ include file="../common/footer.jsp"%></footer>
-
 	</div>
-
 </body>
 </html>

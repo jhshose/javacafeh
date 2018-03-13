@@ -13,19 +13,15 @@
 <jsp:setProperty name="usrdo" property="*" />
 
 <body>
-
 	<div class="container">
-
 		<!-- header page -->
 		<header>
 			<%@ include file="../common/header.jsp"%>
 		</header>
-
 		<!-- menu page -->
 		<nav>
 			<%@ include file="../common/menu.jsp"%>
 		</nav>
-
 		<!-- article page -->
 		<article>
 			<%
@@ -33,7 +29,7 @@
 				MembersDO a = (MembersDO) request.getAttribute("usrdo");
 				//out.println("Hello  " + a.getUser_no() + "<br>");
 			%>
-			<h1>User Find Form</h1>
+			<h1>User Find Form(userFind)</h1>
 			<form action="memberControl.jsp" method="post">
 				<input type="hidden" name="action" value="find">
 				<table border="1" style="with: 50%">
@@ -77,11 +73,8 @@
 				<input type="submit" value="Modify">
 			</form>
 		</article>
-
 		<!-- footer page -->
 		<footer><%@ include file="../common/footer.jsp"%></footer>
-
 	</div>
-
 </body>
 </html>
