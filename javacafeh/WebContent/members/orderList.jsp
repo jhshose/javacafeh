@@ -41,7 +41,7 @@
 					</tr>
 					<tr>
 						<td>배송주소</td>
-						<td colspan="3"><input type="text" name="deliver_addr" />${l.ord.deliver_addr}</td>
+						<td colspan="3"><input type="text" name="deliver_addr" value="${l.ord.deliver_addr}"/></td>
 					</tr>
 					<tr>
 						<td>배송요청정보</td>
@@ -69,7 +69,7 @@
 					</c:forEach>
 				</c:forEach>
 				<tr>
-					<td align="center" colspan="4"><input type="submit"
+					<td align="center" colspan="4"><input type="hidden"
 						value="결재하기" /></td>
 				</tr>
 			</table>
