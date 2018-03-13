@@ -21,6 +21,7 @@
 		<article>
 			<!--  start page -->
 			<div align="center">
+				<h3>주문하기</h3>
 				<form>
 					<table border="1">
 						<c:forEach items="${c1list}" var="c" varStatus="st">
