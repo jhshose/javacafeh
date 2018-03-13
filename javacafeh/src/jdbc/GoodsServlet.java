@@ -58,6 +58,10 @@ public class GoodsServlet extends HttpServlet {
 			request.getRequestDispatcher("../goods/goodsForm.jsp").forward(request, response);
 
 		} else if (action.equals("goodsList")) {
+			
+			if(goodsDO.getProd_category()==null) {
+				goodsDO.setProd_category("");
+			}
 			request.setAttribute("datas", goodsDAO.selectAll(goodsDO.getProd_category())); // 액션에서 객체를 request에 담을때.
 																	// request.setAttribute("객체명",객체);
 			request.getRequestDispatcher("goodsList.jsp").forward(request, response);
