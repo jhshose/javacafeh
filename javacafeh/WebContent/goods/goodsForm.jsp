@@ -31,6 +31,7 @@
 	function file_open() {
 		window.open("upload.jsp", "upload", "width=300 height=200 left=300 top=30");
 	}
+	
 </script>
 </head>
 <body>
@@ -60,8 +61,8 @@
 							<td>상품명 : ${goods.prod_name}</td>
 						</tr>
 						<tr>
-							<td>판매가 : <input width="50" type="text" readonly="readonly"
-								name="sales_price" value="${goods.prod_price}" /></td>
+							<td><del>판매가 : ${goods.prod_price} </del></td>
+								
 						</tr>
 						<tr>
 							<td>할인금액 : ${goods.off_price}</td>
