@@ -2,7 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +19,6 @@
 			customConfig : '../ckeditor/config.js'
 		});
 	}
-
 	function return_check() {
 		// document.getElementById("contents").value;
 		var data = CKEDITOR.instances.contents.getData();
@@ -29,15 +29,14 @@
 		}
 		return true;
 	}
-
 	function file_open() {
 		window.open("upload.jsp", "upload", "width=300 height=200 left=300 top=30");
 	}
 </script>
-
 </head>
-
-
+<sql:query var="rs" dataSource="jdbc/oracle_jsp">
+select category_id, category_name, category_desc from category
+</sql:query>
 <body>
 	상품등록(관리자)
 	<div class="container">
@@ -96,7 +95,7 @@
 								<tr>
 									<td align="center">상품카테고리</td>
 									<td><select name="prod_category">
-											<c:forEach items="${cate}" var="gds">
+											<c:forEach items="${rs.rows}" var="gds">
 												<option value="${gds.category_id}">
 													${gds.category_name}</option>
 											</c:forEach>
