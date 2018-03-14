@@ -30,7 +30,6 @@ public class GoodsServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		request.setCharacterEncoding("utf-8");
 
-		
 		// 내장 객체
 		ServletContext application = request.getServletContext();
 		HttpSession session = request.getSession();
@@ -40,7 +39,7 @@ public class GoodsServlet extends HttpServlet {
 		GoodsDO goodsDO = new GoodsDO();
 
 		try {
-			BeanUtils.copyProperties(goodsDO, request.getParameterMap()); //앞단 화면의 뷰에서 여기에 담는다
+			BeanUtils.copyProperties(goodsDO, request.getParameterMap()); // 앞단 화면의 뷰에서 여기에 담는다
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
@@ -52,18 +51,29 @@ public class GoodsServlet extends HttpServlet {
 		if (action == null) {
 			out.println("action이 null입니다.");
 
+		} else if (action.equals("adminGoodsForm")) { // 상세보기 페이지
+			
+			
 		} else if (action.equals("goodsForm")) { // 상세보기 페이지
 			GoodsDO gds = goodsDAO.selectOne(goodsDO.getProd_no());
 			request.setAttribute("goods", gds); // 액션에서 객체를 request에 담을때. request.setAttribute("객체명",객체);
 			request.getRequestDispatcher("../goods/goodsForm.jsp").forward(request, response);
 
-		} else if (action.equals("goodsList")) {
-			
-			if(goodsDO.getProd_category()==null) {
+		} else if (action.equals("adminGoodsList")) {
+			out.println("action이" + action);
+			if (goodsDO.getProd_category() == null) {
 				goodsDO.setProd_category("");
 			}
 			request.setAttribute("datas", goodsDAO.selectAll(goodsDO.getProd_category())); // 액션에서 객체를 request에 담을때.
-																	// request.setAttribute("객체명",객체);
+			// request.setAttribute("객체명",객체);
+			request.getRequestDispatcher("adminGoodsList.jsp").forward(request, response);
+
+		} else if (action.equals("goodsList")) {
+			if (goodsDO.getProd_category() == null) {
+				goodsDO.setProd_category("");
+			}
+			request.setAttribute("datas", goodsDAO.selectAll(goodsDO.getProd_category())); // 액션에서 객체를 request에 담을때.
+			// request.setAttribute("객체명",객체);
 			request.getRequestDispatcher("goodsList.jsp").forward(request, response);
 
 		} else if (action.equals("goodsConfirm")) {// 주문확인
