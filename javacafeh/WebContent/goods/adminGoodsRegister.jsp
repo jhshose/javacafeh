@@ -54,7 +54,7 @@ select category_id, category_name, category_desc from category
 		<!-- article page -->
 		<article>
 			<div align="center">
-				<h3>상품등록(관리자)</h3>
+				<h3>상품등록(관리자):adminGoodsRegister</h3>
 				<!--  start page -->
 				<form name="frm1" action="GoodsServlet" method="get">
 					<input type="hidden" name="action" value="adminGoodsRegister">
