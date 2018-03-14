@@ -84,14 +84,12 @@ ul.menu li {
 						<span>${goods.prod_no} <img
 							src="../images/${goods.prod_image}" width="250" height="250"></span>
 						<span>${goods.prod_name} </span>
-						<!--     -->
-						<span>${goods.prod_content}</span>
+						<!-- <span>${goods.prod_content}</span>    -->
+						
 						<!--     -->
 						<span>${goods.onhand_qty} </span>
 						<!--     -->
 						<span>${goods.prod_price}</span>
-						<!--     -->
-						<span>${goods.prod_content} </span>
 						<!--     -->
 					</div>
 				</c:forEach>
