@@ -36,7 +36,7 @@
 			<li><a href="../members/memberControl.jsp?action=select">회원전체리스트</a></li>
 			<li>:::상품관리:::</li>
 			<li><a href="../goods/goods_form.jsp">상품조회</a></li>
-			<li><a href="../goods/GoodsServlet?action=adminGoodsRegister">상품등록</a></li>
+			<li><a href="../goods/adminGoodsRegister.jsp">상품등록</a></li>
 			<li><a href="../goods/GoodsServlet?action=goodsList">상품list</a></li>
 			<!-- <li><a href="../goods/GoodsServlet?action=selectAll">상품list</a></li> -->
 			<hr>
