@@ -9,6 +9,29 @@
 <title>goodsForm.jsp(상품 상세화면)</title>
 <link rel="stylesheet" href="../common/members.css" type="text/css"
 	media="screen" />
+
+<script src="../ckeditor/ckeditor.js"></script>
+<script>
+	window.onload = function() {
+		CKEDITOR.replace("prod_content", {
+			filebrowserUploadUrl : '../ckeditor/fileUpload.jsp',
+			customConfig : '../ckeditor/config.js'
+		});
+	}
+	function return_check() {
+		// document.getElementById("contents").value;
+		var data = CKEDITOR.instances.contents.getData();
+		//console(data);
+		if (data == '') {
+			alert("input editor..");
+			return false;
+		}
+		return true;
+	}
+	function file_open() {
+		window.open("upload.jsp", "upload", "width=300 height=200 left=300 top=30");
+	}
+</script>
 </head>
 <body>
 	<div class="container">
@@ -28,7 +51,7 @@
 					<input type="hidden" name="action" value="cart"> <input
 						type="hidden" name="user_no" value="${userno.user_no}"> <input
 						type="hidden" name="prod_no" value="${goods.prod_no}" />
-					<table width="500px">
+					<table>
 						<tr>
 							<td rowspan="8"><img src="../images/${goods.prod_image}"
 								width="300" height="450"></td>
@@ -61,6 +84,9 @@
 						<!-- 장바구니로 이동 -->
 						<tr>
 							<td><button type="button">주문하기</button></td>
+						</tr>
+						<tr>
+							<td colspan="2"><span>${goods.prod_content}</span></td>
 						</tr>
 						<!-- 주문페이지로 이동 -->
 					</table>
