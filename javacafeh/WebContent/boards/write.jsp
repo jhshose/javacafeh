@@ -48,13 +48,10 @@
   <tr> 
    <td>
     <table width="700" border="3" bordercolor="lightgray" align="center">
-    <tr>
-    		 <td id="title">작성자</td>
-             <td>
-             	 <input name="title" type="text" size="70" maxlength="100" value=""/>
+    <tr>		
              </td>    			
-            <!-- <td id="title">작성자</td> -->
-            <%-- <td>${sessionScope.sessionID}</td> --%>
+             <td id="title">작성자</td>
+             <td><input name="user_no" type="text" size="70" maxlength="100" value="${sessionScope.userno.user_no}" readonly="readonly"/></td>            
         </tr>
             <tr>
             <td id="title">
@@ -63,16 +60,21 @@
             <td>
                 <input name="title" type="text" size="70" maxlength="100" value=""/>
             </td>        
-        </tr>
-        
+        </tr>        
+        	  <tr>
+            <td id="title">
+               비 밀 글
+            </td>
+            <td>
+                <input type="checkbox" name="password_yn" value="y" />
+            </td>        
+        </tr>        
         <tr>
             <td id="title">
                 내 용
             </td>
             <td>
-                <textarea name="contents" cols="72" rows="20"></textarea> 
-                <br>
-                <input type="checkbox">비밀글           
+                <textarea name="contents" cols="72" rows="20"></textarea>                             
             </td>        
         </tr>
         <!-- <tr>

@@ -28,6 +28,21 @@
 
 <link rel="stylesheet" href="../css/common.css" type="text/css"
 	media="screen" />
+
+	
+<script>
+
+	function delsava(){
+		if(document.delete.password.value==''){
+		alert("비밀번호를 입력하세요.");
+		document.delete.password.focus();
+		return false;
+		}
+	}	
+	
+</script>
+	
+	
 <!-- <script type="text/javascript">
         function changeView(value)
         {
@@ -89,10 +104,11 @@
             </tr> 
       
       <tr align="center" valign="middle">
-      <td colspan="5">
-      	
+      <td colspan="5">      	
+      	<c:if test="${sessionScope.userno.user_no == bbs.user_no}">
       	<input type=button value="수정" onclick="window.location='BBSServlet?action=edit&bbsnum=${bbs.bbsnum}'">
       	<input type=button value="삭제" onclick="window.location='BBSServlet?action=delete&bbsnum=${bbs.bbsnum}'">
+      	</c:if>
       	<input type=button value="답글" onclick="window.location='reply.jsp?ref=${bbs.bbsnum}&re_step=${bbs.re_step}&ref_lev=${bbs.ref_lev}'">
       	<input type="button" value="목록" onclick="window.location='BBSServlet?action=list&bbsnum=${bbs.bbsnum}'"> 
        

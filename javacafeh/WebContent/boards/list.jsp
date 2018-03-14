@@ -70,7 +70,7 @@
 			
 					<tr>					
 					<th style="width: 60px;">번호</th>				
-					<th>제목</th>
+					<th>제목</th>					
 					<th>작성자</th>
 					<th style="width: 84px;">작성일</th>
 					<th style="width: 60px;">조회수</th>	
@@ -91,7 +91,22 @@
                             &nbsp;&nbsp; <!-- 답변글일경우 글 제목 앞에 공백을 준다. -->
                         </c:forEach>
                         RE : 
-                    </c:if><a href="BBSServlet?action=selectOne&bbsnum=${b.bbsnum}">${b.title}</a></td>
+                    </c:if>
+                                        
+				                                      
+					<c:if test="${b.password_yn == 'y'}" >
+                    <img src="../boards/자물쇠.JPG">
+	                     <c:if test="${sessionScope.userno.user_no == b.user_no}">
+	                     <a href="BBSServlet?action=selectOne&bbsnum=${b.bbsnum}">${b.title}</a>
+	                    </c:if>
+	                     <c:if test="${sessionScope.userno.user_no != b.user_no}">
+	                     ${b.title}
+	                    </c:if>
+					</c:if> 
+                     <c:if test="${b.password_yn != 'y' }">        
+                    <a href="BBSServlet?action=selectOne&bbsnum=${b.bbsnum}">${b.title}</a>
+                  	</c:if>                    
+                    </td>
 					<td width="73">${b.user_no }</td>
 					<td width="164">${b.reg_date}</td> 
 					<td width="58">${b.readcount}</td>
@@ -102,7 +117,7 @@
 				 </c:forEach>					
 								
 			 </table>
-			
+   <c:if test="${not empty sessionScope.userno}">
 			<table align="center">
 				<tr>
 					<td><input type=button value="글쓰기"
@@ -110,6 +125,7 @@
 					</td>															
 				</tr>			
 			</table>  
+	</c:if>
 			<myTag:paging paging="${paging}" jsfunc="dolist"/>
 		</article>
 
