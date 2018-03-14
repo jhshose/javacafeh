@@ -61,7 +61,7 @@
 							<td>상품명 : ${goods.prod_name}</td>
 						</tr>
 						<tr>
-							<td><del>판매가 : ${goods.prod_price} </del></td>
+							<td><strike>판매가 : ${goods.prod_price} </strike></td>
 								
 						</tr>
 						<tr>
