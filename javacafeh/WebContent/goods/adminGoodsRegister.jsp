@@ -38,7 +38,7 @@
 select category_id, category_name, category_desc from category
 </sql:query>
 <body>
-	상품등록(관리자)
+
 	<div class="container">
 
 		<!-- header page -->
@@ -53,68 +53,71 @@ select category_id, category_name, category_desc from category
 
 		<!-- article page -->
 		<article>
-			<!--  start page -->
-			<form name="frm1" action="GoodsServlet" method="get">
-				<input type="hidden" name="action" value="adminGoodsRegister">
-				<table border="1" width="700" cellpadding="2" cellspacing="1"
-					bgcolor=#777777>
-					<tr>
-						<td height=20 align=center bgcolor=#999999><font color=white><B>상품등록</B></font></td>
-					</tr>
-					<!-- 입력 부분 -->
-					<tr>
-						<td bgcolor=white>&nbsp;
-							<table border="1">
+			<div align="center">
+				<h3>상품등록(관리자)</h3>
+				<!--  start page -->
+				<form name="frm1" action="GoodsServlet" method="get">
+					<input type="hidden" name="action" value="adminGoodsRegister">
+					<table border="1" width="700" cellpadding="2" cellspacing="1"
+						bgcolor=#777777>
+						<tr>
+							<td height=20 align=center bgcolor=#999999><font color=white><B>상품등록</B></font></td>
+						</tr>
+						<!-- 입력 부분 -->
+						<tr>
+							<td bgcolor=white>&nbsp;
+								<table border="1">
 
-								<tr>
-									<td align="center">상품명</td>
-									<td><input type="text" name="prod_name" /></td>
-								</tr>
-								<tr>
-									<td align="center">상품이미지</td>
-									<td><input type="text" name="prod_image" /> <input
-										type="button" value="파일첨부" onclick="file_open()"><br></td>
-								</tr>
-								<tr>
-									<td align="center">상품설명</td>
-									<td><textarea name="prod_content" cols=70 rows=15></textarea></td>
-								</tr>
-								<tr>
-									<td align="center">상품재고량</td>
-									<td><input type="text" name="onhand_qty" /></td>
-								</tr>
-								<tr>
-									<td align="center">상품판매가</td>
-									<td><input type="text" name="prod_price" /></td>
-								</tr>
-								<tr>
-									<td align="center">상품할인가</td>
-									<td><input type="text" name="off_price" /></td>
-								</tr>
+									<tr>
+										<td align="center">상품명</td>
+										<td><input type="text" name="prod_name" /></td>
+									</tr>
+									<tr>
+										<td align="center">상품이미지</td>
+										<td><input type="text" name="prod_image" /> <input
+											type="button" value="파일첨부" onclick="file_open()"><br></td>
+									</tr>
+									<tr>
+										<td align="center">상품설명</td>
+										<td><textarea name="prod_content" cols=70 rows=15></textarea></td>
+									</tr>
+									<tr>
+										<td align="center">상품재고량</td>
+										<td><input type="text" name="onhand_qty" /></td>
+									</tr>
+									<tr>
+										<td align="center">상품판매가</td>
+										<td><input type="text" name="prod_price" /></td>
+									</tr>
+									<tr>
+										<td align="center">상품할인가</td>
+										<td><input type="text" name="off_price" /></td>
+									</tr>
 
-								<tr>
-									<td align="center">상품카테고리</td>
-									<td><select name="prod_category">
-											<c:forEach items="${rs.rows}" var="gds">
-												<option value="${gds.category_id}">
-													${gds.category_name}</option>
-											</c:forEach>
-									</select></td>
-								</tr>
-								<tr>
-									<td align="center">상품사용여부</td>
-									<td><input type="text" name="useyn" value="Y" /></td>
-								</tr>
-								<tr align="center">
-									<td colspan="2"><input type="submit" value="저장"></td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<!-- 입력 부분 끝 -->
-				</table>
-			</form>
-			<!--  end   page -->
+									<tr>
+										<td align="center">상품카테고리</td>
+										<td><select name="prod_category">
+												<c:forEach items="${rs.rows}" var="gds">
+													<option value="${gds.category_id}">
+														${gds.category_name}</option>
+												</c:forEach>
+										</select></td>
+									</tr>
+									<tr>
+										<td align="center">상품사용여부</td>
+										<td><input type="text" name="useyn" value="Y" /></td>
+									</tr>
+									<tr align="center">
+										<td colspan="2"><input type="submit" value="저장"></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<!-- 입력 부분 끝 -->
+					</table>
+				</form>
+				<!--  end   page -->
+			</div>
 		</article>
 
 		<!-- footer page -->
