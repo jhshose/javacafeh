@@ -150,7 +150,7 @@ public class BBSServlet extends HttpServlet {
     	} else if(action.equals("delete")) {    		   		   		
     		//삭제 처리		
     		if (bbsDAO.delete(bbs.getBbsnum())) {
-    	
+    			
     		//목록으로 페이지 이동
     		response.sendRedirect("BBSServlet?action=list"); }
     	} else if(action.equals("insertReply")) {

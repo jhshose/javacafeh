@@ -128,8 +128,8 @@ public class BBSDAO extends DAO {
 		
 		try {
 			connect();
-			String sql = "insert into boards (bbsnum, title, contents, ref, user_no,reg_date,readcount, re_step)"				
-					+ " values(BOARDS_SEQ.nextval, ?, ?, Boards_seq.currval, ? ,sysdate,0,0)";
+			String sql = "insert into boards (bbsnum, title, contents, ref, user_no,reg_date,readcount, re_step, password_yn)"				
+					+ " values(BOARDS_SEQ.nextval, ?, ?, Boards_seq.currval, ? ,sysdate,0,0,?)";
 			
 			String bbsnum = bbs.getBbsnum();				
 			
@@ -138,6 +138,7 @@ public class BBSDAO extends DAO {
 			pstmt.setString(1, bbs.getTitle());
 			pstmt.setString(2, bbs.getContents());	
 			pstmt.setString(3, bbs.getUser_no());
+			pstmt.setString(4, bbs.getPassword_yn());
 			
 			
 			int r = pstmt.executeUpdate();
@@ -201,14 +202,16 @@ public class BBSDAO extends DAO {
 		}
 		return true;
 	}	
-	
+
 	public boolean delete(String bbsnum) {
 		// 삭제 구현
 		try {
 			connect();
-			stmt = conn.createStatement();
+			
 			String sql = "delete from boards where bbsnum = "+ bbsnum;
-			int r = stmt.executeUpdate(sql);
+			stmt = conn.createStatement();			
+			int r = stmt.executeUpdate(sql);	
+			
 			System.out.println(r + "건이 삭제 완료");
 		} catch (Exception e) {
 			e.printStackTrace();
