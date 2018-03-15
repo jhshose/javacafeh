@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import common.DAO;
+import jdbc.GoodsDO;
 
 public class OrdersDAO extends DAO {
 
@@ -185,6 +186,44 @@ public class OrdersDAO extends DAO {
 		}
 		return p_ret;
 	}// end of orderComplete
+
+	public String createOrderHeader(String p_user_no, GoodsDO gds) {
+		connect();
+		String orderHeaderNo = null;
+		// 헤더정보 하나 생성하고 그 헤더번호를 받아와서 라인정보에서 넣어줄때 사용.
+		CallableStatement cstmt = null;
+		try {
+			connect();
+			conn.setAutoCommit(false); // 트랜잭션 처리
+			cstmt = conn.prepareCall("{call order_header(?,?)}");
+			cstmt.setString(1, p_user_no);
+			cstmt.registerOutParameter(2, java.sql.Types.VARCHAR);
+			cstmt.executeUpdate();
+			conn.commit(); // 커밋
+			orderHeaderNo = cstmt.getString(2);
+
+			// System.out.println(detailNo + " " + prodNo + salesPrice + " "+orderQty);
+			String sql = "INSERT INTO oe_details (detail_no, order_no, prod_no, sale_price, order_qty, cart_detailno, flag)"
+					+ " values(ORDERS_SEQ.Nextval ,?,?,?,?,?,'N')";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, orderHeaderNo);
+			pstmt.setString(2, gds.getProd_no());
+			pstmt.setInt(3, gds.getProd_price());
+			pstmt.setInt(4, gds.getOnhand_qty());
+			pstmt.setString(5, "0");
+			int rtn = pstmt.executeUpdate();
+			System.out.println(rtn + " order insert.");
+
+			conn.commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			disconnect();
+		}
+		return orderHeaderNo;
+	}
 
 	// 장바구니에 담겨 있는 내역을 주문하기버튼을 눌렀을 때 실행하는 내용.
 	// 해당 유저의 신규주문을 생성하고 장바구니에 있는 것을 주문에 담는다.
