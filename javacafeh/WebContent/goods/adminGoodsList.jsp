@@ -11,6 +11,12 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="//code.jquery.com/jquery.min.js"></script>
 
+<script>
+	$(function(){
+		$(document).tooltip();
+	});
+</script>
+
 <style>
 ul.menu {
 	list-style-type: none;
@@ -73,7 +79,7 @@ ul.menu li {
 							href="../goods/GoodsServlet?action=adminGoodsList&prod_category=FOODS">푸드</a>
 							&nbsp;&nbsp;&nbsp;</li>
 						<li><a
-							href="../goods/GoodsServlet?action=adminGoodsList&prod_category=CUPS">찻잔</a>
+							href="../goods/GoodsServlet?action=adminGoodsList&prod_category=CUPS" title="고품격 폴란드 수입 찻잔">찻잔</a>
 							&nbsp;&nbsp;&nbsp;</li>
 					</ul>
 				</div>
