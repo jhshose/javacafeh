@@ -46,48 +46,58 @@
 		<!-- article page -->
 		<article>
 			<div align="center">
-				<h3>상품정보변경(관리자):adminGoodsForm</h3>
+				<h3>adminGoodsForm</h3>
 				<form action="../members/memberControl.jsp" method="post">
-					<input type="hidden" name="action" value="cart"> <input
+					<input type="hidden" name="action" value="updateGoods"> <input
 						type="hidden" name="user_no" value="${userno.user_no}"> <input
 						type="hidden" name="prod_no" value="${goods.prod_no}" />
 					<table>
 						<tr>
-							<td rowspan="8"><img src="../images/${goods.prod_image}"
-								width="300" height="450"></td>
+							<td align="center">상품명</td>
+							<td><input type="text" name="prod_name"
+								value="${goods.prod_name}" /></td>
 						</tr>
 						<tr>
-							<td>상품명 : ${goods.prod_name}</td>
+							<td align="center">상품이미지</td>
+							<td><input type="text" name="prod_image"
+								value="${goods.prod_image}" /> <input type="button" value="파일첨부"
+								onclick="file_open()"><br></td>
 						</tr>
 						<tr>
-							<td>판매가 : <input width="50" type="text" readonly="readonly"
-								name="sales_price" value="${goods.prod_price}" /></td>
+							<td align="center">상품설명</td>
+							<td><textarea name="prod_content" cols=70 rows=15>${goods.prod_content}</textarea></td>
 						</tr>
 						<tr>
-							<td>할인금액 : ${goods.off_price}</td>
+							<td align="center">상품재고량</td>
+							<td><input type="text" name="onhand_qty"
+								value="${goods.onhand_qty}" /></td>
 						</tr>
 						<tr>
-							<td>재고량 : ${goods.onhand_qty}</td>
+							<td align="center">상품판매가</td>
+							<td><input type="text" name="prod_price"
+								value="${goods.prod_price}" /></td>
 						</tr>
 						<tr>
-							<td id="shopProductQuantityDiv"
-								class="row productQuantityDiv designSettingElement text-body ">
-								<span class="text">선택수량</span> <input type="number"
-								name="order_qty" id="productQuantity"
-								class="designSettingElement shape" value="1" min="1"
-								data-initialQuantity="">
-							</td>
+							<td align="center">상품할인가</td>
+							<td><input type="text" name="off_price"
+								value="${goods.off_price}" /></td>
+						</tr>
+
+						<tr>
+							<td align="center">상품카테고리</td>
+							<td><select name="prod_category">
+									<c:forEach items="${rs.rows}" var="gds">
+										<option value="${gds.category_id}">
+											${gds.category_name}</option>
+									</c:forEach>
+							</select></td>
 						</tr>
 						<tr>
-							<td><input type="submit" value="장바구니담기" /></td>
-						</tr>
-						<!-- 장바구니로 이동 -->
-						<tr>
-							<td><button type="button">주문하기</button></td>
+							<td align="center">상품사용여부</td>
+							<td><input type="text" name="useyn" value="${goods.useyn}" /></td>
 						</tr>
 						<tr>
-							<td colspan="2"><span><textarea name="prod_content"
-										cols=70 rows=15>${goods.prod_content}</textarea></span></td>
+							<td colspan="2"><input type="submit" value="변경" /></td>
 						</tr>
 						<!-- 주문페이지로 이동 -->
 					</table>
