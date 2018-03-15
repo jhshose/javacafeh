@@ -152,17 +152,19 @@ public class GoodsDAO extends DAO {
 		// boolean result=false;
 		try {
 			connect();
-			String sql = "update goods set prod_name=?,prod_content=?,onhand_qty=?,prod_price=?,off_price=?"
+			String sql = "update goods set prod_name=NVL(?,prod_name),prod_content=NVL(?,prod_content),onhand_qty=NVL(?,onhand_qty)"
+					+ " ,prod_price=NVL(?,prod_price),off_price=NVL(?,off_price),useyn=NVL(?,useyn),prod_image=NVL(?,prod_image) "
 					+ "  where prod_no=?";
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, prod.getProd_name());
-			pstmt.setString(2, prod.getProd_content()); // 이미지파일포함
+			pstmt.setString(2, prod.getProd_content());
 			pstmt.setInt(3, prod.getOnhand_qty());
 			pstmt.setInt(4, prod.getProd_price());
 			pstmt.setInt(5, prod.getOff_price());
-			// pstmt.setString(6, prod.getProd_image());
-			pstmt.setString(6, prod.getProd_no());
+			pstmt.setString(6, prod.getUseyn());
+			pstmt.setString(7, prod.getProd_image());
+			pstmt.setString(8, prod.getProd_no());
 
 			int u = pstmt.executeUpdate();
 			if (u > 0) { // 수정에 성공했는지 여부 확인
