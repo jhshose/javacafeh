@@ -8,40 +8,34 @@
 <link rel="stylesheet" href="../common/members.css" type="text/css"
 	media="screen" />
 <script>
-	function go2() {
-		//document.frm.location.href = "cartForm.jsp";
-		window.location.href = "cartForm.jsp";
+	function go2(user_no) {
+		//alert("go");
+		//document.frm.action.value = "memberControl.jsp?action=cartlistUser&user_no=" + user_no;
+		//document.frm.submit();
+		window.location.href = "memberControl.jsp?action=cartlistUser&user_no=" + user_no;
 	}
-	function go3() {
-		var modify = document.getElementById("orders");
-		window.location.href = "memberControl.jsp?action=update";
+	function go3(user_no) {
+		//var modify = document.getElementById("orders");
+		window.location.href = "memberControl.jsp?action=orderlistUser&user_no=" + user_no;
 	}
 </script>
 </head>
-
 <jsp:useBean id="usrdo" class="members.MembersDO" />
 <jsp:setProperty name="usrdo" property="*" />
-
 <body>
-
 	<div class="container">
-
 		<!-- header page -->
 		<header>
 			<%@ include file="../common/header.jsp"%>
 		</header>
-
 		<!-- menu page -->
 		<nav>
 			<%@ include file="../common/menu.jsp"%>
 		</nav>
-
 		<!-- article page -->
 		<article>
 			<%
-				//String a = session.getAttribute("usrdo").toString();
 				MembersDO a = (MembersDO) request.getAttribute("usrdo");
-				//out.println("Hello  " + a.getUser_no() + "<br>");
 			%>
 			<div align="center">
 				<h1>회원정보 변경(userSearch)</h1>
@@ -90,8 +84,8 @@
 					<!--  -->
 					<input type="submit" value="정보변경">
 					<!--  -->
-					<input type="button" value="장바구니보기" id="cart" onclick="go2()">
-					<input type="button" value="주문정보보기" id="orders" onclick="go3()">
+					<input type="button" value="장바구니보기" id="cart" onclick="go2('<%=a.getUser_no()%>')"> 
+					<input type="button" value="주문정보보기" id="orders" onclick="go3('<%=a.getUser_no()%>')">
 				</form>
 			</div>
 		</article>
