@@ -12,11 +12,13 @@
 		//alert("go");
 		//document.frm.action.value = "memberControl.jsp?action=cartlistUser&user_no=" + user_no;
 		//document.frm.submit();
-		window.location.href = "memberControl.jsp?action=cartlistUser&user_no=" + user_no;
+		window.location.href = "memberControl.jsp?action=cartlistUser&user_no="
+				+ user_no;
 	}
 	function go3(user_no) {
 		//var modify = document.getElementById("orders");
-		window.location.href = "memberControl.jsp?action=orderlistUser&user_no=" + user_no;
+		window.location.href = "memberControl.jsp?action=orderlistUser&user_no="
+				+ user_no;
 	}
 </script>
 </head>
@@ -44,7 +46,7 @@
 					<table border="1" style="with: 50%">
 						<tr>
 							<td>사용자 아이디</td>
-							<td><input type="text" name="user_no"
+							<td><input type="text" name="user_no" readonly="readonly"
 								value=<%=a.getUser_no()%> /></td>
 						</tr>
 						<tr>
@@ -54,38 +56,46 @@
 						</tr>
 						<tr>
 							<td>성명</td>
-							<td><input type="text" name="name" value=<%=a.getName()%> /></td>
+							<td><input type="text" name="name" value="<%=a.getName()%>" /></td>
 						</tr>
 						<tr>
 							<td>이메일</td>
-							<td><input type="text" name="email" value=<%=a.getEmail()%> /></td>
+							<td><input type="text" name="email"
+								value="<%=a.getEmail()%>" /></td>
 						</tr>
 						<tr>
 							<td>전화번호</td>
-							<td><input type="text" name="phone" value=<%=a.getPhone()%> /></td>
+							<td><input type="text" name="phone"
+								value="<%=a.getPhone()%>" /></td>
 						</tr>
 						<tr>
 							<td>주소</td>
 							<td><input type="text" name="address1"
-								value=<%=a.getAddress1()%> /></td>
+								value="<%=a.getAddress1()%>" /></td>
 						</tr>
 						<tr>
 							<td>생년월일</td>
 							<td><input type="date" name="birth" value=<%=a.getBirth()%> /></td>
 						</tr>
+						<tr>
+							<td>회원등급</td>
+							<td><input type="text" name="grade"
+								value="<%=a.getGrade()%>" /></td>
+						</tr>
 					</table>
 					<input type="hidden" name="address2">
 					<!--  -->
-					<input type="hidden" name="reg_date">
+					<input type="hidden" name="reg_date" value="<%=a.getReg_date()%>" />
 					<!--  -->
-					<input type="hidden" name="out_date">
+					<input type="hidden" name="out_date" value="<%=a.getOut_date()%>" />
 					<!--  -->
-					<input type="hidden" name="grade">
+
 					<!--  -->
-					<input type="submit" value="정보변경">
+					<input type="submit" value="회원등급변경">
 					<!--  -->
-					<input type="button" value="장바구니보기" id="cart" onclick="go2('<%=a.getUser_no()%>')"> 
-					<input type="button" value="주문정보보기" id="orders" onclick="go3('<%=a.getUser_no()%>')">
+					<input type="button" value="장바구니보기" id="cart"
+						onclick="go2('<%=a.getUser_no()%>')"> <input type="button"
+						value="주문정보보기" id="orders" onclick="go3('<%=a.getUser_no()%>')">
 				</form>
 			</div>
 		</article>

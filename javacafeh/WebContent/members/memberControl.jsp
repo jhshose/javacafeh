@@ -81,7 +81,7 @@
 			gdso.setProd_no(request.getParameter("prod_no"));
 			System.out.println("prod_price:::" + request.getParameter("sales_price"));
 			Integer prod_price = (Integer.parseInt(request.getParameter("sales_price")));
-			
+
 			gdso.setProd_price(prod_price);
 			Integer onhand_qty = (Integer.parseInt(request.getParameter("order_qty")));
 			gdso.setOnhand_qty(onhand_qty);
@@ -203,6 +203,16 @@
 			ArrayList<MembersDO> usrlist = usrdao.selectAll();
 			request.setAttribute("usrdo", usrlist);
 			pageContext.forward("userAll.jsp");
+
+		} else if (action.equals("updateUserInfo")) {
+			System.out.println("action===" + action);
+			if (usrdao.update(usrdo)) {
+				response.sendRedirect("memberControl.jsp?action=home&user_no=" + usrdo.getUser_no());
+
+			} else {
+				out.println("<script>alert('회원정보변경에러')</script>");
+
+			}
 
 		} else if (action.equals("logout")) {
 			//세션을 초기화 한다.

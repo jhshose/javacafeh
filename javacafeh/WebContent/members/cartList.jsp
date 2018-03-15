@@ -34,7 +34,7 @@
 					<input type="hidden" name="action" value="cart2order">
 					<table border="1">
 						<tr>
-							<td colspan="6" align="center">상품정보</td>
+							<th colspan="6" align="center">상품정보</th>
 						</tr>
 						<tr>
 							<td align="center">선택</td>

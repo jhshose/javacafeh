@@ -39,13 +39,17 @@
 			<%
 				MembersDO a = (MembersDO) request.getAttribute("usrdo");
 			%>
-			<div align="center"><h3>홈화면(home)</h3>
+			<div align="center">
+				<h3>홈화면(home)</h3>
 				<form action="memberControl.jsp" method="post">
-					<input type="hidden" name="action" value="logout">
+					<input type="hidden" name="action" value="updateUserInfo">
 					<table border="1">
 						<tr>
+							<th colspan="2">사용자 정보</th>
+						</tr>
+						<tr>
 							<td>사용자 아이디</td>
-							<td><input type="text" name="user_no"
+							<td><input type="text" name="user_no" readonly="readonly"
 								value=<%=a.getUser_no()%> /></td>
 						</tr>
 						<tr>
@@ -55,7 +59,7 @@
 						</tr>
 						<tr>
 							<td>성명</td>
-							<td><input type="text" name="name" value=<%=a.getName()%> /></td>
+							<td><input type="text" name="name" value="<%=a.getName()%>" /></td>
 						</tr>
 						<tr>
 							<td>이메일</td>
@@ -63,20 +67,25 @@
 						</tr>
 						<tr>
 							<td>전화번호</td>
-							<td><input type="text" name="phone" value=<%=a.getPhone()%> /></td>
+							<td><input type="text" name="phone"
+								value="<%=a.getPhone()%>" /></td>
 						</tr>
 						<tr>
 							<td>주소</td>
 							<td><input type="text" name="address1"
-								value=<%=a.getAddress1()%> /></td>
+								value="<%=a.getAddress1()%>" /></td>
 						</tr>
 						<tr>
 							<td>생년월일</td>
 							<td><input type="date" name="birth" value=<%=a.getBirth()%> /></td>
 						</tr>
+						<tr>
+							<td>회원등급</td>
+							<td><input type="text" name="grade" readonly="readonly"
+								value="<%=a.getGrade()%>" />
 					</table>
 					<!--  -->
-					<input type="submit" value="로그아웃">
+					<input type="submit" value="회원정보변경">
 				</form>
 			</div>
 			<c:if test="${userno.getGrade() =='R'}">
