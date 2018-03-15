@@ -59,7 +59,7 @@
 						<c:forEach items="datas" var="event">
 						<tr>
 							<td><a
-								href="EventServlet.java?action=adminEventContent&user_no=${event.event_name}">${event.event_name}</a></td>
+								href="../jdbc/EventServlet?action=adminEventList&event_name=${eventdo.event_name}">${eventdo.event_name}</a></td>
 							<td>${event.start_date}</td>
 							<td>${event.End_date}</td>
 							<td>${event.Prod_category}</td>
