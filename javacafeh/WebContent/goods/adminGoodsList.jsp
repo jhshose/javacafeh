@@ -58,22 +58,22 @@ ul.menu li {
 				<div style="background-color: lime;">
 
 					<ul class="menu">
-						<li><a href="../goods/GoodsServlet?action=goodsList">전체</a>
+						<li><a href="../goods/GoodsServlet?action=adminGoodsList">전체</a>
 							&nbsp;&nbsp;&nbsp;</li>
 						<li><a
-							href="../goods/GoodsServlet?action=goodsList&prod_category=BEANS">원두</a>
+							href="../goods/GoodsServlet?action=adminGoodsList&prod_category=BEANS">원두</a>
 							&nbsp;&nbsp;&nbsp;</li>
 						<li><a
-							href="../goods/GoodsServlet?action=goodsList&prod_category=DUTCH">더치원액</a>
+							href="../goods/GoodsServlet?action=adminGoodsList&prod_category=DUTCH">더치원액</a>
 							&nbsp;&nbsp;&nbsp;</li>
 						<li><a
-							href="../goods/GoodsServlet?action=goodsList&prod_category=BEVERAGE">음료류</a>
+							href="../goods/GoodsServlet?action=adminGoodsList&prod_category=BEVERAGE">음료류</a>
 							&nbsp;&nbsp;&nbsp;</li>
 						<li><a
-							href="../goods/GoodsServlet?action=goodsList&prod_category=FOODS">푸드</a>
+							href="../goods/GoodsServlet?action=adminGoodsList&prod_category=FOODS">푸드</a>
 							&nbsp;&nbsp;&nbsp;</li>
 						<li><a
-							href="../goods/GoodsServlet?action=goodsList&prod_category=CUPS">찻잔</a>
+							href="../goods/GoodsServlet?action=adminGoodsList&prod_category=CUPS">찻잔</a>
 							&nbsp;&nbsp;&nbsp;</li>
 					</ul>
 				</div>
