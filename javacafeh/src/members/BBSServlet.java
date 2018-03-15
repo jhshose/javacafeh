@@ -114,7 +114,7 @@ public class BBSServlet extends HttpServlet {
     	 	if (bbsDAO.insert(bbs)) {
     	 
     	 	//목록으로 페이지 이동
-    	 	response.sendRedirect("../members/BBSServlet?action=list");
+    	 	response.sendRedirect("../members/BBSServlet?action=list&prod_no="+bbs.getProd_no());
     	 	} else {
     	 		out.print("<script>");
     	 		out.print("alert(등록 실패);");
