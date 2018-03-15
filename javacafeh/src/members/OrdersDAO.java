@@ -100,14 +100,15 @@ public class OrdersDAO extends DAO {
 	}// end of selectOrderDetails
 
 	// 사용자의 주문헤더정보
-	public List<HashMap<String, Object>> selectOrder(String p_user_no) {
+	public List<HashMap<String, Object>> selectOrder(String p_user_no, String p_order_no) {
 		connect();
 		List<HashMap<String, Object>> olist = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> omap = null;
 		try {
-			String sql = "select * from orders where user_no = ? and NVL(deliver_flag ,'N') = 'N' order by order_no";
+			String sql = "select * from orders where user_no = ? and order_no = NVL(?, order_no) and NVL(deliver_flag ,'N') = 'N' order by order_no";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, p_user_no);
+			pstmt.setString(2, p_order_no);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				omap = new HashMap<String, Object>();
