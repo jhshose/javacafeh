@@ -52,9 +52,13 @@ public class GoodsServlet extends HttpServlet {
 			out.println("action이 null입니다.");
 
 		} else if (action.equals("adminGoodsForm")) { // 상세보기 페이지
-			
-			
+			System.out.println("action===" + action);
+			GoodsDO gds = goodsDAO.selectOne(goodsDO.getProd_no());
+			request.setAttribute("goods", gds); // 액션에서 객체를 request에 담을때. request.setAttribute("객체명",객체);
+			request.getRequestDispatcher("../goods/adminGoodsForm.jsp").forward(request, response);
+
 		} else if (action.equals("goodsForm")) { // 상세보기 페이지
+			System.out.println("action===" + action);
 			GoodsDO gds = goodsDAO.selectOne(goodsDO.getProd_no());
 			request.setAttribute("goods", gds); // 액션에서 객체를 request에 담을때. request.setAttribute("객체명",객체);
 			request.getRequestDispatcher("../goods/goodsForm.jsp").forward(request, response);
