@@ -87,7 +87,7 @@
 			gdso.setOnhand_qty(onhand_qty);
 
 			String oeh = oda.createOrderHeader(od.getUser_no(), gdso);
-			List<HashMap<String, Object>> c1list = oda.selectOrder(od.getUser_no());
+			List<HashMap<String, Object>> c1list = oda.selectOrder(od.getUser_no(), oeh);
 			request.setAttribute("c1list", c1list);
 			List<HashMap<String, Object>> c2list = oda.selectAll(oeh);
 			request.setAttribute("c2list", c2list);
@@ -102,7 +102,7 @@
 			od.setUser_no(userno.getUser_no());
 			od.setCart_no(request.getParameterValues("detail_no"));
 			String oeh = oda.createOrderHeader(od.getUser_no(), od.getCart_no());
-			List<HashMap<String, Object>> c1list = oda.selectOrder(od.getUser_no());
+			List<HashMap<String, Object>> c1list = oda.selectOrder(od.getUser_no(), "");
 			request.setAttribute("c1list", c1list);
 			List<HashMap<String, Object>> c2list = oda.selectAll(oeh);
 			request.setAttribute("c2list", c2list);
