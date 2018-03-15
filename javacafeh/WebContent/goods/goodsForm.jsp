@@ -38,7 +38,6 @@
 		window.open("upload.jsp", "upload", "width=300 height=200 left=300 top=30");
 	}
 	function orders() {
-		alert("odr");
 		document.frm.action.value = "cart2orderUser";
 		document.frm.submit();
 	}
