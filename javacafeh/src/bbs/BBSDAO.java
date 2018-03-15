@@ -84,20 +84,21 @@ public class BBSDAO extends DAO {
 
 	// 한 페이지 데이터 조회 
 
-	public List<BBS> selectPage(int start, int end) {
+	public List<BBS> selectPage(int start, int end, String prod_no) {
 		ArrayList<BBS> list = new ArrayList<BBS>();
-		BBS bbs = null;
+		BBS bbs = null; 
 		try {
 			// 1.드라이버 로딩 2.DB연결
 			connect();
 			// 3.SQL 구분 실행
 			stmt = conn.createStatement();
 			String sql = "select b.*  from ( select rownum rn, a.* from ( "+
-			"select * from boards ORDER BY ref, re_step "
+			"select * from boards where nvl(prod_no,'x')=nvl(?,nvl(prod_no,'x')) ORDER BY ref, re_step "
 			 + ") a  ) b  where  rn between ? and ? ";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, start);
-			pstmt.setInt(2, end);
+			pstmt.setString(1, prod_no);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -117,7 +118,7 @@ public class BBSDAO extends DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			// 5 연결해제
+			// 5 연결해제 
 			disconnect();
 		}
 		return list;
@@ -128,8 +129,8 @@ public class BBSDAO extends DAO {
 		
 		try {
 			connect();
-			String sql = "insert into boards (bbsnum, title, contents, ref, user_no,reg_date,readcount, re_step, password_yn)"				
-					+ " values(BOARDS_SEQ.nextval, ?, ?, Boards_seq.currval, ? ,sysdate,0,0,?)";
+			String sql = "insert into boards (bbsnum, title, contents, ref, user_no,reg_date,readcount, re_step, password_yn,prod_no)"				
+					+ " values(BOARDS_SEQ.nextval, ?, ?, Boards_seq.currval, ? ,sysdate,0,0,?,?)";
 			
 			String bbsnum = bbs.getBbsnum();				
 			
@@ -139,6 +140,7 @@ public class BBSDAO extends DAO {
 			pstmt.setString(2, bbs.getContents());	
 			pstmt.setString(3, bbs.getUser_no());
 			pstmt.setString(4, bbs.getPassword_yn());
+			pstmt.setString(5, bbs.getProd_no());
 			
 			
 			int r = pstmt.executeUpdate();

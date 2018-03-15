@@ -14,11 +14,12 @@ public class BBS {
 	private String password_yn; // 비밀글 승인여부
 	private String ref_lev; // 부모게시글에 대한 댓글 그룹번호
 	private String user_no; // 회원정보
+	private String prod_no; // 상품가격
 	
 
 	// 생성자 (필수입력 )
 	public BBS(String bbsnum, String title, String contents, String ref, String re_step, Date reg_date,
-			String readcount, String password_yn, String ref_lev, String user_no) {
+			String readcount, String password_yn, String ref_lev, String user_no, String prod_no) {
 		super();
 		this.bbsnum = bbsnum;
 		this.title = title;
@@ -30,6 +31,7 @@ public class BBS {
 		this.password_yn = password_yn;
 		this.ref_lev = ref_lev;
 		this.user_no = user_no;
+		this.prod_no = prod_no;
 	}
 
 	public BBS() {
@@ -116,11 +118,20 @@ public class BBS {
 		this.user_no = user_no;
 	}	
 	
+	
+	public String getProd_no() {
+		return prod_no;
+	}
+
+	public void setProd_no(String prod_no) {
+		this.prod_no = prod_no;
+	}
+
 	@Override
 	public String toString() {
 		return "BBS [bbsnum=" + bbsnum + ", title=" + title + ", contents=" + contents + ", ref=" + ref + ", re_step="
 				+ re_step + ", reg_date=" + reg_date + ", readcount=" + readcount + ", password_yn=" + password_yn
-				+ ", ref_lev=" + ref_lev + ", user_no=" + user_no + "]";
+				+ ", ref_lev=" + ref_lev + ", user_no=" + user_no + ", prod_no=" + prod_no + "]";
 	}
 
 }

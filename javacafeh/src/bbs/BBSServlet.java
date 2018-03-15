@@ -99,7 +99,7 @@ public class BBSServlet extends HttpServlet {
 			paging.setTotalRecord(total);
 			
     		//데이터조회 (DAO)   
-    		List<BBS> datas = bbsDAO.selectPage(paging.getFirst(), paging.getLast());
+    		List<BBS> datas = bbsDAO.selectPage(paging.getFirst(), paging.getLast(),"");
     		request.setAttribute("datas", datas);
     		request.setAttribute("paging", paging);
     		//
