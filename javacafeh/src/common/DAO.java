@@ -34,7 +34,7 @@ public class DAO {
 			DataSource ds = (DataSource) envContext.lookup("jdbc/oracle_jsp");
 			conn = ds.getConnection();
 			if (conn != null) {
-				System.out.println("connect()");
+				//System.out.println("connect()");
 			}
 
 		} catch (Exception e) {
