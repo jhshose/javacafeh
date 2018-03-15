@@ -42,42 +42,7 @@ public class GoodsDAO extends DAO {
 	}
 
 	// 전체 조회
-		public ArrayList<GoodsDO> selectAll() {
-
-			GoodsDO prod = new GoodsDO();
-			ArrayList<GoodsDO> list = new ArrayList<GoodsDO>();
-
-			try {
-				connect();
-
-				stmt = conn.createStatement(); // createStatement는 DB로 SQL문을 보내기 위한 개체
-				String sql = "select * from goods order by prod_no";
-				ResultSet rs = stmt.executeQuery(sql); // sql 쿼리 실행
-				while (rs.next()) {
-					prod = new GoodsDO();
-					prod.setProd_no(rs.getString("prod_no"));
-					prod.setProd_name(rs.getString("prod_name"));
-					prod.setProd_content(rs.getString("prod_content"));
-					prod.setOnhand_qty(rs.getInt("onhand_qty"));
-					prod.setProd_price(rs.getInt("prod_price"));
-					prod.setOff_price(rs.getInt("off_price"));
-					prod.setProd_category(rs.getString("prod_category"));
-					prod.setProd_image(rs.getString("prod_image"));
-
-					list.add(prod);
-				}
-				rs.close();
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				disconnect();
-			}
-			return list;
-		}
-	
-	// 카테고리 조회
-	public ArrayList<GoodsDO> selectAll(String category) {
+	public ArrayList<GoodsDO> selectAll() {
 
 		GoodsDO prod = new GoodsDO();
 		ArrayList<GoodsDO> list = new ArrayList<GoodsDO>();
@@ -86,8 +51,7 @@ public class GoodsDAO extends DAO {
 			connect();
 
 			stmt = conn.createStatement(); // createStatement는 DB로 SQL문을 보내기 위한 개체
-			String sql = "select * from goods where prod_category = nvl('" + category + "', prod_category) order by prod_no";
-			System.out.println(sql);
+			String sql = "select * from goods order by prod_no";
 			ResultSet rs = stmt.executeQuery(sql); // sql 쿼리 실행
 			while (rs.next()) {
 				prod = new GoodsDO();
@@ -111,41 +75,69 @@ public class GoodsDAO extends DAO {
 		}
 		return list;
 	}
-	
-	/*// 카테고리 메뉴 클릭시 분류
-		public ArrayList<GoodsDO> selectCategory() {
 
-			GoodsDO prod = new GoodsDO();
-			ArrayList<GoodsDO> list = new ArrayList<GoodsDO>();
+	// 카테고리 조회
+	public ArrayList<GoodsDO> selectAll(String category) {
 
-			try {
-				connect();
+		GoodsDO prod = new GoodsDO();
+		ArrayList<GoodsDO> list = new ArrayList<GoodsDO>();
 
-				stmt = conn.createStatement(); // createStatement는 DB로 SQL문을 보내기 위한 개체
-				String sql = "select * from goods where prod_category = nvl('',prod_category)";
-				ResultSet rs = stmt.executeQuery(sql); // sql 쿼리 실행
-				while (rs.next()) {
-					prod = new GoodsDO();
-					prod.setProd_no(rs.getString("prod_no"));
-					prod.setProd_name(rs.getString("prod_name"));
-					prod.setProd_content(rs.getString("prod_content"));
-					prod.setOnhand_qty(rs.getInt("onhand_qty"));
-					prod.setProd_price(rs.getInt("prod_price"));
-					prod.setOff_price(rs.getInt("off_price"));
-					prod.setProd_category(rs.getString("prod_category"));
-					prod.setProd_image(rs.getString("prod_image"));
+		try {
+			connect();
 
-					list.add(prod);
-				}
-				rs.close();
+			stmt = conn.createStatement(); // createStatement는 DB로 SQL문을 보내기 위한 개체
+			String sql = "select * from goods where prod_category = nvl('" + category
+					+ "', prod_category) order by prod_no";
+			// System.out.println(sql);
+			ResultSet rs = stmt.executeQuery(sql); // sql 쿼리 실행
+			while (rs.next()) {
+				prod = new GoodsDO();
+				prod.setProd_no(rs.getString("prod_no"));
+				prod.setProd_name(rs.getString("prod_name"));
+				prod.setProd_content(rs.getString("prod_content"));
+				prod.setOnhand_qty(rs.getInt("onhand_qty"));
+				prod.setProd_price(rs.getInt("prod_price"));
+				prod.setOff_price(rs.getInt("off_price"));
+				prod.setProd_category(rs.getString("prod_category"));
+				prod.setProd_image(rs.getString("prod_image"));
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				disconnect();
+				list.add(prod);
 			}
-			return list;
-		}*/
+			rs.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return list;
+	}
+
+	/*
+	 * // 카테고리 메뉴 클릭시 분류 public ArrayList<GoodsDO> selectCategory() {
+	 * 
+	 * GoodsDO prod = new GoodsDO(); ArrayList<GoodsDO> list = new
+	 * ArrayList<GoodsDO>();
+	 * 
+	 * try { connect();
+	 * 
+	 * stmt = conn.createStatement(); // createStatement는 DB로 SQL문을 보내기 위한 개체 String
+	 * sql = "select * from goods where prod_category = nvl('',prod_category)";
+	 * ResultSet rs = stmt.executeQuery(sql); // sql 쿼리 실행 while (rs.next()) { prod
+	 * = new GoodsDO(); prod.setProd_no(rs.getString("prod_no"));
+	 * prod.setProd_name(rs.getString("prod_name"));
+	 * prod.setProd_content(rs.getString("prod_content"));
+	 * prod.setOnhand_qty(rs.getInt("onhand_qty"));
+	 * prod.setProd_price(rs.getInt("prod_price"));
+	 * prod.setOff_price(rs.getInt("off_price"));
+	 * prod.setProd_category(rs.getString("prod_category"));
+	 * prod.setProd_image(rs.getString("prod_image"));
+	 * 
+	 * list.add(prod); } rs.close();
+	 * 
+	 * } catch (Exception e) { e.printStackTrace(); } finally { disconnect(); }
+	 * return list; }
+	 */
 
 	// 수정
 	public boolean update(GoodsDO prod) { // void아니고 boolean타입이기때문에 리턴값 넣어줄것
@@ -208,7 +200,7 @@ public class GoodsDAO extends DAO {
 		return newpo;
 
 	}// end of createProdNo
-	
+
 	// 상품 등록
 	public boolean insert(GoodsDO prod) {
 		try {
@@ -239,35 +231,24 @@ public class GoodsDAO extends DAO {
 		}
 		return true;
 	}
-	
-	/*// 장바구니로 이동
-		public boolean insert(CartsDO cart) {
-			try {
-				GoodsDAO newg = new GoodsDAO();
-				String newpno = newg.createProdNo(cart.getProd_no());
 
-				connect();
-				String sql = "insert into goods(user_no,prod_no,p_qty,p_price) values (?,?,?,?)";
-					
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, cart.getUser_no());
-				pstmt.setString(2, cart.getProd_no());
-				pstmt.setInt(3, cart.getP_qty());
-				pstmt.setInt(4, cart.getP_price());
-				
-
-				int r = pstmt.executeUpdate();
-				System.out.println(r + "건 등록완료");
-
-			} catch (Exception e) {
-				e.printStackTrace();
-				return false;
-			} finally {
-				disconnect();
-			}
-			return true;
-		}*/
-
+	/*
+	 * // 장바구니로 이동 public boolean insert(CartsDO cart) { try { GoodsDAO newg = new
+	 * GoodsDAO(); String newpno = newg.createProdNo(cart.getProd_no());
+	 * 
+	 * connect(); String sql =
+	 * "insert into goods(user_no,prod_no,p_qty,p_price) values (?,?,?,?)";
+	 * 
+	 * pstmt = conn.prepareStatement(sql); pstmt.setString(1, cart.getUser_no());
+	 * pstmt.setString(2, cart.getProd_no()); pstmt.setInt(3, cart.getP_qty());
+	 * pstmt.setInt(4, cart.getP_price());
+	 * 
+	 * 
+	 * int r = pstmt.executeUpdate(); System.out.println(r + "건 등록완료");
+	 * 
+	 * } catch (Exception e) { e.printStackTrace(); return false; } finally {
+	 * disconnect(); } return true; }
+	 */
 
 	// 삭제
 	public void delete(int prod_no) {
