@@ -3,6 +3,12 @@
 <%@page import="java.util.List"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<script>
+	function resizeIframe(fr) {
+		fr.setExpression('height', ifrm.document.body.scrollHeight);
+		fr.setExpression('width', ifrm.document.body.scrollWidth);
+	}
+</script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -96,6 +102,11 @@
 						<!-- 주문페이지로 이동 -->
 					</table>
 				</form>
+				<iframe id="ifrm" width="100%" height="100%" frameborder="no"
+					scrolling="no"
+					src="../members/BBSServlet?action=list&prod_no=${goods.prod_no}"
+					marginwidth="0" marginheight="0" onload="resizeIframe(this)"></iframe>
+				</iframe>
 			</div>
 		</article>
 
