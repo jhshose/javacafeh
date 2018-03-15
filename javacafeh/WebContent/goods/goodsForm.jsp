@@ -31,7 +31,11 @@
 	function file_open() {
 		window.open("upload.jsp", "upload", "width=300 height=200 left=300 top=30");
 	}
-	
+	function orders() {
+		alert("odr");
+		document.frm.action.value = "cart2orderUser";
+		document.frm.submit();
+	}
 </script>
 </head>
 <body>
@@ -48,7 +52,7 @@
 		<article>
 			<div align="center">
 				<h3>goodsForm</h3>
-				<form action="../members/memberControl.jsp" method="post">
+				<form name="frm" action="../members/memberControl.jsp" method="post">
 					<input type="hidden" name="action" value="cart"> <input
 						type="hidden" name="user_no" value="${userno.user_no}"> <input
 						type="hidden" name="prod_no" value="${goods.prod_no}" />
@@ -61,8 +65,8 @@
 							<td>상품명 : ${goods.prod_name}</td>
 						</tr>
 						<tr>
-							<td><strike>판매가 : ${goods.prod_price} </strike></td>
-								
+							<td>판매가 : <input width="50" type="text" readonly="readonly"
+								name="sales_price" value="${goods.prod_price}" /></td>
 						</tr>
 						<tr>
 							<td>할인금액 : ${goods.off_price}</td>
@@ -84,7 +88,7 @@
 						</tr>
 						<!-- 장바구니로 이동 -->
 						<tr>
-							<td><button type="button">주문하기</button></td>
+							<td><button type="button" onclick="orders()">주문하기</button></td>
 						</tr>
 						<tr>
 							<td colspan="2"><span>${goods.prod_content}</span></td>
