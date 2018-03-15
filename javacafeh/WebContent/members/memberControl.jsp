@@ -1,3 +1,4 @@
+<%@page import="jdbc.GoodsDO"%>
 <%@page import="members.OrderSets"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.List"%>
@@ -20,6 +21,9 @@
 <jsp:useBean id="orsdo" class="members.OrdersDO" />
 <jsp:setProperty name="orsdo" property="*" />
 <jsp:useBean id="orsdao" class="members.OrdersDAO" />
+<jsp:useBean id="gdsdo" class="jdbc.GoodsDO" />
+<jsp:setProperty name="gdsdo" property="*" />
+<jsp:useBean id="gdsdao" class="jdbc.GoodsDAO" />
 <%
 	String action = request.getParameter("action");
 	MembersDO userno = (MembersDO) session.getAttribute("userno");
@@ -55,6 +59,11 @@
 			} else {
 				out.println("cart error action.");
 			}
+		} else if (action.equals("cartlistUser")) {
+			System.out.println("action===" + action);
+			ArrayList<CartsDO> clist = crtdao.selectAll(usrdo.getUser_no());
+			request.setAttribute("clist", clist);
+			pageContext.forward("cartList.jsp");
 
 		} else if (action.equals("cartlist")) {
 			//쇼핑을 하다가 장바구니를 조회하고 싶을 때
@@ -62,6 +71,27 @@
 			ArrayList<CartsDO> clist = crtdao.selectAll(userno.getUser_no());
 			request.setAttribute("clist", clist);
 			pageContext.forward("cartList.jsp");
+
+		} else if (action.equals("cart2orderUser")) {
+			System.out.println("action===" + action);
+			OrdersDO od = new OrdersDO();
+			GoodsDO gdso = new GoodsDO();
+			OrdersDAO oda = new OrdersDAO();
+			od.setUser_no(userno.getUser_no());
+			gdso.setProd_no(request.getParameter("prod_no"));
+			System.out.println("prod_price:::" + request.getParameter("sales_price"));
+			Integer prod_price = (Integer.parseInt(request.getParameter("sales_price")));
+			
+			gdso.setProd_price(prod_price);
+			Integer onhand_qty = (Integer.parseInt(request.getParameter("order_qty")));
+			gdso.setOnhand_qty(onhand_qty);
+
+			String oeh = oda.createOrderHeader(od.getUser_no(), gdso);
+			List<HashMap<String, Object>> c1list = oda.selectOrder(od.getUser_no());
+			request.setAttribute("c1list", c1list);
+			List<HashMap<String, Object>> c2list = oda.selectAll(oeh);
+			request.setAttribute("c2list", c2list);
+			pageContext.forward("cartOrders.jsp");
 
 		} else if (action.equals("cart2order")) {
 			//장바구니에 있는 리스트를 주문의 헤더정보와 라인정보로 넘겨준다.
@@ -88,6 +118,13 @@
 			} else {
 				out.println("<script>alert(no정상적으로 처리되었습니다)</script>");
 			}
+
+		} else if (action.equals("orderlistUser")) {
+			System.out.println("action===" + action);
+			OrdersDAO oda = new OrdersDAO();
+			ArrayList<OrderSets> oslist = oda.selectOrdersDetails(usrdo.getUser_no());
+			request.setAttribute("oslist", oslist);
+			pageContext.forward("orderList.jsp");
 
 		} else if (action.equals("orderlist")) {
 			System.out.println("action===" + action);
@@ -149,6 +186,16 @@
 				response.sendRedirect("memberControl.jsp?action=home&user_no=" + usrdo.getUser_no());
 			} else {
 				out.println("login.jsp");
+			}
+
+		} else if (action.equals("updateGoods")) {
+			System.out.println("action===" + action);
+			if (gdsdao.update(gdsdo)) {
+				request.setAttribute("datas", gdsdao.selectAll(""));
+				pageContext.forward("../goods/adminGoodsList.jsp");
+
+			} else {
+				System.out.println("error");
 			}
 
 		} else if (action.equals("select")) {
