@@ -46,14 +46,16 @@
 </head>
 
 <body>
+	
 
+	
 	<div class="container">
-
+    	
 		<!-- header page -->
+				
 		<header>
 			<%@ include file="../common/header.jsp"%>
-		</header>
-
+		</header>	
 		<!-- menu page -->
 		<nav>
 			<%@ include file="../common/menu.jsp"%>
@@ -127,11 +129,11 @@
 			</table>  
 	</c:if>
 			<myTag:paging paging="${paging}" jsfunc="dolist"/>
-		</article>
-
+		</article>	
+		
 		<!-- footer page -->
 		<footer><%@ include file="../common/footer.jsp"%></footer>
-
+		
 	</div>
 
 </body>
