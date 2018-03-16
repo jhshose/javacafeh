@@ -17,6 +17,13 @@
         }
     </style>	
 	
+<script>
+	function dolist(page){
+		location.href="../members/BBSServlet?action=list&page="+page+"&prod_no="+"${param.prod_no}"; 
+	} 
+</script>
+	
+	
 <script src="../ckeditor/ckeditor.js"></script>
 <script>
 	window.onload = function() {
@@ -99,15 +106,14 @@
                 <input type="reset" value="작성취소" >
                 <input type="submit" value="등록" >
                 <input type="button" value="목록" onclick="window.location='../members/BBSServlet?action=list&prod_no=${param.prod_no}'">            
+           		
             </td>
         </tr>
 </table>
 </td>
 </tr>
  </table>
- </form>
-</article>
-		
-
+ </form>		
+		<myTag:paging paging="${paging}" jsfunc="dolist"/>			
 </body>
 </html>

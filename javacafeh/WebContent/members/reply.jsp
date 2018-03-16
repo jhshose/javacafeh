@@ -82,7 +82,7 @@
             <td colspan="5">
                 <input type="reset" value="작성취소" >
                 <input type="submit" value="등록" onclick="window.location='.jsp'">
-                <input type="button" value="목록" onclick="window.location='../members/BBSServlet?action=list&prod_no=${param.prod_no}'">            
+                <input type="button" value="목록" onclick="window.location='../members/BBSServlet?action=list&prod_no=${bbs.prod_no}'">            
             </td>
         </tr>
     </table>    

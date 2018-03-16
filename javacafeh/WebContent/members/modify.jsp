@@ -81,7 +81,7 @@
 					<tr align="center" valign="middle">
 						<td colspan="5"><input type="reset" value="작성취소"> <input
 							type="submit" value="글수정" /> <input type="button" value="목록"
-							onclick="window.location='BBSServlet?action=list&bbsnum=${bbs.bbsnum}'">
+							onclick="window.location='../members/BBSServlet?action=list&prod_no=${bbs.prod_no}'">
 						</td>
 					</tr>
 				</table>
