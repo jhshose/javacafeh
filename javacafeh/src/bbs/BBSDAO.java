@@ -179,7 +179,7 @@ public class BBSDAO extends DAO {
 	            pstmt.setString(2, re_step);
 	            
 	            pstmt.executeUpdate();	  
-			sql = "insert into boards (bbsnum, title, contents, ref, user_no,reg_date,readcount, re_step, ref_lev)"				
+			sql = "insert into boards (bbsnum, title, contents, ref, user_no, reg_date,readcount, re_step, ref_lev)"				
 					+ " values(BOARDS_SEQ.nextval, ?, ?, ?, ? ,sysdate,0,?,?)";
 							
 			
@@ -274,7 +274,6 @@ public class BBSDAO extends DAO {
 			connect();
 			stmt = conn.createStatement();
 			String sql = "select count(*) from boards where nvl(prod_no,'x')=nvl('"+prod_no+"',nvl(prod_no,'x'))";		
-			System.out.println(sql);
 			ResultSet rs = stmt.executeQuery(sql);
 			rs.next();
 			result = rs.getInt(1);

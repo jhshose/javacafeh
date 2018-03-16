@@ -17,8 +17,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.beanutils.BeanUtils;
 
 import common.Paging;
-import jdbc.MembersDAO;
-import jdbc.MembersDO;
+import members.MembersDAO;
+import members.MembersDO;
 
 
 /**
@@ -158,7 +158,8 @@ public class BBSServlet extends HttpServlet {
 	        // 그러기 위해 답글의 순서인 seq를 1증가시킨다.
 	        bbs.setRef(bbs.getRef());
 	        bbs.setRe_step(bbs.getRe_step());
-	        bbsDAO.insertReply(bbs);  
+	        bbs.setUser_no(((MembersDO)session.getAttribute("userno")).getUser_no());
+	        bbsDAO.insertReply(bbs);   
 	        response.sendRedirect("BBSServlet?action=list");
     	}
     	
