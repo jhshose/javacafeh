@@ -98,8 +98,8 @@
       	<input type=button value="삭제" onclick="window.location='BBSServlet?action=delete&bbsnum=${bbs.bbsnum}'">
       	</c:if>
       	<input type=button value="답글" onclick="window.location='reply.jsp?ref=${bbs.bbsnum}&re_step=${bbs.re_step}&ref_lev=${bbs.ref_lev}'">
-      	<input type="button" value="목록" onclick="window.location='BBSServlet?action=list&bbsnum=${bbs.bbsnum}'"> 
-       
+      	<input type="button" value="목록" onclick="window.location='../members/BBSServlet?action=list&prod_no=${param.prod_no}'"> 
+        
         <%-- <a href="<c:url value='BBSServlet?action=delete&bbsnum=${bbs.bbsnum}'/>">삭제</a> --%>
         <%-- <a href="<c:url value='reply.jsp?ref=${bbs.bbsnum}&re_step=${bbs.re_step}&ref_lev=${bbs.ref_lev}'/>">답글</a>
         <a href="<c:url value='BBSServlet?action=list&bbsnum=${bbs.bbsnum}'/>">목록</a> --%>
