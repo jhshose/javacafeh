@@ -91,7 +91,7 @@ public class MembersDAO extends DAO {
 	public boolean update(MembersDO mbr) {
 		connect();
 		try {
-			String sql = "update members set password=?, name=?, email=?, phone=?, address1=?, birth=to_date(?,'rrrr-mm-dd'), out_date=to_date(?,'rrrr-mm-dd'), grade=? "
+			String sql = "update members set password=?, name=?, email=?, phone=?, address1=?, grade=? "
 					+ "where user_no = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mbr.getPassword());
@@ -99,11 +99,10 @@ public class MembersDAO extends DAO {
 			pstmt.setString(3, mbr.getEmail());
 			pstmt.setString(4, mbr.getPhone());
 			pstmt.setString(5, mbr.getAddress1());
-			pstmt.setString(6, mbr.getBirth());
-			pstmt.setString(7, mbr.getOut_date());
-			pstmt.setString(8, mbr.getGrade());
-			pstmt.setString(9, mbr.getUser_no());
-			System.out.println(mbr.getBirth());
+			//pstmt.setString(6, mbr.getBirth());
+			//pstmt.setString(7, mbr.getOut_date());
+			pstmt.setString(6, mbr.getGrade());
+			pstmt.setString(7, mbr.getUser_no());
 			int r = pstmt.executeUpdate();
 			System.out.println("회원정보가 변경완료" + r + " 건 처리.");
 			return true;
