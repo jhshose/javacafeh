@@ -32,19 +32,18 @@
 		<!-- 관리자메뉴 -->
 		<c:if test="${sessionScope.userno.grade=='R'}">
 			<li>:::회원관리:::</li>
-			<li><a href="../members/memberControl.jsp?action=find">회원조회</a></li>
+			<!-- <li><a href="../members/memberControl.jsp?action=find">회원조회</a></li> -->
 			<li><a href="../members/memberControl.jsp?action=select">회원전체리스트</a></li>
 			<li>:::상품관리:::</li>
-			<li><a href="../goods/goods_form.jsp">상품조회</a></li>
+			<!-- <li><a href="../goods/goods_form.jsp">상품조회</a></li> -->
 			<li><a href="../goods/adminGoodsRegister.jsp">상품등록</a></li>
 			<li><a href="../goods/GoodsServlet?action=adminGoodsList">관리자상품list</a></li>
 			<!-- <li><a href="../goods/GoodsServlet?action=selectAll">상품list</a></li> -->
 			<hr>
-			<li>↓↓호섭작업메뉴↓↓</li>
-			<li><a href="../goods/GoodsServlet?action=goodsConfirm">주문확인</a></li>
-			<li><a href="../goods/GoodsServlet?action=cartCheck">장바구니</a></li>
-			<hr>
-			<li><a href="../members/cartForm.jsp">장바구니담기</a></li>
+			<!-- <li>↓↓호섭작업메뉴↓↓</li> -->
+			<!-- <li><a href="../goods/GoodsServlet?action=goodsConfirm">주문확인</a></li> -->
+			<!-- <li><a href="../goods/GoodsServlet?action=cartCheck">장바구니</a></li> -->
+			<!-- <li><a href="../members/cartForm.jsp">장바구니담기</a></li> -->
 		</c:if>
 	</ul>
 </body>
