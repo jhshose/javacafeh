@@ -268,12 +268,13 @@ public class BBSDAO extends DAO {
 	}
 	
 	//전체레코드 건수 조회
-	public int count() {
+	public int count(String prod_no) {
 		int result = 0;
 		try {
 			connect();
 			stmt = conn.createStatement();
-			String sql = "select count(*) from boards";		
+			String sql = "select count(*) from boards where nvl(prod_no,'x')=nvl('"+prod_no+"',nvl(prod_no,'x'))";		
+			System.out.println(sql);
 			ResultSet rs = stmt.executeQuery(sql);
 			rs.next();
 			result = rs.getInt(1);
@@ -283,8 +284,8 @@ public class BBSDAO extends DAO {
 			disconnect();
 		}		
 		return result ;
-	}
-
+	}	
+	
 	//답글 업데이트
 	public boolean updateRef(BBS bbs)
     {        

@@ -94,7 +94,7 @@ public class BBSServlet extends HttpServlet {
     
 	        
 			// 전체 건수
-			int total = bbsDAO.count();//
+			int total = bbsDAO.count("");//
 			
 			paging.setTotalRecord(total);
 			
