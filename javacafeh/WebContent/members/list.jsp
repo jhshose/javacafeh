@@ -40,9 +40,29 @@
     
 <script>
 	function dolist(page){
-		location.href="../members/BBSServlet?action=list&page="+page;
-	}
+		location.href="../members/BBSServlet?action=list&page="+page+"&prod_no="+"${param.prod_no}"; 
+	} 
 	</script>
+
+<script src="../ckeditor/ckeditor.js"></script>
+<script>
+	window.onload = function() {
+		CKEDITOR.replace("contents", {
+			filebrowserUploadUrl : '../ckeditor/fileUpload.jsp',
+			customConfig : '../ckeditor/config.js'
+		});
+	}
+	function return_check() {
+		// document.getElementById("contents").value;
+		var data = CKEDITOR.instances.contents.getData();
+		//console(data);
+		if (data == '') {
+			alert("input editor..");
+			return false;
+		}
+		return true;
+	}
+ </script>  
 
 </head>
 
@@ -100,7 +120,7 @@
 					
 				</tr>									
 						
-				
+				 
 				 </c:forEach>					
 								
 			 </table>
