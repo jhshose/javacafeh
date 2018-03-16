@@ -42,7 +42,7 @@
 			<div align="center">
 				<h1>회원정보 변경(userSearch)</h1>
 				<form name="frm" action="memberControl.jsp" method="post">
-					<input type="hidden" name="action" value="update">
+					<input type="hidden" name="action" value="updateUserInfo">
 					<table border="1" style="with: 50%">
 						<tr>
 							<td>사용자 아이디</td>
