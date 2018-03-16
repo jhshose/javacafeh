@@ -213,7 +213,7 @@
 				out.println("<script>alert('회원정보변경에러')</script>");
 
 			}
-
+			
 		}  else if (action.equals("logout")) {
 			//세션을 초기화 한다.
 			System.out.println("action===" + action);
